@@ -427,8 +427,13 @@ footer {
   font-size: clamp(48px, 9vw, 140px);
   line-height: 0.9;
   margin-bottom: 80px;
+  color: var(--cream);
 }
 .footer-headline em { font-weight: 300; font-style: italic; color: var(--accent); }
+
+/* Tekstselectie kleur (voorkomt onleesbare blauwe highlight) */
+::selection { background: var(--accent); color: var(--ink); }
+::-moz-selection { background: var(--accent); color: var(--ink); }
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
