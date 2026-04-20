@@ -649,3 +649,44 @@ footer {
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 8px; }
 }
+
+/* =========================================================
+   MOBILE FIXES
+      Overschrijft inline grid-styles op subpagina's zodat de
+         content niet horizontaal buiten de viewport loopt.
+            ========================================================= */
+            @media (max-width: 960px) {
+              /* Alle inline grid-layouts terug naar één kolom op mobiel */
+                [style*="grid-template-columns"] {
+                    grid-template-columns: 1fr !important;
+                        gap: 32px !important;
+                          }
+                            /* Zorg dat h1/h2/h3 lange woorden netjes afbreken i.p.v. overflowen */
+                              h1, h2, h3, .hero-title, .footer-headline, .page-header h1 {
+                                  overflow-wrap: break-word;
+                                      word-wrap: break-word;
+                                          hyphens: auto;
+                                            }
+                                              /* Iets kleinere display-type op mobiel zodat "gebouwd," past */
+                                                .hero-title { font-size: clamp(48px, 14vw, 80px); }
+                                                  .page-header h1 { font-size: clamp(40px, 12vw, 72px); }
+                                                    .footer-headline { font-size: clamp(40px, 12vw, 72px); }
+                                                      /* Editorial-list: kleiner nummergedeelte op mobiel */
+                                                        .editorial-list li { grid-template-columns: 40px 1fr; gap: 12px; }
+                                                          /* Ticker iets kleiner op mobiel */
+                                                            .ticker-track { font-size: 24px; gap: 40px; }
+                                                            }
+
+                                                            @media (max-width: 520px) {
+                                                              section { padding: 64px 0; }
+                                                                .hero { padding: 60px 0 80px; }
+                                                                  .hero-title { font-size: clamp(44px, 13vw, 64px); }
+                                                                    .page-header { padding: 56px 0 40px; }
+                                                                      .page-header h1 { font-size: clamp(36px, 11vw, 56px); }
+                                                                        .footer-headline { font-size: clamp(36px, 11vw, 56px); margin-bottom: 48px; }
+                                                                          .hero-meta { gap: 20px; }
+                                                                            .hero-meta-item strong { font-size: 22px; }
+                                                                              .editorial { padding: 80px 0; }
+                                                                                footer { padding: 60px 0 30px; }
+                                                                                }
+                                                                                
