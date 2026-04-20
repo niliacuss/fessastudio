@@ -690,3 +690,12 @@ footer {
                                                                                 footer { padding: 60px 0 30px; }
                                                                                 }
                                                                                 
+                                                                                /* Compactere padding op mobiel voor grid-wrappers met inline styles
+                                                                                   (diensten & over service-blokken) */
+                                                                                   @media (max-width: 960px) {
+                                                                                     [style*="grid-template-columns"] {
+                                                                                         padding-top: 24px !important;
+                                                                                             padding-bottom: 24px !important;
+                                                                                               }
+                                                                                               }
+                                                                                               
