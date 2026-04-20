@@ -50,7 +50,7 @@
           <dl>
             <div>
               <dt>E-mail</dt>
-              <dd>hello@fessastudio.nl</dd>
+              <dd>info@fessastudio.nl</dd>
             </div>
             <div>
               <dt>Telefoon</dt>
@@ -73,7 +73,9 @@
           </div>
         </div>
 
-        <form class="form reveal" onsubmit="event.preventDefault(); alert('Bedankt! We nemen snel contact met je op.');">
+        <form class="form reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/bedankt.html">
+          <input type="hidden" name="form-name" value="contact" />
+          <p style="display:none;"><label>Laat dit leeg: <input name="bot-field" /></label></p>
           <div>
             <label for="naam">Naam</label>
             <input id="naam" name="naam" type="text" placeholder="Hoe mogen we je noemen?" required />
@@ -168,7 +170,7 @@
         </div>
         <div>
           <h5>Contact</h5>
-          <p>hello@fessastudio.nl</p>
+          <p>info@fessastudio.nl</p>
           <p>Rotterdam, NL</p>
         </div>
         <div>
