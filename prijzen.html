@@ -1,58 +1,56 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prijzen · Fessa Studio</title>
-<meta name="description" content="Drie heldere pakketten voor jouw website. Van statische vitrine tot volledig maatwerk. Slim gebouwd, menselijk bedacht.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prijzen · Fessa Studio</title>
+  <meta name="description" content="Drie heldere pakketten voor jouw website. Van statische vitrine tot volledig maatwerk. Slim gebouwd, menselijk bedacht." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/mark.svg" />
 </head>
 <body>
 
-<header class="site-header">
-  <div class="container header-inner">
-    <a href="index.html" class="logo">
-      <img src="assets/logo.svg" alt="Fessa Studio" class="logo-img">
-    </a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="over.html">Over</a>
-      <a href="diensten.html">Diensten</a>
-      <a href="prijzen.html" class="active">Prijzen</a>
-      <a href="werk.html">Werk</a>
-      <a href="contact.html" class="btn btn-small">Contact</a>
-    </nav>
-  </div>
-</header>
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand" aria-label="Fessa Studio home">
+        <img src="assets/mark.svg" alt="" />
+        <div>
+          Fessa
+          <small>STUDIO</small>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="over.html">Over</a></li>
+        <li><a href="diensten.html">Diensten</a></li>
+        <li><a href="prijzen.html" class="active">Prijzen</a></li>
+        <li><a href="werk.html">Werk</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-cta">Laten we bouwen →</a>
+      <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
 
-<main>
-
-  <!-- Hero -->
-  <section class="section hero-prijzen">
+  <!-- PAGE HEADER -->
+  <header class="page-header">
     <div class="container">
       <span class="eyebrow">Prijzen</span>
-      <h1 class="display">Heldere pakketten,<br><em>eerlijke prijzen.</em></h1>
-      <p class="lead">
-        Drie pakketten die passen bij verschillende fases en ambities. Of je nu start met een 
-        eerste website, meer controle wilt over je content, of iets unieks voor ogen hebt, 
-        Fessa Studio denkt met je mee.
-      </p>
+      <h1>Heldere pakketten,<br/><em>eerlijke prijzen.</em></h1>
+      <p>Drie pakketten die passen bij verschillende fases en ambities. Of je nu start met een eerste website, meer controle wilt over je content, of iets unieks voor ogen hebt, Fessa Studio denkt met je mee.</p>
     </div>
-  </section>
+  </header>
 
-  <!-- Pakketten grid -->
-  <section class="section pakketten-section">
+  <!-- PAKKETTEN -->
+  <section class="pakketten-section">
     <div class="container">
       <div class="pakketten-grid">
 
-        <!-- BASIC -->
-        <article class="pakket pakket-basic">
+        <article class="pakket pakket-basic reveal">
           <header class="pakket-header">
             <span class="pakket-label">Basic</span>
-            <h2 class="pakket-titel">De start</h2>
+            <h3 class="pakket-titel">De start</h3>
             <p class="pakket-sub">Een professionele website die jouw verhaal vertelt.</p>
             <div class="pakket-prijs">
               <span class="prijs-van">vanaf</span>
@@ -61,10 +59,7 @@
             </div>
           </header>
           <div class="pakket-body">
-            <p class="pakket-voor">
-              <strong>Voor wie:</strong> zelfstandigen en kleine ondernemers die zich online 
-              willen presenteren met een strakke, unieke website.
-            </p>
+            <p class="pakket-voor"><strong>Voor wie:</strong> zelfstandigen en kleine ondernemers die zich online willen presenteren met een strakke, unieke website.</p>
             <ul class="pakket-features">
               <li>3 tot 5 pagina's</li>
               <li>Uniek ontwerp, afgestemd op jouw merk</li>
@@ -74,16 +69,15 @@
               <li>2 revisierondes</li>
               <li>Oplevering binnen 2 tot 3 weken</li>
             </ul>
-            <a href="contact.html" class="btn btn-outline">Start dit pakket</a>
+            <a href="contact.html" class="btn btn-ghost">Start dit pakket</a>
           </div>
         </article>
 
-        <!-- PREMIUM -->
-        <article class="pakket pakket-premium featured">
+        <article class="pakket pakket-premium featured reveal">
           <span class="pakket-badge">Meest gekozen</span>
           <header class="pakket-header">
             <span class="pakket-label">Premium</span>
-            <h2 class="pakket-titel">De groei</h2>
+            <h3 class="pakket-titel">De groei</h3>
             <p class="pakket-sub">Een site die met je meegroeit. Zelf content beheren, zonder gedoe.</p>
             <div class="pakket-prijs">
               <span class="prijs-van">vanaf</span>
@@ -92,10 +86,7 @@
             </div>
           </header>
           <div class="pakket-body">
-            <p class="pakket-voor">
-              <strong>Voor wie:</strong> ondernemers die regelmatig nieuwe projecten, blogs of 
-              nieuws willen plaatsen zonder een ontwikkelaar nodig te hebben.
-            </p>
+            <p class="pakket-voor"><strong>Voor wie:</strong> ondernemers die regelmatig nieuwe projecten, blogs of nieuws willen plaatsen zonder een ontwikkelaar nodig te hebben.</p>
             <ul class="pakket-features">
               <li>5 tot 8 pagina's</li>
               <li>Uniek ontwerp, afgestemd op jouw merk</li>
@@ -107,15 +98,14 @@
               <li>3 revisierondes</li>
               <li>Oplevering binnen 3 tot 5 weken</li>
             </ul>
-            <a href="contact.html" class="btn">Start dit pakket</a>
+            <a href="contact.html" class="btn btn-primary">Start dit pakket</a>
           </div>
         </article>
 
-        <!-- CUSTOM -->
-        <article class="pakket pakket-custom">
+        <article class="pakket pakket-custom reveal">
           <header class="pakket-header">
             <span class="pakket-label">Custom</span>
-            <h2 class="pakket-titel">Het maatwerk</h2>
+            <h3 class="pakket-titel">Het maatwerk</h3>
             <p class="pakket-sub">Voor wie iets unieks voor ogen heeft. Volledig op maat.</p>
             <div class="pakket-prijs">
               <span class="prijs-bedrag">In overleg</span>
@@ -123,10 +113,7 @@
             </div>
           </header>
           <div class="pakket-body">
-            <p class="pakket-voor">
-              <strong>Voor wie:</strong> klanten met specifieke wensen. Denk aan AI-toepassingen, 
-              complexe webshops, boekingssystemen of koppelingen met andere software.
-            </p>
+            <p class="pakket-voor"><strong>Voor wie:</strong> klanten met specifieke wensen. Denk aan AI-toepassingen, complexe webshops, boekingssystemen of koppelingen met andere software.</p>
             <ul class="pakket-features">
               <li>Onbeperkt aantal pagina's</li>
               <li>Volledig ontwerp op maat</li>
@@ -138,7 +125,7 @@
               <li>Revisies in overleg</li>
               <li>Oplevering 6 tot 12 weken</li>
             </ul>
-            <a href="contact.html" class="btn btn-outline">Plan kennismaking</a>
+            <a href="contact.html" class="btn btn-ghost">Plan kennismaking</a>
           </div>
         </article>
 
@@ -146,15 +133,15 @@
     </div>
   </section>
 
-  <!-- Wat zit er altijd bij -->
-  <section class="section altijd-bij">
+  <!-- ALTIJD BIJ -->
+  <section class="altijd-bij">
     <div class="container">
       <div class="altijd-inner">
-        <div class="altijd-text">
+        <div class="altijd-text reveal">
           <span class="eyebrow">Bij elk pakket</span>
-          <h2 class="display-sm">Dit regelen we altijd.</h2>
+          <h2>Dit regelen we altijd.</h2>
         </div>
-        <div class="altijd-grid">
+        <div class="altijd-grid reveal">
           <div class="altijd-item">
             <h3>Persoonlijk gesprek</h3>
             <p>Voordat we beginnen, eerst een goed gesprek. Zodat we echt begrijpen wat je wilt bereiken.</p>
@@ -176,16 +163,15 @@
     </div>
   </section>
 
-  <!-- Extra kosten transparantie -->
-  <section class="section extra-kosten">
+  <!-- EXTRA KOSTEN -->
+  <section class="extra-kosten">
     <div class="container narrow">
-      <span class="eyebrow">Kleine lettertjes</span>
-      <h2 class="display-sm">Transparant over bijkomende kosten.</h2>
-      <p class="lead-sm">
-        Om volledig eerlijk te zijn, hier de kosten die erbij komen kijken na oplevering. 
-        Deze betaal je rechtstreeks aan de betreffende dienst.
-      </p>
-      <div class="kosten-grid">
+      <div class="reveal">
+        <span class="eyebrow">Kleine lettertjes</span>
+        <h2>Transparant over bijkomende kosten.</h2>
+        <p class="lead" style="margin-top: 24px; margin-bottom: 48px;">Om volledig eerlijk te zijn, hier de kosten die erbij komen kijken na oplevering. Deze betaal je rechtstreeks aan de betreffende dienst.</p>
+      </div>
+      <div class="kosten-grid reveal">
         <div class="kosten-item">
           <h3>Domeinnaam</h3>
           <p class="kosten-prijs">ca. €10 per jaar</p>
@@ -211,80 +197,80 @@
   </section>
 
   <!-- FAQ -->
-  <section class="section faq-section">
+  <section class="faq-section">
     <div class="container narrow">
-      <span class="eyebrow">Veelgestelde vragen</span>
-      <h2 class="display-sm">Misschien vraag je je af:</h2>
-      
-      <details class="faq-item">
-        <summary>Wat als ik nog niet weet welk pakket bij mij past?</summary>
-        <p>Geen probleem. Plan een vrijblijvende kennismaking en we kijken samen wat past bij jouw doelen en budget. Soms blijkt Basic prima, soms is Premium juist een betere investering.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Kan ik later upgraden van Basic naar Premium?</summary>
-        <p>Ja. Als je merkt dat je zelf content wilt gaan beheren, kunnen we de site migreren naar Premium. De meerkosten zijn dan het verschil tussen de pakketten plus wat extra werk voor de migratie.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Zijn deze prijzen inclusief btw?</summary>
-        <p>Alle genoemde prijzen zijn exclusief 21% btw.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Hoe verloopt de betaling?</summary>
-        <p>We werken met twee termijnen: 50% bij de start van het project en 50% bij oplevering. Voor Custom-trajecten maken we afspraken op maat.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Wat als ik na oplevering iets wil wijzigen?</summary>
-        <p>Kleine wijzigingen kunnen op uurbasis (€75 per uur). Voor regelmatig onderhoud raden we het onderhoudsabonnement aan. Bij het Premium-pakket kun je veel dingen gewoon zelf aanpassen.</p>
-      </details>
-
-      <details class="faq-item">
-        <summary>Bieden jullie ook hulp met teksten en foto's?</summary>
-        <p>Ja. Wil je ondersteuning bij het schrijven van teksten of het maken van beeld, dan kunnen we dat als losse dienst toevoegen aan het traject. Vraag ernaar in het kennismakingsgesprek.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="section cta-section">
-    <div class="container">
-      <div class="cta-box">
-        <span class="eyebrow">Klaar om te starten?</span>
-        <h2 class="display-sm">Laten we kennismaken.</h2>
-        <p class="lead">
-          Geen verkooppraatje, gewoon een goed gesprek over wat je wilt bereiken. 
-          Daarna weten we samen of Fessa Studio een match is.
-        </p>
-        <a href="contact.html" class="btn btn-large">Plan een gesprek</a>
+      <div class="reveal">
+        <span class="eyebrow">Veelgestelde vragen</span>
+        <h2>Misschien vraag je je af:</h2>
+      </div>
+      <div class="faq-list reveal" style="margin-top: 48px;">
+        <details class="faq-item">
+          <summary>Wat als ik nog niet weet welk pakket bij mij past?</summary>
+          <p>Geen probleem. Plan een vrijblijvende kennismaking en we kijken samen wat past bij jouw doelen en budget. Soms blijkt Basic prima, soms is Premium juist een betere investering.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Kan ik later upgraden van Basic naar Premium?</summary>
+          <p>Ja. Als je merkt dat je zelf content wilt gaan beheren, kunnen we de site migreren naar Premium. De meerkosten zijn dan het verschil tussen de pakketten plus wat extra werk voor de migratie.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Zijn deze prijzen inclusief btw?</summary>
+          <p>Alle genoemde prijzen zijn exclusief 21% btw.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Hoe verloopt de betaling?</summary>
+          <p>We werken met twee termijnen: 50% bij de start van het project en 50% bij oplevering. Voor Custom-trajecten maken we afspraken op maat.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wat als ik na oplevering iets wil wijzigen?</summary>
+          <p>Kleine wijzigingen kunnen op uurbasis (€75 per uur). Voor regelmatig onderhoud raden we het onderhoudsabonnement aan. Bij het Premium-pakket kun je veel dingen gewoon zelf aanpassen.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Bieden jullie ook hulp met teksten en foto's?</summary>
+          <p>Ja. Wil je ondersteuning bij het schrijven van teksten of het maken van beeld, dan kunnen we dat als losse dienst toevoegen aan het traject. Vraag ernaar in het kennismakingsgesprek.</p>
+        </details>
       </div>
     </div>
   </section>
 
-</main>
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box reveal">
+        <span class="eyebrow">Klaar om te starten?</span>
+        <h2>Laten we kennismaken.</h2>
+        <p class="lead">Geen verkooppraatje, gewoon een goed gesprek over wat je wilt bereiken. Daarna weten we samen of Fessa Studio een match is.</p>
+        <a href="contact.html" class="btn btn-primary">Plan een gesprek</a>
+      </div>
+    </div>
+  </section>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <img src="assets/logo.svg" alt="Fessa Studio" class="footer-logo">
-      <p class="footer-tagline">Slim gebouwd, menselijk bedacht.</p>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <h2 class="footer-headline reveal">Laten we<br/>iets <em>waardevols</em> bouwen.</h2>
+      <div class="footer-grid">
+        <div>
+          <h5>Studio</h5>
+          <a href="over.html">Over Fessa</a>
+          <a href="diensten.html">Diensten</a>
+          <a href="prijzen.html">Prijzen</a>
+          <a href="werk.html">Werk</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div>
+          <h5>Contact</h5>
+          <p>info@fessastudio.nl</p>
+          <p>Rotterdam, NL</p>
+          <p>KVK-nummer: 90229673</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Fessa Studio. Alle rechten voorbehouden.</span>
+        <span>Gemaakt met zorg in Rotterdam.</span>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="over.html">Over</a>
-      <a href="diensten.html">Diensten</a>
-      <a href="prijzen.html">Prijzen</a>
-      <a href="werk.html">Werk</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <div class="footer-meta">
-      <p>info@fessastudio.nl</p>
-      <p>© 2026 Fessa Studio</p>
-    </div>
-  </div>
-</footer>
+  </footer>
 
-<script src="main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
