@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio · Fessa Studio</title>
+<meta name="description" content="Een selectie van stijlen en richtingen. Elk project uniek, geen template tweemaal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Portfolio specific styles */
+  .hero-portfolio {
+    padding: 8rem 0 4rem;
+    background: var(--cream, #f4efe6);
+    text-align: center;
+  }
+
+  .hero-portfolio .display {
+    margin: 1.5rem auto 2rem;
+    max-width: 900px;
+  }
+
+  .hero-portfolio .lead {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--mocha, #6b655d);
+  }
+
+  .portfolio-section {
+    padding: 4rem 0 6rem;
+    background: var(--cream, #f4efe6);
+  }
+
+  /* Filter bar */
+  .portfolio-filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid rgba(26, 23, 20, 0.2);
+    color: var(--ink, #1a1714);
+    padding: 0.6rem 1.25rem;
+    border-radius: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--ink, #1a1714);
+  }
+
+  .filter-btn.active {
+    background: var(--ink, #1a1714);
+    color: var(--cream, #f4efe6);
+    border-color: var(--ink, #1a1714);
+  }
+
+  /* Grid */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .portfolio-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Card */
+  .portfolio-card {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .portfolio-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(26, 23, 20, 0.12);
+  }
+
+  /* Preview frame */
+  .card-preview {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f4efe6;
+  }
+
+  .card-preview iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border: 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+
+  .card-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    transition: background 0.3s ease;
+  }
+
+  .portfolio-card:hover .card-preview::after {
+    background: rgba(26, 23, 20, 0.04);
+  }
+
+  /* Overlay met "Bekijk" */
+  .card-view {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--ink, #1a1714);
+    color: var(--cream, #f4efe6);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 2;
+  }
+
+  .portfolio-card:hover .card-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Card info */
+  .card-info {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(26, 23, 20, 0.08);
+  }
+
+  .card-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--mocha, #6b655d);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.1;
+    color: var(--ink, #1a1714);
+    margin: 0 0 0.5rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--mocha, #6b655d);
+    margin: 0 0 1rem;
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .card-tag {
+    background: var(--cream, #f4efe6);
+    color: var(--ink, #1a1714);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* CTA */
+  .portfolio-cta {
+    padding: 5rem 0;
+    background: var(--ink, #1a1714);
+    color: var(--cream, #f4efe6);
+    text-align: center;
+  }
+
+  .portfolio-cta .display-sm {
+    color: var(--cream, #f4efe6);
+    margin: 1rem 0 1.5rem;
+  }
+
+  .portfolio-cta .lead {
+    color: rgba(244, 239, 230, 0.85);
+    max-width: 550px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .portfolio-cta .eyebrow {
+    color: var(--accent, #c9a87a);
+  }
+
+  /* Display size */
+  .display {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--ink, #1a1714);
+  }
+
+  .display em {
+    font-style: italic;
+    color: var(--accent, #c9a87a);
+  }
+
+  .display-sm {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--ink, #1a1714);
+    margin: 0.5rem 0 1rem;
+  }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mocha, #6b655d);
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/logo.svg" alt="Fessa Studio" class="logo-img">
+    </a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="over.html">Over</a>
+      <a href="diensten.html">Diensten</a>
+      <a href="prijzen.html">Prijzen</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="contact.html" class="btn btn-small">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero-portfolio">
+    <div class="container">
+      <span class="eyebrow">Portfolio</span>
+      <h1 class="display">Negen stijlen,<br><em>één studio.</em></h1>
+      <p class="lead">
+        Geen template tweemaal. Elk project vraagt om een eigen aanpak. 
+        Hieronder een selectie van richtingen die we hebben verkend, 
+        van rustig en editorial tot speels en kinetic.
+      </p>
+    </div>
+  </section>
+
+  <section class="portfolio-section">
+    <div class="container">
+
+      <div class="portfolio-filters">
+        <button class="filter-btn active" data-filter="all">Alles</button>
+        <button class="filter-btn" data-filter="editorial">Editorial</button>
+        <button class="filter-btn" data-filter="bold">Bold</button>
+        <button class="filter-btn" data-filter="experimental">Experimental</button>
+        <button class="filter-btn" data-filter="minimal">Minimal</button>
+      </div>
+
+      <div class="portfolio-grid">
+
+        <a href="portfolio/01-editorial.html" class="portfolio-card" data-category="editorial">
+          <div class="card-preview">
+            <iframe src="portfolio/01-editorial.html" loading="lazy" title="Editorial preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">01 / Editorial</div>
+            <h2 class="card-title">Editorial & Quiet</h2>
+            <p class="card-desc">Serif typografie, veel witruimte, warme neutrale tinten. De studio als bedachtzame vakman.</p>
+            <div class="card-tags">
+              <span class="card-tag">Serif</span>
+              <span class="card-tag">Rustig</span>
+              <span class="card-tag">Warm</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/02-bold.html" class="portfolio-card" data-category="bold">
+          <div class="card-preview">
+            <iframe src="portfolio/02-bold.html" loading="lazy" title="Bold preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">02 / Bold</div>
+            <h2 class="card-title">Bold & Graphic</h2>
+            <p class="card-desc">Hoog contrast, oversized grotesk typografie, één warme accent. Zelfverzekerd en direct.</p>
+            <div class="card-tags">
+              <span class="card-tag">Grotesk</span>
+              <span class="card-tag">Contrast</span>
+              <span class="card-tag">Direct</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/03-playful.html" class="portfolio-card" data-category="experimental">
+          <div class="card-preview">
+            <iframe src="portfolio/03-playful.html" loading="lazy" title="Playful preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">03 / Playful</div>
+            <h2 class="card-title">Playful & Experimental</h2>
+            <p class="card-desc">Donkere achtergrond, scherp lime-accent, onverwachte ritmes. Creatief en energiek.</p>
+            <div class="card-tags">
+              <span class="card-tag">Dark</span>
+              <span class="card-tag">Speels</span>
+              <span class="card-tag">Energiek</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/04-kinetic.html" class="portfolio-card" data-category="experimental">
+          <div class="card-preview">
+            <iframe src="portfolio/04-kinetic.html" loading="lazy" title="Kinetic preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">04 / Kinetic</div>
+            <h2 class="card-title">Kinetic & Motion</h2>
+            <p class="card-desc">Beweging als onderdeel van het ontwerp. Typografie die leeft, interfaces die reageren.</p>
+            <div class="card-tags">
+              <span class="card-tag">Animatie</span>
+              <span class="card-tag">Interactief</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/05-liquid.html" class="portfolio-card" data-category="experimental">
+          <div class="card-preview">
+            <iframe src="portfolio/05-liquid.html" loading="lazy" title="Liquid preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">05 / Liquid</div>
+            <h2 class="card-title">Liquid & Organic</h2>
+            <p class="card-desc">Zachte vormen, vloeiende overgangen, organische curves. Warm en uitnodigend.</p>
+            <div class="card-tags">
+              <span class="card-tag">Zacht</span>
+              <span class="card-tag">Organisch</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/06-terminal.html" class="portfolio-card" data-category="minimal">
+          <div class="card-preview">
+            <iframe src="portfolio/06-terminal.html" loading="lazy" title="Terminal preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">06 / Terminal</div>
+            <h2 class="card-title">Terminal & Technical</h2>
+            <p class="card-desc">Monospace, grid, precisie. Voor merken die technisch vakmanschap willen uitstralen.</p>
+            <div class="card-tags">
+              <span class="card-tag">Monospace</span>
+              <span class="card-tag">Technisch</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/07-swiss.html" class="portfolio-card" data-category="minimal">
+          <div class="card-preview">
+            <iframe src="portfolio/07-swiss.html" loading="lazy" title="Swiss preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">07 / Swiss</div>
+            <h2 class="card-title">Swiss & Structured</h2>
+            <p class="card-desc">Strak grid, heldere hiërarchie, functionele typografie. Tijdloos en vertrouwd.</p>
+            <div class="card-tags">
+              <span class="card-tag">Grid</span>
+              <span class="card-tag">Strak</span>
+              <span class="card-tag">Tijdloos</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/08-organic.html" class="portfolio-card" data-category="editorial">
+          <div class="card-preview">
+            <iframe src="portfolio/08-organic.html" loading="lazy" title="Organic preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">08 / Organic</div>
+            <h2 class="card-title">Organic & Natural</h2>
+            <p class="card-desc">Natuurlijke texturen, aardse tinten, handgemaakt gevoel. Ambachtelijk en persoonlijk.</p>
+            <div class="card-tags">
+              <span class="card-tag">Aards</span>
+              <span class="card-tag">Ambacht</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="portfolio/09-y2k.html" class="portfolio-card" data-category="experimental">
+          <div class="card-preview">
+            <iframe src="portfolio/09-y2k.html" loading="lazy" title="Y2K preview"></iframe>
+            <span class="card-view">Bekijk →</span>
+          </div>
+          <div class="card-info">
+            <div class="card-number">09 / Y2K</div>
+            <h2 class="card-title">Y2K & Retro-Digital</h2>
+            <p class="card-desc">Nostalgie meets nu. Chrome, gradients, en een knipoog naar het vroege web.</p>
+            <div class="card-tags">
+              <span class="card-tag">Retro</span>
+              <span class="card-tag">Digital</span>
+              <span class="card-tag">Nostalgisch</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="portfolio-cta">
+    <div class="container">
+      <span class="eyebrow">Jouw stijl niet gevonden?</span>
+      <h2 class="display-sm">Laten we er samen eentje maken.</h2>
+      <p class="lead">
+        Deze stijlen zijn een greep uit wat mogelijk is. Voor elk project ontwikkelen we 
+        een richting die past bij jouw merk, jouw publiek en jouw verhaal.
+      </p>
+      <a href="contact.html" class="btn btn-large">Plan een gesprek</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="assets/logo.svg" alt="Fessa Studio" class="footer-logo">
+      <p class="footer-tagline">Slim gebouwd, menselijk bedacht.</p>
+    </div>
+    <div class="footer-links">
+      <a href="over.html">Over</a>
+      <a href="diensten.html">Diensten</a>
+      <a href="prijzen.html">Prijzen</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-meta">
+      <p>info@fessastudio.nl</p>
+      <p>© 2026 Fessa Studio</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Filter functionaliteit
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.portfolio-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+
+      // Actieve knop
+      filterButtons.forEach(b => b.classList.remove('active'));
+      button.classList.add('active');
+
+      // Toon of verberg kaarten
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
