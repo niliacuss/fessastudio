@@ -1,0 +1,466 @@
+/* ==========================================================================
+   PRIJZEN PAGE STYLES
+   Voeg dit toe aan het einde van je bestaande styles.css
+   ========================================================================== */
+
+/* Hero prijzen */
+.hero-prijzen {
+  padding: 8rem 0 4rem;
+  background: var(--cream, #f4efe6);
+  text-align: center;
+}
+
+.hero-prijzen .display {
+  margin: 1.5rem auto 2rem;
+  max-width: 900px;
+}
+
+.hero-prijzen .lead {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--mocha, #6b655d);
+}
+
+/* Pakketten section */
+.pakketten-section {
+  padding: 4rem 0 6rem;
+  background: var(--cream, #f4efe6);
+}
+
+.pakketten-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .pakketten-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+/* Individueel pakket */
+.pakket {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pakket:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(26, 23, 20, 0.08);
+}
+
+.pakket.featured {
+  background: var(--ink, #1a1714);
+  color: var(--cream, #f4efe6);
+  transform: scale(1.03);
+  box-shadow: 0 20px 50px rgba(26, 23, 20, 0.15);
+}
+
+.pakket.featured:hover {
+  transform: scale(1.03) translateY(-4px);
+}
+
+/* Badge */
+.pakket-badge {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent, #c9a87a);
+  color: var(--ink, #1a1714);
+  padding: 0.4rem 1.2rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Pakket header */
+.pakket-header {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(107, 101, 93, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.pakket.featured .pakket-header {
+  border-bottom-color: rgba(244, 239, 230, 0.2);
+}
+
+.pakket-label {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mocha, #6b655d);
+  margin-bottom: 0.5rem;
+}
+
+.pakket.featured .pakket-label {
+  color: var(--accent, #c9a87a);
+}
+
+.pakket-titel {
+  font-family: 'Fraunces', serif;
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1;
+  margin: 0 0 0.75rem;
+  color: var(--ink, #1a1714);
+}
+
+.pakket.featured .pakket-titel {
+  color: var(--cream, #f4efe6);
+}
+
+.pakket-sub {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--mocha, #6b655d);
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.pakket.featured .pakket-sub {
+  color: rgba(244, 239, 230, 0.8);
+}
+
+/* Prijs */
+.pakket-prijs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.prijs-van {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  color: var(--mocha, #6b655d);
+}
+
+.pakket.featured .prijs-van {
+  color: rgba(244, 239, 230, 0.7);
+}
+
+.prijs-bedrag {
+  font-family: 'Fraunces', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink, #1a1714);
+}
+
+.pakket.featured .prijs-bedrag {
+  color: var(--cream, #f4efe6);
+}
+
+.prijs-tot {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--mocha, #6b655d);
+}
+
+.pakket.featured .prijs-tot {
+  color: rgba(244, 239, 230, 0.7);
+}
+
+/* Pakket body */
+.pakket-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pakket-voor {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--mocha, #6b655d);
+  margin-bottom: 1.5rem;
+}
+
+.pakket.featured .pakket-voor {
+  color: rgba(244, 239, 230, 0.85);
+}
+
+.pakket-voor strong {
+  color: var(--ink, #1a1714);
+  font-weight: 600;
+}
+
+.pakket.featured .pakket-voor strong {
+  color: var(--cream, #f4efe6);
+}
+
+/* Features list */
+.pakket-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  flex: 1;
+}
+
+.pakket-features li {
+  position: relative;
+  padding: 0.6rem 0 0.6rem 1.75rem;
+  font-size: 0.95rem;
+  color: var(--ink, #1a1714);
+  border-bottom: 1px solid rgba(107, 101, 93, 0.1);
+}
+
+.pakket-features li:last-child {
+  border-bottom: none;
+}
+
+.pakket-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.05rem;
+  width: 1rem;
+  height: 1px;
+  background: var(--accent, #c9a87a);
+}
+
+.pakket.featured .pakket-features li {
+  color: var(--cream, #f4efe6);
+  border-bottom-color: rgba(244, 239, 230, 0.1);
+}
+
+.pakket-body .btn {
+  margin-top: auto;
+  text-align: center;
+}
+
+/* Altijd bij section */
+.altijd-bij {
+  padding: 6rem 0;
+  background: #fff;
+}
+
+.altijd-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .altijd-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.altijd-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 600px) {
+  .altijd-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.altijd-item h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: var(--ink, #1a1714);
+}
+
+.altijd-item p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--mocha, #6b655d);
+  margin: 0;
+}
+
+/* Extra kosten */
+.extra-kosten {
+  padding: 6rem 0;
+  background: var(--cream, #f4efe6);
+}
+
+.extra-kosten .container.narrow,
+.faq-section .container.narrow {
+  max-width: 900px;
+}
+
+.extra-kosten .lead-sm {
+  color: var(--mocha, #6b655d);
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.kosten-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 600px) {
+  .kosten-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kosten-item {
+  background: #fff;
+  padding: 1.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(107, 101, 93, 0.15);
+}
+
+.kosten-item h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: var(--ink, #1a1714);
+}
+
+.kosten-prijs {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--accent, #c9a87a);
+  margin: 0 0 0.75rem;
+  font-weight: 500;
+}
+
+.kosten-item p:last-child {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--mocha, #6b655d);
+  margin: 0;
+}
+
+/* FAQ */
+.faq-section {
+  padding: 6rem 0;
+  background: #fff;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(107, 101, 93, 0.2);
+  padding: 1.5rem 0;
+}
+
+.faq-item summary {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink, #1a1714);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 2rem;
+  transition: color 0.2s;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--accent, #c9a87a);
+  transition: transform 0.2s;
+  font-weight: 300;
+}
+
+.faq-item[open] summary::after {
+  content: '−';
+}
+
+.faq-item summary:hover {
+  color: var(--accent, #c9a87a);
+}
+
+.faq-item p {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--mocha, #6b655d);
+}
+
+/* CTA section */
+.cta-section {
+  padding: 6rem 0;
+  background: var(--cream, #f4efe6);
+}
+
+.cta-box {
+  background: var(--ink, #1a1714);
+  color: var(--cream, #f4efe6);
+  padding: 5rem 3rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-box .display-sm {
+  color: var(--cream, #f4efe6);
+  margin: 1rem 0 1.5rem;
+}
+
+.cta-box .lead {
+  color: rgba(244, 239, 230, 0.85);
+  max-width: 550px;
+  margin: 0 auto 2.5rem;
+}
+
+.cta-box .eyebrow {
+  color: var(--accent, #c9a87a);
+}
+
+.btn-large {
+  padding: 1.1rem 2.5rem;
+  font-size: 1rem;
+}
+
+/* Extra button variant */
+.btn-outline {
+  background: transparent;
+  color: var(--ink, #1a1714);
+  border: 1.5px solid var(--ink, #1a1714);
+}
+
+.btn-outline:hover {
+  background: var(--ink, #1a1714);
+  color: var(--cream, #f4efe6);
+}
+
+/* Display-sm voor kleinere headings */
+.display-sm {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink, #1a1714);
+  margin: 0.5rem 0 1rem;
+}
