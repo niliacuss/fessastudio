@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Fessa Studio - 08-organic</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; height: 100%; }
+  #root, #root > div { width: 100vw; min-height: 100vh; }
+  img { pointer-events: none; user-select: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Variation 8 — Organic Nature
+// Green warm palette, morphing SVG blobs in background, floating/breathing
+// elements, scroll-driven blob shape, hand-drawn underlines, rounded everything.
+
+const V8 = () => {
+  const v8Styles = {
+    bg: '#f1ede0',
+    ink: '#1b2416',
+    leaf: '#2d5f3f',
+    moss: '#4a7c3c',
+    sun: '#e8a436',
+    clay: '#c97246',
+    sans: '"Inter Tight", system-ui, sans-serif',
+    display: '"Instrument Serif", Georgia, serif',
+    mono: '"JetBrains Mono", ui-monospace, monospace',
+  };
+
+  const ref = React.useRef(null);
+  const [t, setT] = React.useState(0);
+  const [scroll, setScroll] = React.useState(0);
+  React.useEffect(() => {
+    let raf;
+    const loop = () => { setT((x) => x + 1); raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const on = () => setScroll(el.scrollTop);
+    el.addEventListener('scroll', on);
+    return () => el.removeEventListener('scroll', on);
+  }, []);
+
+  // Morphing blob path
+  const blobPath = (seed) => {
+    const pts = 8;
+    const cx = 200, cy = 200, r = 140;
+    let p = '';
+    for (let i = 0; i < pts; i++) {
+      const a = (i / pts) * Math.PI * 2;
+      const rr = r + Math.sin(t * 0.012 + i * 1.7 + seed) * 30 + Math.cos(t * 0.008 + i * 0.9 + seed) * 18;
+      const x = cx + Math.cos(a) * rr;
+      const y = cy + Math.sin(a) * rr;
+      p += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+    }
+    return p + 'Z';
+  };
+
+  const Squiggle = ({ c = v8Styles.sun }) => (
+    <svg width="200" height="20" viewBox="0 0 200 20" style={{ display: 'block' }}>
+      <path d="M2 10 Q15 2 30 10 T60 10 T90 10 T120 10 T150 10 T180 10 T198 10" fill="none" stroke={c} strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+
+  const projects = [
+    { t: 'Noorderhaven', k: 'Atelier · 2025', c: v8Styles.moss, img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=80' },
+    { t: 'Stroom', k: 'Koffie · 2025', c: v8Styles.clay, img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1000&q=80' },
+    { t: 'Museum De Wijk', k: 'Platform · 2024', c: v8Styles.sun, img: 'https://images.unsplash.com/photo-1545987796-200677ee1011?w=1000&q=80' },
+    { t: 'Kade 17', k: 'Website · 2024', c: v8Styles.leaf, img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&q=80' },
+  ];
+
+  return (
+    <div ref={ref} style={{
+      width: '100%', height: '100%', overflow: 'auto', background: v8Styles.bg, color: v8Styles.ink,
+      fontFamily: v8Styles.sans, position: 'relative',
+    }}>
+      {/* Background blobs */}
+      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" style={{ width: '100%', height: '100%', opacity: 0.55 }}>
+          <g style={{ transform: `translate(${100 + scroll * 0.1}px, ${80 - scroll * 0.05}px) scale(1.1)` }}>
+            <path d={blobPath(0)} fill={v8Styles.moss} opacity="0.25" />
+          </g>
+          <g style={{ transform: `translate(${980 - scroll * 0.05}px, ${320 + scroll * 0.08}px) scale(0.9)` }}>
+            <path d={blobPath(2)} fill={v8Styles.sun} opacity="0.28" />
+          </g>
+          <g style={{ transform: `translate(${300 + scroll * 0.03}px, ${680 - scroll * 0.02}px) scale(0.85)` }}>
+            <path d={blobPath(4)} fill={v8Styles.clay} opacity="0.22" />
+          </g>
+        </svg>
+      </div>
+
+      {/* Nav — pill */}
+      <div style={{ position: 'sticky', top: 20, zIndex: 20, padding: '0 20px' }}>
+        <div style={{
+          maxWidth: 1280, margin: '0 auto',
+          background: 'rgba(241,237,224,0.85)', backdropFilter: 'blur(14px)',
+          border: `1px solid ${v8Styles.ink}20`,
+          borderRadius: 999, padding: '12px 24px',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 17, fontWeight: 600 }}>
+            <svg width="26" height="26" viewBox="0 0 26 26">
+              <path d="M 13 2 Q 22 4 24 13 Q 22 22 13 24 Q 4 22 2 13 Q 4 4 13 2 Z" fill={v8Styles.leaf} />
+              <circle cx="13" cy="13" r="4" fill={v8Styles.sun} />
+            </svg>
+            fessa
+          </div>
+          <nav style={{ display: 'flex', gap: 28, fontSize: 14 }}>
+            {['werk', 'studio', 'diensten', 'journal'].map((n) => (
+              <a key={n} href={`#${n}`} className="v8-link" style={{ color: v8Styles.ink, textDecoration: 'none' }}>{n}</a>
+            ))}
+          </nav>
+          <a href="#contact" style={{
+            background: v8Styles.leaf, color: v8Styles.bg,
+            padding: '10px 18px', borderRadius: 999, fontSize: 13, textDecoration: 'none', fontWeight: 500,
+          }}>Koffie? →</a>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section style={{ padding: '100px 40px 80px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div className="v8-float" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '8px 16px', background: v8Styles.bg, border: `1px solid ${v8Styles.ink}30`, borderRadius: 999, fontSize: 13, marginBottom: 32 }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: v8Styles.leaf, animation: 'v8ping 2s ease-in-out infinite' }} />
+            Vrij voor nieuwe projecten vanaf september
+          </div>
+
+          <h1 style={{
+            fontSize: 'clamp(80px, 11vw, 180px)', fontWeight: 500,
+            lineHeight: 0.98, letterSpacing: '-0.035em', margin: 0,
+          }}>
+            Een digitale studio met <span style={{ fontFamily: v8Styles.display, fontStyle: 'italic', fontWeight: 400, color: v8Styles.leaf, position: 'relative', display: 'inline-block' }}>
+              wortels
+              <svg style={{ position: 'absolute', left: 0, right: 0, bottom: -14, width: '100%', height: 20 }} viewBox="0 0 200 20" preserveAspectRatio="none">
+                <path d="M2 14 Q50 2 100 10 T198 14" fill="none" stroke={v8Styles.sun} strokeWidth="4" strokeLinecap="round" />
+              </svg>
+            </span>.
+          </h1>
+
+          <div style={{ marginTop: 72, display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 60 }}>
+            <p style={{ fontSize: 22, lineHeight: 1.5, margin: 0, maxWidth: 620 }}>
+              Fessa is een kleine studio uit Utrecht. We bouwen websites die lang meegaan — doordacht, duurzaam, en met veel aandacht voor de details die anderen vergeten.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
+              <div style={{
+                position: 'relative', width: 160, height: 160, borderRadius: '50%',
+                overflow: 'hidden', transform: `rotate(${scroll * 0.05}deg)`,
+              }}>
+                <svg viewBox="0 0 160 160" style={{ width: '100%', height: '100%' }}>
+                  <defs>
+                    <path id="circpath" d="M 80,80 m -60,0 a 60,60 0 1,1 120,0 a 60,60 0 1,1 -120,0" />
+                  </defs>
+                  <text fontSize="13" fontFamily={v8Styles.mono} fill={v8Styles.ink} letterSpacing="2">
+                    <textPath href="#circpath">FESSA STUDIO · SINCE 2019 · UTRECHT NL · </textPath>
+                  </text>
+                </svg>
+                <div style={{ position: 'absolute', inset: 40, borderRadius: '50%', background: v8Styles.sun, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 40 }}>✦</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Image strip */}
+      <section style={{ padding: '60px 40px 100px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 20 }}>
+          {[
+            { img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80', r: -1.5 },
+            { img: 'https://images.unsplash.com/photo-1481487196290-c152efe083f5?w=800&q=80', r: 1.2 },
+            { img: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80', r: -0.8 },
+          ].map((s, i) => (
+            <div key={i} className="v8-img-card" style={{
+              transform: `rotate(${s.r}deg)`, borderRadius: 16, overflow: 'hidden',
+              aspectRatio: '3/4', transition: 'transform 0.5s cubic-bezier(.2,.7,.3,1)',
+              boxShadow: '0 12px 40px rgba(27,36,22,0.15)',
+            }}>
+              <img src={s.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'saturate(1.05)' }} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects grid */}
+      <section id="werk" style={{ padding: '80px 40px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 80 }}>
+            <Squiggle c={v8Styles.clay} />
+            <h2 style={{ fontSize: 'clamp(56px, 7vw, 108px)', fontWeight: 500, letterSpacing: '-0.035em', lineHeight: 1, margin: '24px 0 0' }}>
+              Recent <span style={{ fontFamily: v8Styles.display, fontStyle: 'italic' }}>geoogst.</span>
+            </h2>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 40 }}>
+            {projects.map((p, i) => (
+              <div key={p.t} className="v8-project" style={{
+                paddingTop: i % 2 === 1 ? 80 : 0,
+              }}>
+                <div style={{
+                  position: 'relative', borderRadius: 24, overflow: 'hidden', aspectRatio: '5/4',
+                  transition: 'transform 0.5s cubic-bezier(.2,.7,.3,1)',
+                }} className="v8-pimg">
+                  <img src={p.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{
+                    position: 'absolute', top: 16, left: 16,
+                    background: p.c, color: '#fff', fontSize: 12,
+                    padding: '6px 12px', borderRadius: 999, fontWeight: 500,
+                  }}>{p.k}</div>
+                </div>
+                <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <div style={{ fontSize: 36, fontWeight: 500, letterSpacing: '-0.02em' }}>{p.t}</div>
+                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: p.c, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process — circular */}
+      <section id="diensten" style={{ padding: '120px 40px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 80 }}>
+            <div style={{ fontFamily: v8Styles.mono, fontSize: 12, color: v8Styles.dim, marginBottom: 12, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Zo werken we</div>
+            <h2 style={{ fontSize: 'clamp(56px, 7vw, 108px)', fontWeight: 500, letterSpacing: '-0.035em', lineHeight: 1, margin: 0 }}>
+              Een project <br />als een <span style={{ fontFamily: v8Styles.display, fontStyle: 'italic', color: v8Styles.leaf }}>seizoen.</span>
+            </h2>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+            {[
+              { icon: '🌱', t: 'Zaaien', d: 'Kennismaken, vragen stellen, inschatting.', c: v8Styles.leaf },
+              { icon: '🌿', t: 'Groeien', d: 'Strategie, concept, design richtingen.', c: v8Styles.moss },
+              { icon: '☀️', t: 'Bloeien', d: 'Ontwerp, development, eindsprint.', c: v8Styles.sun },
+              { icon: '🍂', t: 'Oogsten', d: 'Lancering, onderhoud, doorontwikkeling.', c: v8Styles.clay },
+            ].map((s, i) => (
+              <div key={s.t} className="v8-step" style={{
+                background: '#fff9ed', borderRadius: 24, padding: 28,
+                border: `1px solid ${v8Styles.ink}15`,
+                position: 'relative', overflow: 'hidden',
+              }}>
+                <div style={{ fontSize: 56, marginBottom: 16 }}>{s.icon}</div>
+                <div style={{ fontFamily: v8Styles.mono, fontSize: 11, color: s.c, marginBottom: 8, letterSpacing: '0.1em' }}>0{i + 1} / STAP</div>
+                <div style={{ fontSize: 28, fontWeight: 500, marginBottom: 10, letterSpacing: '-0.02em' }}>{s.t}</div>
+                <div style={{ fontSize: 14, color: v8Styles.ink, lineHeight: 1.5, opacity: 0.7 }}>{s.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" style={{ padding: '120px 40px 80px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+          <svg width="400" height="400" viewBox="0 0 400 400" style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', zIndex: -1, opacity: 0.6 }}>
+            <path d={blobPath(7)} fill={v8Styles.sun} opacity="0.4" />
+          </svg>
+          <div style={{ fontFamily: v8Styles.mono, fontSize: 12, color: v8Styles.dim, letterSpacing: '0.1em', marginBottom: 28 }}>— zin in ons?</div>
+          <h2 style={{ fontSize: 'clamp(80px, 11vw, 180px)', fontWeight: 500, letterSpacing: '-0.04em', lineHeight: 0.92, margin: '0 0 48px' }}>
+            Laten we <br />
+            <span style={{ fontFamily: v8Styles.display, fontStyle: 'italic', color: v8Styles.leaf }}>samen</span> <br />
+            iets planten.
+          </h2>
+          <a href="mailto:hallo@fessastudio.nl" className="v8-mail" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 12,
+            background: v8Styles.leaf, color: v8Styles.bg,
+            padding: '22px 36px', borderRadius: 999,
+            fontSize: 22, textDecoration: 'none', fontWeight: 500,
+            boxShadow: '0 10px 30px rgba(45,95,63,0.3)',
+          }}>
+            hallo@fessastudio.nl
+            <span>→</span>
+          </a>
+
+          <div style={{ marginTop: 80, display: 'flex', justifyContent: 'center', gap: 32, fontSize: 14, color: v8Styles.dim }}>
+            <span>Oudegracht 142, Utrecht</span><span>·</span><span>@fessa.studio</span><span>·</span><span>030‑123 45 67</span>
+          </div>
+          <div style={{ marginTop: 48, fontFamily: v8Styles.mono, fontSize: 11, color: v8Styles.dim }}>
+            © fessa studio 2026 — grown with care in utrecht
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        @keyframes v8ping { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.6; } }
+        @keyframes v8floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .v8-float { animation: v8floatY 4s ease-in-out infinite; }
+        .v8-link { position: relative; transition: color 0.2s; }
+        .v8-link:hover { color: ${v8Styles.leaf}; }
+        .v8-img-card:hover { transform: rotate(0deg) scale(1.03) !important; }
+        .v8-project:hover .v8-pimg { transform: translateY(-8px) rotate(-0.8deg); }
+        .v8-step { transition: transform 0.3s, box-shadow 0.3s; }
+        .v8-step:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(27,36,22,0.12); }
+        .v8-mail { transition: transform 0.3s, box-shadow 0.3s; }
+        .v8-mail:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(45,95,63,0.4); }
+      `}</style>
+    </div>
+  );
+};
+
+window.V8 = V8;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(V8));
+</script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Fessa Studio - 01-editorial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; height: 100%; }
+  #root, #root > div { width: 100vw; min-height: 100vh; }
+  img { pointer-events: none; user-select: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Variation 1 — Editorial & Quiet
+// Serif display type, generous whitespace, muted warm neutrals.
+// The studio as a thoughtful craftsman.
+
+const V1 = () => {
+  const [scrollY, setScrollY] = React.useState(0);
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onScroll = () => setScrollY(el.scrollTop);
+    el.addEventListener('scroll', onScroll);
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const v1Styles = {
+    bg: '#f1ede5',
+    ink: '#1a1713',
+    muted: '#6b6055',
+    rule: 'rgba(26,23,19,0.14)',
+    accent: '#a85a2a',
+    serif: '"EB Garamond", "Cormorant Garamond", Georgia, serif',
+    mono: '"JetBrains Mono", ui-monospace, monospace',
+  };
+
+  const Placeholder = ({ label, h = 280, img }) => (
+    <div style={{
+      height: h, width: '100%', position: 'relative', overflow: 'hidden',
+      background: `#e3ddd1 url("${img}") center/cover no-repeat`,
+    }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(26,23,19,0) 55%, rgba(26,23,19,0.28) 100%)' }} />
+      <div style={{
+        position: 'absolute', left: 14, bottom: 12,
+        fontFamily: v1Styles.mono, fontSize: 10, letterSpacing: '0.1em',
+        color: 'rgba(255,255,255,0.9)', textTransform: 'uppercase',
+        mixBlendMode: 'normal',
+      }}>{label}</div>
+    </div>
+  );
+
+  const Rule = () => <div style={{ height: 1, background: v1Styles.rule, width: '100%' }} />;
+
+  const works = [
+    { n: '01', client: 'Noorderhaven Atelier', kind: 'Webdesign & bouw', year: '2025' },
+    { n: '02', client: 'Stroom Koffiebranders', kind: 'Merkidentiteit, web', year: '2025' },
+    { n: '03', client: 'Museum De Wijk', kind: 'Digital platform', year: '2024' },
+    { n: '04', client: 'Kade 17 Vastgoed', kind: 'Webdesign', year: '2024' },
+    { n: '05', client: 'Boekhandel Veenstra', kind: 'E-commerce', year: '2023' },
+  ];
+
+  return (
+    <div ref={ref} style={{
+      width: '100%', height: '100%', overflow: 'auto',
+      background: v1Styles.bg, color: v1Styles.ink,
+      fontFamily: v1Styles.serif,
+      fontSize: 17, lineHeight: 1.55,
+    }}>
+      {/* Top bar */}
+      <div style={{
+        position: 'sticky', top: 0, zIndex: 10, background: v1Styles.bg,
+        borderBottom: `1px solid ${v1Styles.rule}`,
+      }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '22px 56px', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <div style={{ fontSize: 20, letterSpacing: '-0.01em', fontStyle: 'italic' }}>Fessa <span style={{ fontStyle: 'normal' }}>Studio</span></div>
+          <nav style={{ display: 'flex', gap: 36, fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted }}>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="#werk">Werk</a>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="#studio">Studio</a>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="#diensten">Diensten</a>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="#contact">Contact</a>
+          </nav>
+          <div style={{ fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', color: v1Styles.muted }}>NL · EN</div>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section style={{ maxWidth: 1280, margin: '0 auto', padding: '120px 56px 100px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 64, fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted }}>
+          <div>— Digitale studio, sinds 2019</div>
+          <div>Utrecht / Remote</div>
+        </div>
+        <h1 style={{
+          fontFamily: v1Styles.serif, fontWeight: 400,
+          fontSize: 'clamp(72px, 8vw, 128px)', lineHeight: 0.96,
+          letterSpacing: '-0.035em', margin: 0,
+        }}>
+          Websites<br />
+          met <em style={{ fontStyle: 'italic' }}>aandacht</em><br />
+          gebouwd.
+        </h1>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, marginTop: 96 }}>
+          <div style={{ fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted }}>
+            Wat wij doen
+          </div>
+          <p style={{ margin: 0, fontSize: 22, lineHeight: 1.5, maxWidth: 540 }}>
+            Fessa Studio ontwerpt en bouwt digitale producten voor culturele instellingen, ondernemers en merken die de moeite waard zijn. Rustig, doordacht, precies.
+          </p>
+        </div>
+      </section>
+
+      <Rule />
+
+      {/* Selected work */}
+      <section id="werk" style={{ maxWidth: 1280, margin: '0 auto', padding: '80px 56px 40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 48, marginBottom: 56 }}>
+          <div style={{ fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted, paddingTop: 12 }}>
+            Geselecteerd werk<br />2023 — 2025
+          </div>
+          <h2 style={{ fontWeight: 400, fontSize: 56, margin: 0, lineHeight: 1.05, letterSpacing: '-0.02em', maxWidth: 720 }}>
+            Een handvol projecten, zorgvuldig samengesteld.
+          </h2>
+        </div>
+
+        <Rule />
+        {works.map((w, i) => (
+          <React.Fragment key={w.n}>
+            <div
+              className="v1-row"
+              style={{
+                display: 'grid', gridTemplateColumns: '80px 1fr 1fr 100px',
+                padding: '28px 0', alignItems: 'baseline', gap: 24,
+                cursor: 'pointer',
+              }}
+            >
+              <div style={{ fontFamily: v1Styles.mono, fontSize: 12, color: v1Styles.muted }}>{w.n}</div>
+              <div style={{ fontSize: 28, letterSpacing: '-0.01em' }}>{w.client}</div>
+              <div style={{ fontStyle: 'italic', color: v1Styles.muted, fontSize: 18 }}>{w.kind}</div>
+              <div style={{ fontFamily: v1Styles.mono, fontSize: 12, color: v1Styles.muted, textAlign: 'right' }}>{w.year}</div>
+            </div>
+            <Rule />
+          </React.Fragment>
+        ))}
+      </section>
+
+      {/* Featured case */}
+      <section style={{ maxWidth: 1280, margin: '0 auto', padding: '80px 56px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
+          <Placeholder label="Case · Stroom Koffiebranders" h={520} img="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80" />
+          <div>
+            <div style={{ fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted, marginBottom: 20 }}>
+              Uitgelichte case — 2025
+            </div>
+            <h3 style={{ fontWeight: 400, fontSize: 44, margin: '0 0 24px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+              Een webshop die net zo zorgvuldig is als de koffie.
+            </h3>
+            <p style={{ fontSize: 19, lineHeight: 1.6, color: '#3a332c', margin: '0 0 32px' }}>
+              Voor Stroom ontwierpen we een rustige, lezende webwinkel. Geen banners, geen pop‑ups — wel verhalen, herkomst en een checkout die niet in de weg loopt.
+            </p>
+            <a style={{
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              borderBottom: `1px solid ${v1Styles.ink}`, paddingBottom: 3,
+              fontFamily: v1Styles.mono, fontSize: 12, letterSpacing: '0.1em',
+              textTransform: 'uppercase', color: v1Styles.ink, textDecoration: 'none',
+            }}>
+              Bekijk de case <span>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Rule />
+
+      {/* Studio / Services two-col */}
+      <section id="studio" style={{ maxWidth: 1280, margin: '0 auto', padding: '80px 56px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 96 }}>
+        <div>
+          <div style={{ fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted, marginBottom: 20 }}>
+            De studio
+          </div>
+          <h3 style={{ fontWeight: 400, fontSize: 36, margin: '0 0 24px', lineHeight: 1.15, letterSpacing: '-0.015em' }}>
+            Klein, bewust klein.
+          </h3>
+          <p style={{ fontSize: 18, lineHeight: 1.65, color: '#3a332c', margin: 0 }}>
+            Fessa is een onafhankelijke studio van drie mensen. We werken aan een beperkt aantal projecten per jaar, zodat elk project alle aandacht krijgt die het verdient. Van strategie tot laatste pixel — alles gebeurt in huis.
+          </p>
+        </div>
+        <div id="diensten">
+          <div style={{ fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted, marginBottom: 20 }}>
+            Diensten
+          </div>
+          {['Merkidentiteit voor digitaal', 'Webdesign & art direction', 'Webontwikkeling (maatwerk)', 'E‑commerce platformen', 'Content & redactie'].map((s) => (
+            <div key={s} style={{ padding: '16px 0', borderBottom: `1px solid ${v1Styles.rule}`, fontSize: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span>{s}</span>
+              <span style={{ fontFamily: v1Styles.mono, fontSize: 11, color: v1Styles.muted }}>→</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <Rule />
+
+      {/* Contact */}
+      <section id="contact" style={{ maxWidth: 1280, margin: '0 auto', padding: '120px 56px 140px' }}>
+        <div style={{ fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted, marginBottom: 40 }}>
+          Aan het werk — plek vanaf september 2026
+        </div>
+        <h2 style={{ fontWeight: 400, fontSize: 'clamp(56px, 6vw, 96px)', lineHeight: 1.02, letterSpacing: '-0.03em', margin: '0 0 48px', maxWidth: 1000 }}>
+          Een idee, een merk, een <em>vraagstuk?</em> <br />Laat het ons weten.
+        </h2>
+        <a href="mailto:hallo@fessastudio.nl" style={{
+          display: 'inline-block', fontSize: 40, color: v1Styles.ink,
+          borderBottom: `1px solid ${v1Styles.ink}`, paddingBottom: 6,
+          textDecoration: 'none', letterSpacing: '-0.01em',
+        }}>hallo@fessastudio.nl</a>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ borderTop: `1px solid ${v1Styles.rule}` }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '32px 56px', display: 'flex', justifyContent: 'space-between', fontFamily: v1Styles.mono, fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: v1Styles.muted }}>
+          <div>© Fessa Studio 2026</div>
+          <div>KvK 76543210 · BTW NL0012345B01</div>
+          <div>Instagram / LinkedIn / Are.na</div>
+        </div>
+      </footer>
+
+      <style>{`
+        .v1-row { transition: padding-left .3s cubic-bezier(.2,.7,.3,1); }
+        .v1-row:hover { padding-left: 24px !important; }
+      `}</style>
+    </div>
+  );
+};
+
+window.V1 = V1;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(V1));
+</script>
+</body>
+</html>

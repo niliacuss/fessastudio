@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Fessa Studio - 05-liquid</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; height: 100%; }
+  #root, #root > div { width: 100vw; min-height: 100vh; }
+  img { pointer-events: none; user-select: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Variation 5 — Liquid Editorial
+// Scroll-driven parallax, clip-path image reveals, letter-by-letter hero,
+// sticky section headers, image with inverted mask text effect.
+
+const V5 = () => {
+  const v5Styles = {
+    bg: '#ece7dd',
+    ink: '#1c1410',
+    dim: '#6b5f52',
+    accent: '#c8532a',
+    cream: '#f7f2e8',
+    serif: '"Instrument Serif", "EB Garamond", Georgia, serif',
+    sans: '"Inter Tight", system-ui, sans-serif',
+    mono: '"JetBrains Mono", ui-monospace, monospace',
+  };
+
+  const scrollRef = React.useRef(null);
+  const [scroll, setScroll] = React.useState(0);
+  const [maxScroll, setMaxScroll] = React.useState(1);
+  const heroText = 'Rustige websites, doordacht gebouwd.';
+  const heroWords = heroText.split(' ');
+
+  React.useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      setScroll(el.scrollTop);
+      setMaxScroll(el.scrollHeight - el.clientHeight);
+    };
+    el.addEventListener('scroll', onScroll);
+    setMaxScroll(el.scrollHeight - el.clientHeight);
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const progress = Math.min(1, scroll / Math.max(1, maxScroll));
+  const heroOpacity = Math.max(0, 1 - scroll / 700);
+  const heroShift = scroll * 0.35;
+  const revealProgress = Math.min(1, Math.max(0, (scroll - 400) / 600));
+
+  const projects = [
+    { n: '01', t: 'Noorderhaven', d: 'Een rustige online thuis voor een atelier dat meubels restaureert. Volledig maatwerk, met een archief dat groeit.', y: '2025', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80' },
+    { n: '02', t: 'Stroom', d: 'Webshop voor een Utrechtse koffiebrander. Geen banners, geen pop-ups — wel verhalen en herkomst.', y: '2025', img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80' },
+    { n: '03', t: 'Museum De Wijk', d: 'Een platform voor een klein stadsmuseum: archief, tickets en publicaties in één editorial systeem.', y: '2024', img: 'https://images.unsplash.com/photo-1545987796-200677ee1011?w=1400&q=80' },
+  ];
+
+  return (
+    <div
+      ref={scrollRef}
+      style={{
+        width: '100%', height: '100%', overflow: 'auto',
+        background: v5Styles.bg, color: v5Styles.ink,
+        fontFamily: v5Styles.sans, position: 'relative',
+        scrollBehavior: 'smooth',
+      }}
+    >
+      {/* Scroll progress */}
+      <div style={{
+        position: 'sticky', top: 0, height: 2, background: 'transparent', zIndex: 30,
+        pointerEvents: 'none',
+      }}>
+        <div style={{ height: '100%', width: `${progress * 100}%`, background: v5Styles.accent, transition: 'width 0.1s' }} />
+      </div>
+
+      {/* Nav */}
+      <div style={{
+        position: 'sticky', top: 2, zIndex: 20,
+        background: `rgba(236,231,221,${Math.min(0.92, 0.5 + progress)})`,
+        backdropFilter: 'blur(10px)',
+      }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', padding: '24px 48px', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <div style={{ fontSize: 22, letterSpacing: '-0.01em', fontFamily: v5Styles.serif, fontStyle: 'italic' }}>Fessa Studio</div>
+          <nav style={{ display: 'flex', gap: 36, fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+            {['Werk', 'Studio', 'Diensten', 'Contact'].map((t) => (
+              <a key={t} href={`#${t.toLowerCase()}`} className="v5-link" style={{ color: 'inherit', textDecoration: 'none' }}>{t}</a>
+            ))}
+          </nav>
+          <div style={{ fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.1em', color: v5Styles.dim }}>
+            · beschikbaar q4 ·
+          </div>
+        </div>
+      </div>
+
+      {/* Hero with parallax word reveal */}
+      <section style={{ minHeight: 1000, padding: '120px 48px 60px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          maxWidth: 1400, margin: '0 auto',
+          transform: `translateY(${-heroShift * 0.3}px)`,
+          opacity: heroOpacity,
+          transition: 'opacity 0.2s',
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 64, fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: v5Styles.dim }}>
+            <span>Een digitale studio</span>
+            <span>Est. 2019 — Utrecht</span>
+          </div>
+
+          <h1 style={{
+            fontWeight: 400, fontSize: 'clamp(80px, 10vw, 168px)',
+            lineHeight: 0.98, letterSpacing: '-0.035em', margin: 0,
+            fontFamily: v5Styles.serif,
+          }}>
+            {heroWords.map((w, i) => (
+              <span key={i} className="v5-word" style={{
+                display: 'inline-block', marginRight: '0.25em',
+                fontStyle: i === 0 || i === 2 ? 'italic' : 'normal',
+                animationDelay: `${i * 0.08}s`,
+              }}>{w}</span>
+            ))}
+          </h1>
+
+          <div style={{ marginTop: 80, display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 60, alignItems: 'start' }}>
+            <div>
+              <div style={{ fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: v5Styles.dim, marginBottom: 16 }}>
+                [scroll]
+              </div>
+              <div style={{ width: 1, height: 80, background: v5Styles.ink, position: 'relative' }}>
+                <div style={{ position: 'absolute', width: 1, height: 20, background: v5Styles.accent, animation: 'v5scroll 2s ease-in-out infinite' }} />
+              </div>
+            </div>
+            <p style={{ fontSize: 22, lineHeight: 1.55, margin: 0, maxWidth: 620, color: '#2a211a' }}>
+              Fessa ontwerpt en bouwt digitale producten voor culturele instellingen, ondernemers en merken. We werken aan een handvol projecten per jaar — zodat elk project alle aandacht krijgt die het verdient.
+            </p>
+          </div>
+        </div>
+
+        {/* Large decorative serif behind */}
+        <div style={{
+          position: 'absolute', right: -80, bottom: -60,
+          fontFamily: v5Styles.serif, fontSize: 420, fontStyle: 'italic',
+          color: v5Styles.accent, opacity: 0.08,
+          transform: `translateY(${heroShift * 0.6}px) rotate(-8deg)`,
+          lineHeight: 1, userSelect: 'none', pointerEvents: 'none',
+        }}>f</div>
+      </section>
+
+      {/* Image reveal with clip-path */}
+      <section style={{ padding: '40px 48px 160px', position: 'relative' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ position: 'relative', borderRadius: 2, overflow: 'hidden', height: 720 }}>
+            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1800&q=80" alt="" style={{
+              width: '100%', height: '100%', objectFit: 'cover',
+              display: 'block', filter: 'saturate(0.85) contrast(1.05)',
+              clipPath: `inset(${(1 - revealProgress) * 50}% ${(1 - revealProgress) * 20}% ${(1 - revealProgress) * 50}% ${(1 - revealProgress) * 20}%)`,
+              transition: 'clip-path 0.1s linear',
+            }} />
+            <div style={{
+              position: 'absolute', left: 48, bottom: 48,
+              color: v5Styles.cream, maxWidth: 620,
+            }}>
+              <div style={{ fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 16, opacity: 0.8 }}>
+                — Onze werkplek
+              </div>
+              <div style={{ fontFamily: v5Styles.serif, fontSize: 48, lineHeight: 1.15, fontStyle: 'italic' }}>
+                Een rustige studio aan de Oudegracht, waar we samen ontwerpen, schrijven en bouwen.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Selected work — each project full height with sticky text */}
+      <section id="werk" style={{ padding: '40px 48px', position: 'relative' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 48, marginBottom: 80, alignItems: 'end' }}>
+            <div style={{ fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: v5Styles.dim }}>
+              — Geselecteerd werk<br />2023 / 2025
+            </div>
+            <h2 style={{ fontFamily: v5Styles.serif, fontWeight: 400, fontSize: 80, margin: 0, lineHeight: 1.0, letterSpacing: '-0.02em' }}>
+              Drie <span style={{ fontStyle: 'italic' }}>recente</span> projecten.
+            </h2>
+          </div>
+
+          {projects.map((p, i) => (
+            <div key={p.n} className="v5-project" style={{
+              display: 'grid', gridTemplateColumns: i % 2 === 0 ? '1.3fr 1fr' : '1fr 1.3fr',
+              gap: 64, alignItems: 'center',
+              padding: '80px 0',
+              borderTop: '1px solid rgba(28,20,16,0.15)',
+            }}>
+              <div className="v5-imgwrap" style={{
+                order: i % 2 === 0 ? 1 : 2,
+                position: 'relative', overflow: 'hidden',
+                height: 620, borderRadius: 2,
+              }}>
+                <img src={p.img} alt="" className="v5-img" style={{
+                  width: '100%', height: '110%', objectFit: 'cover', display: 'block',
+                  filter: 'saturate(0.9)', transition: 'transform 1.2s cubic-bezier(.2,.7,.3,1)',
+                }} />
+              </div>
+              <div style={{ order: i % 2 === 0 ? 2 : 1 }}>
+                <div style={{ fontFamily: v5Styles.mono, fontSize: 12, letterSpacing: '0.1em', color: v5Styles.accent, marginBottom: 24 }}>
+                  Case · N° {p.n} · {p.y}
+                </div>
+                <h3 style={{ fontFamily: v5Styles.serif, fontSize: 72, fontWeight: 400, margin: '0 0 32px', letterSpacing: '-0.02em', lineHeight: 0.95 }}>
+                  {p.t}
+                </h3>
+                <p style={{ fontSize: 19, lineHeight: 1.6, color: '#3a2f26', margin: '0 0 40px', maxWidth: 480 }}>
+                  {p.d}
+                </p>
+                <a className="v5-readmore" style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 12,
+                  fontFamily: v5Styles.mono, fontSize: 12, letterSpacing: '0.12em',
+                  textTransform: 'uppercase', color: v5Styles.ink, textDecoration: 'none',
+                  paddingBottom: 4, borderBottom: `1px solid ${v5Styles.ink}`,
+                }}>
+                  Bekijk de case <span className="v5-arrow">→</span>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Marquee */}
+      <section style={{ padding: '100px 0', overflow: 'hidden', borderTop: '1px solid rgba(28,20,16,0.15)', borderBottom: '1px solid rgba(28,20,16,0.15)' }}>
+        <div className="v5-marquee" style={{ whiteSpace: 'nowrap', display: 'inline-block', animation: 'v5scrollX 40s linear infinite' }}>
+          {Array.from({ length: 3 }).map((_, i) => (
+            <span key={i} style={{ fontFamily: v5Styles.serif, fontSize: 120, fontStyle: 'italic', fontWeight: 400, letterSpacing: '-0.02em' }}>
+              Strategie <span style={{ color: v5Styles.accent }}>✦</span> Design <span style={{ color: v5Styles.accent }}>✦</span> Code <span style={{ color: v5Styles.accent }}>✦</span>{' '}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="diensten" style={{ padding: '120px 48px' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 80 }}>
+            <div style={{ position: 'sticky', top: 100, alignSelf: 'start' }}>
+              <div style={{ fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: v5Styles.dim, marginBottom: 24 }}>
+                — Wat we doen
+              </div>
+              <h3 style={{ fontFamily: v5Styles.serif, fontSize: 64, fontWeight: 400, margin: 0, letterSpacing: '-0.02em', lineHeight: 1.02 }}>
+                Diensten<br /><span style={{ fontStyle: 'italic', color: v5Styles.accent }}>& aanpak.</span>
+              </h3>
+            </div>
+            <div>
+              {[
+                { t: 'Merkidentiteit voor digitaal', d: 'We ontwerpen een visuele taal die werkt in elke context — van favicon tot keynote.' },
+                { t: 'Webdesign & art direction', d: 'Geen templates. Elke pixel is overwogen: structuur, typografie, kleur, ritme.' },
+                { t: 'Maatwerk development', d: 'Gebouwd in Next.js, Astro of Sanity. Snel, toegankelijk, goed vindbaar.' },
+                { t: 'E‑commerce platformen', d: 'Webshops waar productpagina het podium krijgen — niet de banners.' },
+                { t: 'Content & redactie', d: 'We schrijven mee: teksten die lezen als een verhaal, niet als een lijst.' },
+              ].map((s, i) => (
+                <div key={s.t} className="v5-service" style={{
+                  padding: '36px 0', borderBottom: '1px solid rgba(28,20,16,0.15)',
+                  display: 'grid', gridTemplateColumns: '40px 1fr', gap: 32, alignItems: 'baseline',
+                }}>
+                  <div style={{ fontFamily: v5Styles.mono, fontSize: 12, color: v5Styles.dim }}>0{i + 1}</div>
+                  <div>
+                    <div style={{ fontFamily: v5Styles.serif, fontSize: 34, fontWeight: 400, letterSpacing: '-0.015em', marginBottom: 12 }}>{s.t}</div>
+                    <div style={{ fontSize: 16, color: v5Styles.dim, lineHeight: 1.55, maxWidth: 520 }}>{s.d}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" style={{ padding: '160px 48px 80px', borderTop: '1px solid rgba(28,20,16,0.15)' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: v5Styles.dim, marginBottom: 32 }}>
+            — Aan het werk · plek vanaf september 2026
+          </div>
+          <h2 style={{ fontFamily: v5Styles.serif, fontSize: 'clamp(80px, 10vw, 180px)', fontWeight: 400, lineHeight: 0.96, letterSpacing: '-0.03em', margin: '0 0 64px', maxWidth: 1200 }}>
+            Een idee, een merk, een <span style={{ fontStyle: 'italic', color: v5Styles.accent }}>vraagstuk?</span>
+          </h2>
+          <a href="mailto:hallo@fessastudio.nl" className="v5-mail" style={{
+            display: 'inline-block', fontSize: 48, color: v5Styles.ink,
+            fontFamily: v5Styles.serif, fontStyle: 'italic',
+            textDecoration: 'none', position: 'relative',
+          }}>
+            hallo@fessastudio.nl
+            <span className="v5-underline" style={{
+              display: 'block', height: 1, background: v5Styles.ink,
+              width: '100%', transform: 'scaleX(1)', transformOrigin: 'left',
+              transition: 'transform 0.6s cubic-bezier(.2,.7,.3,1)',
+            }} />
+          </a>
+        </div>
+        <div style={{ maxWidth: 1400, margin: '96px auto 0', display: 'flex', justifyContent: 'space-between', fontFamily: v5Styles.mono, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: v5Styles.dim }}>
+          <div>© Fessa Studio 2026</div>
+          <div>KvK 76543210 · BTW NL0012345B01</div>
+          <div>Instagram · LinkedIn · Are.na</div>
+        </div>
+      </section>
+
+      <style>{`
+        @keyframes v5wordIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .v5-word { animation: v5wordIn 0.9s cubic-bezier(.2,.7,.3,1) both; }
+        @keyframes v5scroll { 0% { top: 0; opacity: 0; } 50% { opacity: 1; } 100% { top: 60px; opacity: 0; } }
+        @keyframes v5scrollX { to { transform: translateX(-33.333%); } }
+        .v5-link { position: relative; transition: color 0.2s; }
+        .v5-link::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform 0.4s cubic-bezier(.2,.7,.3,1); }
+        .v5-link:hover::after { transform: scaleX(1); transform-origin: left; }
+        .v5-project:hover .v5-img { transform: translateY(-20px) scale(1.05); }
+        .v5-readmore:hover .v5-arrow { transform: translateX(6px); display: inline-block; transition: transform 0.3s; }
+        .v5-mail:hover .v5-underline { transform: scaleX(0) !important; transform-origin: right !important; }
+      `}</style>
+    </div>
+  );
+};
+
+window.V5 = V5;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(V5));
+</script>
+</body>
+</html>

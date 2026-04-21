@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Fessa Studio - 09-y2k</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; height: 100%; }
+  #root, #root > div { width: 100vw; min-height: 100vh; }
+  img { pointer-events: none; user-select: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Variation 9 — Y2K Chrome
+// Iridescent chrome gradients, glossy buttons, 3D rotating cube hero element,
+// holographic sticker badges, neon glow, CSS filter effects.
+
+const V9 = () => {
+  const v9Styles = {
+    bg: '#0e0b1a',
+    ink: '#f0ebff',
+    dim: '#8f85b5',
+    neon: '#00f0ff',
+    pink: '#ff3df0',
+    yellow: '#fff85a',
+    sans: '"Inter Tight", system-ui, sans-serif',
+    display: '"Instrument Serif", Georgia, serif',
+    mono: '"JetBrains Mono", ui-monospace, monospace',
+  };
+
+  const [rot, setRot] = React.useState({ x: -20, y: 25 });
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    let raf;
+    const loop = () => {
+      setRot((r) => ({ x: r.x, y: r.y + 0.25 }));
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const chromeGrad = `linear-gradient(135deg, #ffe4fa 0%, #c6b6ff 25%, #8ad6ff 50%, #c6ffe8 75%, #fff5a8 100%)`;
+  const holoGrad = `conic-gradient(from 0deg, ${v9Styles.pink}, ${v9Styles.neon}, ${v9Styles.yellow}, ${v9Styles.pink})`;
+
+  const projects = [
+    { t: 'Noorderhaven', k: 'WEB + ID', y: '25', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=80', c: v9Styles.pink },
+    { t: 'Stroom', k: 'E-COMM', y: '25', img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1000&q=80', c: v9Styles.neon },
+    { t: 'Museum De Wijk', k: 'PLATFORM', y: '24', img: 'https://images.unsplash.com/photo-1545987796-200677ee1011?w=1000&q=80', c: v9Styles.yellow },
+    { t: 'Kade 17', k: 'WEBSITE', y: '24', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&q=80', c: v9Styles.pink },
+  ];
+
+  return (
+    <div ref={ref} style={{
+      width: '100%', height: '100%', overflow: 'auto', background: v9Styles.bg, color: v9Styles.ink,
+      fontFamily: v9Styles.sans, position: 'relative',
+    }}>
+      {/* Animated starfield */}
+      <div style={{
+        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0,
+        background: `radial-gradient(ellipse at 20% 0%, ${v9Styles.pink}22 0%, transparent 50%),
+                     radial-gradient(ellipse at 80% 30%, ${v9Styles.neon}22 0%, transparent 50%),
+                     radial-gradient(ellipse at 50% 100%, ${v9Styles.yellow}15 0%, transparent 50%)`,
+      }} />
+
+      {/* Grid floor effect */}
+      <div style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0, height: '45vh',
+        backgroundImage: `linear-gradient(${v9Styles.neon}40 1px, transparent 1px), linear-gradient(90deg, ${v9Styles.neon}40 1px, transparent 1px)`,
+        backgroundSize: '60px 60px',
+        transform: 'perspective(600px) rotateX(60deg)',
+        transformOrigin: 'bottom',
+        opacity: 0.3, pointerEvents: 'none', zIndex: 0,
+      }} />
+
+      {/* Nav */}
+      <div style={{ position: 'sticky', top: 16, zIndex: 30, padding: '0 20px' }}>
+        <div style={{
+          maxWidth: 1280, margin: '0 auto',
+          background: 'rgba(14,11,26,0.6)', backdropFilter: 'blur(20px)',
+          border: `1px solid ${v9Styles.neon}40`,
+          borderRadius: 999, padding: '12px 24px',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          boxShadow: `0 0 40px ${v9Styles.neon}20`,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 17, fontWeight: 700, letterSpacing: '-0.01em' }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: '50%',
+              background: holoGrad, animation: 'v9spin 4s linear infinite',
+              boxShadow: `0 0 16px ${v9Styles.pink}80`,
+            }} />
+            FESSA<span style={{ background: chromeGrad, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>™</span>
+          </div>
+          <nav style={{ display: 'flex', gap: 28, fontSize: 13, fontFamily: v9Styles.mono, letterSpacing: '0.05em' }}>
+            {['WERK', 'STUDIO', 'DIENSTEN', 'LAB'].map((n) => (
+              <a key={n} href={`#${n.toLowerCase()}`} className="v9-link" style={{ color: v9Styles.ink, textDecoration: 'none' }}>{n}</a>
+            ))}
+          </nav>
+          <a href="#contact" style={{
+            background: chromeGrad, color: '#120f1e',
+            padding: '10px 20px', borderRadius: 999, fontSize: 13, textDecoration: 'none', fontWeight: 700,
+            boxShadow: `0 4px 20px ${v9Styles.pink}50, inset 0 1px 0 rgba(255,255,255,0.5)`,
+          }}>LAUNCH →</a>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section style={{ padding: '100px 40px 40px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          {/* Holographic sticker */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 18px',
+            background: holoGrad, backgroundSize: '200% 200%', borderRadius: 999,
+            fontSize: 12, fontWeight: 700, letterSpacing: '0.1em',
+            color: '#120f1e', marginBottom: 40,
+            animation: 'v9holo 3s ease infinite',
+          }}>
+            ✦ NU BOEKBAAR / Q4 2026 ✦
+          </div>
+
+          <h1 style={{
+            fontSize: 'clamp(96px, 13vw, 220px)', fontWeight: 800,
+            lineHeight: 0.86, letterSpacing: '-0.05em', margin: 0,
+          }}>
+            <span style={{
+              background: chromeGrad, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text', filter: 'drop-shadow(0 0 40px rgba(255,61,240,0.5))',
+            }}>DIGITAAL</span>
+            <br />
+            <span style={{ fontFamily: v9Styles.display, fontStyle: 'italic', fontWeight: 400, color: v9Styles.ink }}>werk dat </span>
+            <br />
+            <span style={{ color: v9Styles.neon, textShadow: `0 0 30px ${v9Styles.neon}` }}>straalt</span>
+            <span style={{ color: v9Styles.pink }}>.</span>
+          </h1>
+
+          <div style={{ marginTop: 80, display: 'grid', gridTemplateColumns: '1fr auto', gap: 80, alignItems: 'center' }}>
+            <p style={{ fontSize: 22, lineHeight: 1.5, margin: 0, maxWidth: 580, color: v9Styles.ink }}>
+              Fessa is een digitale studio die websites bouwt met karakter. Geen veilige keuzes, geen standaard oplossingen — wél doordachte interfaces die je klanten niet vergeten.
+            </p>
+
+            {/* 3D cube */}
+            <div style={{ width: 240, height: 240, perspective: '800px' }}>
+              <div style={{
+                width: '100%', height: '100%', position: 'relative',
+                transformStyle: 'preserve-3d',
+                transform: `rotateX(${rot.x}deg) rotateY(${rot.y}deg)`,
+              }}>
+                {[
+                  { t: 'rotateY(0deg) translateZ(120px)', c: chromeGrad, icon: '✦' },
+                  { t: 'rotateY(90deg) translateZ(120px)', c: holoGrad, icon: '◆' },
+                  { t: 'rotateY(180deg) translateZ(120px)', c: chromeGrad, icon: '●' },
+                  { t: 'rotateY(-90deg) translateZ(120px)', c: holoGrad, icon: '▲' },
+                  { t: 'rotateX(90deg) translateZ(120px)', c: chromeGrad, icon: '★' },
+                  { t: 'rotateX(-90deg) translateZ(120px)', c: holoGrad, icon: '✧' },
+                ].map((f, i) => (
+                  <div key={i} style={{
+                    position: 'absolute', inset: 0, background: f.c, backgroundSize: '200% 200%',
+                    border: `1px solid ${v9Styles.neon}80`, transform: f.t,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 80, color: '#120f1e', fontWeight: 700,
+                    boxShadow: `inset 0 0 40px rgba(255,255,255,0.3)`,
+                  }}>{f.icon}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Marquee */}
+      <div style={{ padding: '24px 0', overflow: 'hidden', background: chromeGrad, borderTop: `1px solid ${v9Styles.neon}`, borderBottom: `1px solid ${v9Styles.neon}`, position: 'relative', zIndex: 2 }}>
+        <div style={{ whiteSpace: 'nowrap', display: 'inline-block', animation: 'v9scrollX 30s linear infinite', fontSize: 40, fontWeight: 800, letterSpacing: '-0.02em', color: '#120f1e' }}>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i}>DESIGN ★ CODE ★ BRAND ★ MOTION ★ E‑COMMERCE ★ STRATEGY ★&nbsp;</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Projects */}
+      <section id="werk" style={{ padding: '100px 40px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', marginBottom: 64 }}>
+            <h2 style={{ fontSize: 'clamp(56px, 7vw, 112px)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 0.9, margin: 0 }}>
+              <span style={{ background: chromeGrad, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>SELECTED</span><br />
+              <span style={{ fontFamily: v9Styles.display, fontStyle: 'italic', fontWeight: 400 }}>werk.</span>
+            </h2>
+            <div style={{ fontFamily: v9Styles.mono, fontSize: 12, color: v9Styles.dim, letterSpacing: '0.1em' }}>
+              [ 04 PROJECTS / 24—25 ]
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+            {projects.map((p) => (
+              <div key={p.t} className="v9-card" style={{
+                position: 'relative', borderRadius: 20, overflow: 'hidden',
+                border: `1px solid ${p.c}60`, background: '#1a1530',
+                transition: 'transform 0.4s cubic-bezier(.2,.7,.3,1), box-shadow 0.4s',
+              }}>
+                <div style={{ position: 'relative', height: 420, overflow: 'hidden' }}>
+                  <img src={p.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'saturate(1.2) contrast(1.1)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 40%, #0e0b1a 100%), linear-gradient(135deg, ${p.c}30, transparent 60%)` }} />
+                  <div style={{ position: 'absolute', top: 16, left: 16, padding: '5px 12px', background: p.c, color: '#120f1e', fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', borderRadius: 999 }}>
+                    {p.k} · '{p.y}
+                  </div>
+                </div>
+                <div style={{ padding: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em' }}>{p.t}</div>
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: p.c, color: '#120f1e', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>↗</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services as orbit cards */}
+      <section id="diensten" style={{ padding: '120px 40px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 80 }}>
+            <div style={{ fontFamily: v9Styles.mono, fontSize: 12, color: v9Styles.neon, marginBottom: 12, letterSpacing: '0.15em' }}>// CAPABILITIES.JSON</div>
+            <h2 style={{ fontSize: 'clamp(56px, 7vw, 112px)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 0.95, margin: 0 }}>
+              Alles wat een <br />
+              <span style={{ background: holoGrad, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundSize: '200% 200%', animation: 'v9holo 5s ease infinite' }}>modern merk</span> nodig heeft.
+            </h2>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+            {[
+              { n: '01', t: 'Brand Identity', d: 'Logo, typografie, kleur, motion — een systeem dat werkt op elk scherm.', c: v9Styles.pink },
+              { n: '02', t: 'Web Design', d: 'Interfaces die op het eerste oog verrassen en bij tweede gebruik kloppen.', c: v9Styles.neon },
+              { n: '03', t: 'Development', d: 'Next.js, Astro, Sanity. Snel, toegankelijk, maintainable.', c: v9Styles.yellow },
+              { n: '04', t: 'E‑commerce', d: 'Shopify plus en custom stacks voor winkels die groeien.', c: v9Styles.pink },
+              { n: '05', t: 'Motion & 3D', d: 'Bewegend beeld, WebGL experimenten, animaties die een glimlach geven.', c: v9Styles.neon },
+              { n: '06', t: 'Strategy', d: 'Positionering, informatiearchitectuur, content strategie.', c: v9Styles.yellow },
+            ].map((s) => (
+              <div key={s.n} className="v9-svc" style={{
+                padding: 28, borderRadius: 16,
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))',
+                border: `1px solid ${s.c}30`, position: 'relative', overflow: 'hidden',
+              }}>
+                <div style={{ fontFamily: v9Styles.mono, fontSize: 11, color: s.c, letterSpacing: '0.15em' }}>N° {s.n}</div>
+                <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em', margin: '16px 0 12px' }}>{s.t}</div>
+                <div style={{ fontSize: 14, color: v9Styles.dim, lineHeight: 1.55 }}>{s.d}</div>
+                <div style={{ position: 'absolute', bottom: -60, right: -60, width: 160, height: 160, borderRadius: '50%', background: s.c, opacity: 0.1, filter: 'blur(40px)' }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" style={{ padding: '140px 40px 80px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ fontFamily: v9Styles.mono, fontSize: 12, color: v9Styles.neon, letterSpacing: '0.15em', marginBottom: 28 }}>→ READY_TO_LAUNCH()</div>
+          <h2 style={{ fontSize: 'clamp(80px, 11vw, 200px)', fontWeight: 800, letterSpacing: '-0.05em', lineHeight: 0.88, margin: '0 0 48px' }}>
+            <span style={{ background: chromeGrad, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>SEND IT</span>
+            <span style={{ color: v9Styles.pink, textShadow: `0 0 40px ${v9Styles.pink}` }}>.</span>
+          </h2>
+          <a href="mailto:hallo@fessastudio.nl" className="v9-mail" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 14,
+            background: chromeGrad, color: '#120f1e',
+            padding: '22px 40px', borderRadius: 999,
+            fontSize: 24, fontWeight: 700, textDecoration: 'none', letterSpacing: '-0.01em',
+            boxShadow: `0 0 60px ${v9Styles.pink}60, inset 0 2px 0 rgba(255,255,255,0.5)`,
+          }}>
+            hallo@fessastudio.nl <span>✦</span>
+          </a>
+
+          <div style={{ marginTop: 100, display: 'flex', justifyContent: 'center', gap: 28, fontFamily: v9Styles.mono, fontSize: 12, color: v9Styles.dim, letterSpacing: '0.1em' }}>
+            <span>IG ↗</span><span>LINKEDIN ↗</span><span>ARE.NA ↗</span><span>MASTODON ↗</span>
+          </div>
+          <div style={{ marginTop: 48, fontFamily: v9Styles.mono, fontSize: 11, color: v9Styles.dim, letterSpacing: '0.1em' }}>
+            © FESSA.STUDIO / 2026 / UTRECHT.NL / VER.9.0
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        @keyframes v9spin { to { transform: rotate(360deg); } }
+        @keyframes v9holo { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        @keyframes v9scrollX { to { transform: translateX(-25%); } }
+        .v9-link { position: relative; transition: color 0.2s, text-shadow 0.2s; }
+        .v9-link:hover { color: ${v9Styles.neon}; text-shadow: 0 0 10px ${v9Styles.neon}; }
+        .v9-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(255,61,240,0.3); }
+        .v9-svc { transition: transform 0.3s, border-color 0.3s; }
+        .v9-svc:hover { transform: translateY(-4px); }
+        .v9-mail { transition: transform 0.3s, box-shadow 0.3s; }
+        .v9-mail:hover { transform: translateY(-3px) scale(1.02); }
+      `}</style>
+    </div>
+  );
+};
+
+window.V9 = V9;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(V9));
+</script>
+</body>
+</html>

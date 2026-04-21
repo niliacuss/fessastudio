@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Fessa Studio - 07-swiss</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; height: 100%; }
+  #root, #root > div { width: 100vw; min-height: 100vh; }
+  img { pointer-events: none; user-select: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Variation 7 — Swiss Motion
+// Strict 12-column grid, oversized swiss type, numbered sections,
+// magnetic buttons, column-counter text reveal on scroll, horizontal snap gallery.
+
+const V7 = () => {
+  const v7Styles = {
+    bg: '#f2f1ed',
+    ink: '#0a0a0a',
+    dim: '#707070',
+    red: '#e02020',
+    sans: '"Inter Tight", "Neue Haas Grotesk", Helvetica, sans-serif',
+    mono: '"JetBrains Mono", ui-monospace, monospace',
+  };
+
+  const ref = React.useRef(null);
+  const [scroll, setScroll] = React.useState(0);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const on = () => setScroll(el.scrollTop);
+    el.addEventListener('scroll', on);
+    return () => el.removeEventListener('scroll', on);
+  }, []);
+
+  const Mag = ({ children, ...rest }) => {
+    const r = React.useRef(null);
+    return (
+      <a
+        ref={r}
+        {...rest}
+        onMouseMove={(e) => {
+          const b = r.current.getBoundingClientRect();
+          const x = e.clientX - b.left - b.width / 2;
+          const y = e.clientY - b.top - b.height / 2;
+          r.current.style.transform = `translate(${x * 0.25}px, ${y * 0.4}px)`;
+        }}
+        onMouseLeave={() => (r.current.style.transform = '')}
+        style={{ transition: 'transform 0.4s cubic-bezier(.2,.7,.3,1)', display: 'inline-block', ...rest.style }}
+      >{children}</a>
+    );
+  };
+
+  const projects = [
+    { n: '01', t: 'Noorderhaven', c: 'Atelier · merk + web', y: '2025', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80' },
+    { n: '02', t: 'Stroom', c: 'Koffie · e-commerce', y: '2025', img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200&q=80' },
+    { n: '03', t: 'Museum De Wijk', c: 'Cultureel · platform', y: '2024', img: 'https://images.unsplash.com/photo-1545987796-200677ee1011?w=1200&q=80' },
+    { n: '04', t: 'Kade 17', c: 'Vastgoed · website', y: '2024', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80' },
+  ];
+
+  return (
+    <div ref={ref} style={{
+      width: '100%', height: '100%', overflow: 'auto', background: v7Styles.bg, color: v7Styles.ink,
+      fontFamily: v7Styles.sans, position: 'relative',
+    }}>
+      {/* 12-col ghost grid */}
+      <div style={{
+        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 1,
+        maxWidth: 1360, margin: '0 auto', padding: '0 40px',
+        display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 20, opacity: 0.04,
+      }}>
+        {Array.from({ length: 12 }).map((_, i) => <div key={i} style={{ background: v7Styles.red, height: '100vh' }} />)}
+      </div>
+
+      {/* Top bar */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 20, background: v7Styles.bg, borderBottom: `1px solid ${v7Styles.ink}` }}>
+        <div style={{ maxWidth: 1360, margin: '0 auto', padding: '16px 40px', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 20, alignItems: 'center' }}>
+          <div style={{ gridColumn: 'span 3', fontSize: 18, fontWeight: 700, letterSpacing: '-0.02em' }}>
+            Fessa<span style={{ color: v7Styles.red }}>.</span>Studio
+          </div>
+          <div style={{ gridColumn: 'span 5', fontFamily: v7Styles.mono, fontSize: 11, color: v7Styles.dim, letterSpacing: '0.05em' }}>
+            DIGITAL DESIGN &amp; ENGINEERING — UTRECHT, NL
+          </div>
+          <div style={{ gridColumn: 'span 3', display: 'flex', gap: 20, fontSize: 13 }}>
+            <a href="#werk" style={{ color: 'inherit', textDecoration: 'none' }}>Werk</a>
+            <a href="#studio" style={{ color: 'inherit', textDecoration: 'none' }}>Studio</a>
+            <a href="#diensten" style={{ color: 'inherit', textDecoration: 'none' }}>Diensten</a>
+          </div>
+          <div style={{ gridColumn: 'span 1', textAlign: 'right', fontFamily: v7Styles.mono, fontSize: 11 }}>NL/EN</div>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section style={{ padding: '40px 40px 80px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 20 }}>
+          <div style={{ gridColumn: 'span 1', fontFamily: v7Styles.mono, fontSize: 11, color: v7Styles.dim, paddingTop: 12 }}>N° 01</div>
+          <div style={{ gridColumn: 'span 11', borderTop: `1px solid ${v7Styles.ink}`, paddingTop: 32, fontFamily: v7Styles.mono, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: v7Styles.dim }}>
+            Index / Homepage — Rev. 2026.04
+          </div>
+
+          <div style={{ gridColumn: '1 / -1', marginTop: 48 }}>
+            <h1 style={{
+              fontSize: 'clamp(100px, 14vw, 240px)', fontWeight: 800,
+              lineHeight: 0.86, letterSpacing: '-0.055em', margin: 0,
+            }}>
+              Digitaal<br />
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 24 }}>
+                ontwerp
+                <span style={{
+                  width: 'clamp(120px, 16vw, 260px)', height: 'clamp(80px, 11vw, 160px)',
+                  borderRadius: 999, background: v7Styles.red, color: v7Styles.bg,
+                  fontSize: 'clamp(28px, 3vw, 56px)', fontWeight: 500,
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  transform: `rotate(${-3 + scroll * 0.02}deg)`, transition: 'transform 0.2s',
+                }}>sinds '19</span>
+              </span><br />
+              voor het web.
+            </h1>
+          </div>
+
+          <div style={{ gridColumn: '2 / 6', marginTop: 64 }}>
+            <p style={{ fontSize: 19, lineHeight: 1.5, margin: 0 }}>
+              Fessa is een studio voor digitale producten: websites, webshops, platforms. We werken vanuit Utrecht met merken en makers die iets willen zeggen dat de moeite waard is.
+            </p>
+          </div>
+          <div style={{ gridColumn: '8 / -1', marginTop: 64, borderLeft: `1px solid ${v7Styles.ink}`, paddingLeft: 24 }}>
+            <div style={{ fontFamily: v7Styles.mono, fontSize: 11, letterSpacing: '0.1em', color: v7Styles.dim, marginBottom: 20 }}>CAPABILITIES</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 24px', fontSize: 15 }}>
+              {['Brand identity', 'Art direction', 'UI/UX design', 'Web development', 'Content strategy', 'Motion design'].map((c) => (
+                <div key={c} style={{ padding: '6px 0', borderBottom: `1px solid ${v7Styles.ink}`, display: 'flex', justifyContent: 'space-between' }}>
+                  <span>{c}</span><span style={{ color: v7Styles.red }}>→</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Horizontal snap gallery */}
+      <section id="werk" style={{ padding: '80px 0 40px', position: 'relative', zIndex: 2, borderTop: `1px solid ${v7Styles.ink}` }}>
+        <div style={{ maxWidth: 1360, margin: '0 auto', padding: '40px 40px 32px', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 20 }}>
+          <div style={{ gridColumn: 'span 1', fontFamily: v7Styles.mono, fontSize: 11, color: v7Styles.dim }}>N° 02</div>
+          <div style={{ gridColumn: 'span 6' }}>
+            <h2 style={{ fontSize: 'clamp(56px, 7vw, 112px)', fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 0.9, margin: 0 }}>
+              Geselecteerd<br />werk.
+            </h2>
+          </div>
+          <div style={{ gridColumn: 'span 5', alignSelf: 'end', fontSize: 15, color: v7Styles.dim, borderLeft: `1px solid ${v7Styles.ink}`, paddingLeft: 24 }}>
+            Een handvol recente projecten. Scroll horizontaal →‎
+          </div>
+        </div>
+
+        <div className="v7-snap" style={{
+          display: 'flex', gap: 20, overflowX: 'auto', padding: '0 40px 40px',
+          scrollSnapType: 'x mandatory',
+        }}>
+          {projects.map((p) => (
+            <div key={p.n} style={{ flex: '0 0 540px', scrollSnapAlign: 'start' }}>
+              <div style={{ position: 'relative', height: 640, overflow: 'hidden' }}>
+                <img src={p.img} alt="" className="v7-img" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 1s cubic-bezier(.2,.7,.3,1)' }} />
+                <div style={{ position: 'absolute', top: 16, left: 16, fontFamily: v7Styles.mono, fontSize: 11, color: '#fff', background: v7Styles.ink, padding: '4px 10px' }}>
+                  {p.n}/{projects.length}
+                </div>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, marginTop: 16, alignItems: 'baseline', borderTop: `1px solid ${v7Styles.ink}`, paddingTop: 12 }}>
+                <div>
+                  <div style={{ fontSize: 32, fontWeight: 700, letterSpacing: '-0.025em' }}>{p.t}</div>
+                  <div style={{ fontSize: 13, color: v7Styles.dim, marginTop: 4 }}>{p.c}</div>
+                </div>
+                <div style={{ fontFamily: v7Styles.mono, fontSize: 13, color: v7Styles.red }}>{p.y} →</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Big statement */}
+      <section style={{ padding: '100px 40px', position: 'relative', zIndex: 2, borderTop: `1px solid ${v7Styles.ink}` }}>
+        <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 20 }}>
+          <div style={{ gridColumn: 'span 1', fontFamily: v7Styles.mono, fontSize: 11, color: v7Styles.dim }}>N° 03</div>
+          <div style={{ gridColumn: '2 / -1' }}>
+            <p style={{ fontSize: 'clamp(44px, 5.5vw, 88px)', fontWeight: 500, lineHeight: 1.05, letterSpacing: '-0.03em', margin: 0 }}>
+              Kleine studio. <span style={{ color: v7Styles.dim }}>Scherpe blik.</span><br />
+              <span style={{ color: v7Styles.dim }}>Maatwerk, altijd.</span> Geen shortcuts, geen templates.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="diensten" style={{ padding: '40px 40px 100px', position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 20 }}>
+          <div style={{ gridColumn: 'span 1', fontFamily: v7Styles.mono, fontSize: 11, color: v7Styles.dim, paddingTop: 8 }}>N° 04</div>
+          <div style={{ gridColumn: 'span 11' }}>
+            <div style={{ fontFamily: v7Styles.mono, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: v7Styles.dim, marginBottom: 40, borderTop: `1px solid ${v7Styles.ink}`, paddingTop: 32 }}>
+              Diensten & tarieven
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0 }}>
+              {[
+                { t: 'Merkidentiteit', d: 'Logo, typografie, kleurtaal, toepassing — alles wat nodig is om digitaal herkenbaar te zijn.', p: 'vanaf €12k' },
+                { t: 'Webdesign', d: 'Maatwerk ontwerp van sitemap tot detailscherm. Multi-device, toegankelijk, systeem-gedreven.', p: 'vanaf €18k' },
+                { t: 'Development', d: 'Next.js, Astro, Sanity. Snel, schaalbaar, redactievriendelijk. Inclusief hosting-advies.', p: 'vanaf €22k' },
+                { t: 'Care & onderhoud', d: 'Na de lancering blijven we betrokken: updates, doorontwikkeling, maandelijks overleg.', p: 'vanaf €600/mnd' },
+              ].map((s, i) => (
+                <div key={s.t} className="v7-svc" style={{
+                  padding: 32, borderTop: `1px solid ${v7Styles.ink}`,
+                  borderRight: i % 2 === 0 ? `1px solid ${v7Styles.ink}` : 'none',
+                  borderBottom: `1px solid ${v7Styles.ink}`,
+                  position: 'relative', minHeight: 240,
+                }}>
+                  <div style={{ fontSize: 44, fontWeight: 700, letterSpacing: '-0.025em', marginBottom: 16 }}>{s.t}</div>
+                  <div style={{ fontSize: 15, color: v7Styles.dim, lineHeight: 1.55, maxWidth: 420, marginBottom: 24 }}>{s.d}</div>
+                  <div style={{ fontFamily: v7Styles.mono, fontSize: 12, color: v7Styles.red, position: 'absolute', bottom: 24, left: 32 }}>{s.p}</div>
+                  <div style={{ position: 'absolute', top: 32, right: 32, width: 32, height: 32, borderRadius: '50%', background: v7Styles.ink, color: v7Styles.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" style={{ padding: '120px 40px 80px', borderTop: `1px solid ${v7Styles.ink}`, background: v7Styles.ink, color: v7Styles.bg }}>
+        <div style={{ maxWidth: 1360, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 20 }}>
+          <div style={{ gridColumn: 'span 1', fontFamily: v7Styles.mono, fontSize: 11, color: '#888' }}>N° 05</div>
+          <div style={{ gridColumn: '2 / 9' }}>
+            <div style={{ fontFamily: v7Styles.mono, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888', marginBottom: 32 }}>
+              Aan het werk — beschikbaar Q4 2026
+            </div>
+            <h2 style={{ fontSize: 'clamp(80px, 11vw, 200px)', fontWeight: 800, lineHeight: 0.88, letterSpacing: '-0.055em', margin: 0 }}>
+              Laten we<br />
+              bouwen<span style={{ color: v7Styles.red }}>.</span>
+            </h2>
+            <div style={{ marginTop: 48, display: 'flex', gap: 16 }}>
+              <Mag href="mailto:hallo@fessastudio.nl" style={{
+                background: v7Styles.red, color: '#fff', padding: '22px 40px',
+                fontSize: 18, fontWeight: 500, textDecoration: 'none',
+                borderRadius: 999,
+              }}>hallo@fessastudio.nl →</Mag>
+              <Mag href="#" style={{
+                background: 'transparent', color: v7Styles.bg, padding: '22px 32px',
+                border: '1px solid rgba(255,255,255,0.25)', borderRadius: 999,
+                fontSize: 18, textDecoration: 'none',
+              }}>Bel: 030‑123 45 67</Mag>
+            </div>
+          </div>
+          <div style={{ gridColumn: '10 / -1', alignSelf: 'end', fontFamily: v7Styles.mono, fontSize: 12, lineHeight: 1.8, color: '#999' }}>
+            FESSA STUDIO BV<br />
+            OUDEGRACHT 142<br />
+            3511 AZ UTRECHT<br />
+            KVK 76543210<br />
+            BTW NL001234B01
+          </div>
+        </div>
+        <div style={{ maxWidth: 1360, margin: '80px auto 0', borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: 24, fontFamily: v7Styles.mono, fontSize: 11, color: '#888', display: 'flex', justifyContent: 'space-between' }}>
+          <span>© FESSA STUDIO 2026 · ALL RIGHTS RESERVED</span>
+          <span>INSTAGRAM · LINKEDIN · ARE.NA</span>
+        </div>
+      </section>
+
+      <style>{`
+        .v7-snap::-webkit-scrollbar { height: 4px; }
+        .v7-snap::-webkit-scrollbar-thumb { background: ${v7Styles.ink}; }
+        .v7-snap > div:hover .v7-img { transform: scale(1.06); }
+        .v7-svc { transition: background 0.3s; cursor: pointer; }
+        .v7-svc:hover { background: ${v7Styles.ink}; color: ${v7Styles.bg}; }
+        .v7-svc:hover > div { color: inherit !important; }
+      `}</style>
+    </div>
+  );
+};
+
+window.V7 = V7;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(V7));
+</script>
+</body>
+</html>

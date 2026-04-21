@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Fessa Studio - 02-bold</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; height: 100%; }
+  #root, #root > div { width: 100vw; min-height: 100vh; }
+  img { pointer-events: none; user-select: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Variation 2 — Bold & graphic
+// High-contrast near-black on bone, oversized grotesk display,
+// a single warm accent. The studio as confident and direct.
+
+const V2 = () => {
+  const v2Styles = {
+    bg: '#eeeae1',
+    ink: '#0d0d0c',
+    dim: '#555049',
+    accent: '#ff4a1f',
+    sans: '"Neue Haas Grotesk Display", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    mono: '"IBM Plex Mono", ui-monospace, monospace',
+  };
+
+  const Placeholder = ({ label, h = 420, img }) => (
+    <div style={{
+      height: h, width: '100%', position: 'relative', overflow: 'hidden',
+      background: `#1b1a18 url("${img}") center/cover no-repeat`,
+    }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(13,13,12,0.15) 0%, rgba(13,13,12,0) 40%)' }} />
+      <div style={{
+        position: 'absolute', left: 16, top: 16,
+        fontFamily: v2Styles.mono, fontSize: 10, letterSpacing: '0.1em',
+        color: 'rgba(255,255,255,0.85)', textTransform: 'uppercase',
+        background: 'rgba(13,13,12,0.55)', padding: '4px 8px',
+      }}>{label}</div>
+    </div>
+  );
+
+  const [time, setTime] = React.useState('');
+  React.useEffect(() => {
+    const t = () => {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      const ss = String(d.getSeconds()).padStart(2, '0');
+      setTime(`${hh}:${mm}:${ss}`);
+    };
+    t();
+    const id = setInterval(t, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const services = [
+    { n: '01', t: 'Strategie', d: 'Positionering, propositie, tone‑of‑voice — de fundering onder elk digitaal product.' },
+    { n: '02', t: 'Design', d: 'Visuele identiteit, art direction en interfaces. Eigenzinnig, bruikbaar.' },
+    { n: '03', t: 'Development', d: 'Maatwerk websites en e‑commerce in Next.js, Astro of Sanity. Snel, schaalbaar.' },
+    { n: '04', t: 'Onderhoud', d: 'Geen losgelaten werk. We blijven betrokken, maand na maand, jaar na jaar.' },
+  ];
+
+  const clients = ['Noorderhaven', 'Stroom', 'Museum De Wijk', 'Kade 17', 'Veenstra', 'BRNKT', 'Oostpark', 'Studio M'];
+
+  return (
+    <div style={{
+      width: '100%', height: '100%', overflow: 'auto',
+      background: v2Styles.bg, color: v2Styles.ink,
+      fontFamily: v2Styles.sans,
+    }}>
+      {/* Nav */}
+      <div style={{ borderBottom: `1px solid ${v2Styles.ink}`, background: v2Styles.bg, position: 'sticky', top: 0, zIndex: 10 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', alignItems: 'center' }}>
+          <div style={{ padding: '20px 28px', borderRight: `1px solid ${v2Styles.ink}`, fontWeight: 700, fontSize: 20, letterSpacing: '-0.02em' }}>
+            FESSA<span style={{ color: v2Styles.accent }}>*</span>STUDIO
+          </div>
+          <div style={{ padding: '20px 28px', borderRight: `1px solid ${v2Styles.ink}`, fontFamily: v2Styles.mono, fontSize: 12, letterSpacing: '0.05em' }}>
+            UTRECHT, NL · {time}
+          </div>
+          <div style={{ padding: '20px 28px', borderRight: `1px solid ${v2Styles.ink}`, display: 'flex', gap: 24, fontSize: 14 }}>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="#werk">Werk</a>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="#diensten">Diensten</a>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="#studio">Studio</a>
+          </div>
+          <div style={{ padding: '20px 28px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ fontFamily: v2Styles.mono, fontSize: 12 }}>[ BESCHIKBAAR Q4 ]</span>
+            <a href="#contact" style={{
+              background: v2Styles.ink, color: v2Styles.bg, padding: '8px 16px',
+              fontSize: 13, textDecoration: 'none', fontWeight: 500,
+            }}>Start project →</a>
+          </div>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section style={{ padding: '80px 28px 40px', position: 'relative' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40 }}>
+            <div style={{ fontFamily: v2Styles.mono, fontSize: 12, letterSpacing: '0.08em' }}>
+              [ WE BOUWEN DIGITALE PRODUCTEN — SINDS MMXIX ]
+            </div>
+            <div style={{ fontFamily: v2Styles.mono, fontSize: 12, letterSpacing: '0.08em', textAlign: 'right' }}>
+              N° 01 / HOOFDPAGINA
+            </div>
+          </div>
+
+          <h1 style={{
+            fontWeight: 700, fontSize: 'clamp(100px, 14vw, 240px)',
+            lineHeight: 0.86, letterSpacing: '-0.055em', margin: 0,
+          }}>
+            Werk dat<br />
+            <span style={{ color: v2Styles.accent, fontStyle: 'italic', fontWeight: 400 }}>niet</span> weg‑<br />
+            scrolt.
+          </h1>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 40, marginTop: 80, borderTop: `1px solid ${v2Styles.ink}`, paddingTop: 32 }}>
+            <div style={{ fontSize: 22, lineHeight: 1.35, fontWeight: 500, maxWidth: 420, gridColumn: '1 / 3' }}>
+              Fessa Studio ontwerpt en bouwt websites, platformen en digitale merken die de aandacht verdienen — en vasthouden.
+            </div>
+            <div style={{ fontFamily: v2Styles.mono, fontSize: 12, lineHeight: 1.7, letterSpacing: '0.04em', textAlign: 'right' }}>
+              [A] STRATEGIE<br />
+              [B] IDENTITEIT<br />
+              [C] WEBDESIGN<br />
+              [D] DEVELOPMENT<br />
+              [E] MANAGEMENT
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Marquee */}
+      <div style={{ borderTop: `1px solid ${v2Styles.ink}`, borderBottom: `1px solid ${v2Styles.ink}`, overflow: 'hidden', padding: '24px 0' }}>
+        <div className="v2-marquee" style={{
+          whiteSpace: 'nowrap', fontSize: 56, fontWeight: 700, letterSpacing: '-0.03em',
+          display: 'inline-block', animation: 'v2Scroll 38s linear infinite',
+        }}>
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i}>
+              Strategie <span style={{ color: v2Styles.accent }}>✱</span>&nbsp;
+              Identiteit <span style={{ color: v2Styles.accent }}>✱</span>&nbsp;
+              Webdesign <span style={{ color: v2Styles.accent }}>✱</span>&nbsp;
+              Development <span style={{ color: v2Styles.accent }}>✱</span>&nbsp;
+              E‑commerce <span style={{ color: v2Styles.accent }}>✱</span>&nbsp;
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Work grid */}
+      <section id="werk" style={{ padding: '80px 28px' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 48 }}>
+            <h2 style={{ fontSize: 28, fontWeight: 500, margin: 0, letterSpacing: '-0.01em' }}>
+              ↳ Geselecteerd werk
+            </h2>
+            <div style={{ fontFamily: v2Styles.mono, fontSize: 12 }}>12 projecten · 2023—2025</div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 2, background: v2Styles.ink, border: `1px solid ${v2Styles.ink}` }}>
+            <div style={{ background: v2Styles.bg, padding: 24 }}>
+              <Placeholder label="01 · Noorderhaven Atelier — 2025" h={560} img="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80" />
+              <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                <div>
+                  <div style={{ fontSize: 36, fontWeight: 600, letterSpacing: '-0.02em' }}>Noorderhaven</div>
+                  <div style={{ fontFamily: v2Styles.mono, fontSize: 13, color: v2Styles.dim }}>IDENTITEIT · WEBSITE · CMS</div>
+                </div>
+                <div style={{ fontSize: 20 }}>↗</div>
+              </div>
+            </div>
+            <div style={{ background: v2Styles.bg, padding: 24 }}>
+              <Placeholder label="02 · Stroom — 2025" h={560} img="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1000&q=80" />
+              <div style={{ marginTop: 24 }}>
+                <div style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-0.02em' }}>Stroom</div>
+                <div style={{ fontFamily: v2Styles.mono, fontSize: 13, color: v2Styles.dim }}>E‑COMMERCE · BRANDING</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 2, background: v2Styles.ink, border: `1px solid ${v2Styles.ink}`, borderTop: 'none' }}>
+            {[
+              { t: 'Museum De Wijk', k: 'PLATFORM · 2024', img: 'https://images.unsplash.com/photo-1545987796-200677ee1011?w=900&q=80' },
+              { t: 'Kade 17', k: 'WEBDESIGN · 2024', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80' },
+              { t: 'Veenstra', k: 'E-COMMERCE · 2023', img: 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=900&q=80' },
+            ].map((w) => (
+              <div key={w.t} style={{ background: v2Styles.bg, padding: 24 }}>
+                <Placeholder label={w.t} h={320} img={w.img} />
+                <div style={{ marginTop: 16 }}>
+                  <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em' }}>{w.t}</div>
+                  <div style={{ fontFamily: v2Styles.mono, fontSize: 12, color: v2Styles.dim }}>{w.k}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="diensten" style={{ padding: '80px 28px', borderTop: `1px solid ${v2Styles.ink}`, background: v2Styles.ink, color: v2Styles.bg }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ fontFamily: v2Styles.mono, fontSize: 12, marginBottom: 24, letterSpacing: '0.08em' }}>§ DIENSTEN</div>
+          <h2 style={{ fontSize: 'clamp(60px, 8vw, 120px)', fontWeight: 700, lineHeight: 0.95, letterSpacing: '-0.04em', margin: '0 0 80px', maxWidth: 1200 }}>
+            Van strategie tot laatste pixel — <span style={{ color: v2Styles.accent }}>alles in huis</span>.
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'rgba(238,234,225,0.2)' }}>
+            {services.map((s) => (
+              <div key={s.n} style={{ background: v2Styles.ink, padding: '40px 32px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 20 }}>
+                  <div style={{ fontFamily: v2Styles.mono, fontSize: 13, color: v2Styles.accent }}>[{s.n}]</div>
+                  <div style={{ fontSize: 14, opacity: 0.5 }}>+</div>
+                </div>
+                <h3 style={{ fontSize: 48, fontWeight: 600, margin: '0 0 16px', letterSpacing: '-0.02em' }}>{s.t}</h3>
+                <p style={{ fontSize: 17, lineHeight: 1.5, margin: 0, maxWidth: 440, color: '#c9c4ba' }}>{s.d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Client list */}
+      <section style={{ padding: '64px 28px', borderBottom: `1px solid ${v2Styles.ink}` }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '12px 32px', fontSize: 32, fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+          <span style={{ color: v2Styles.dim }}>Gewerkt voor —</span>
+          {clients.map((c, i) => (
+            <span key={c}>{c}{i < clients.length - 1 && <span style={{ color: v2Styles.accent, margin: '0 8px' }}>·</span>}</span>
+          ))}
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" style={{ padding: '120px 28px' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ fontFamily: v2Styles.mono, fontSize: 12, marginBottom: 32, letterSpacing: '0.08em' }}>§ CONTACT</div>
+          <h2 style={{ fontSize: 'clamp(80px, 11vw, 180px)', fontWeight: 700, lineHeight: 0.88, letterSpacing: '-0.045em', margin: 0 }}>
+            Laten we<br />praten.
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, marginTop: 64, borderTop: `1px solid ${v2Styles.ink}`, paddingTop: 40 }}>
+            <a href="mailto:hallo@fessastudio.nl" style={{ fontSize: 40, color: v2Styles.ink, textDecoration: 'none', fontWeight: 500, letterSpacing: '-0.02em' }}>
+              hallo@fessastudio.nl <span style={{ color: v2Styles.accent }}>→</span>
+            </a>
+            <div style={{ fontFamily: v2Styles.mono, fontSize: 13, lineHeight: 1.8, color: v2Styles.dim }}>
+              FESSA STUDIO BV<br />
+              OUDEGRACHT 142<br />
+              3511 AZ UTRECHT<br />
+              +31 (0)30 123 45 67
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        @keyframes v2Scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+window.V2 = V2;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(V2));
+</script>
+</body>
+</html>

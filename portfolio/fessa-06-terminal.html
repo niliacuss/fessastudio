@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Fessa Studio - 06-terminal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; height: 100%; }
+  #root, #root > div { width: 100vw; min-height: 100vh; }
+  img { pointer-events: none; user-select: none; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+// Variation 6 — Brutalist Terminal
+// Mono grid, CRT scanlines, glitch hero, 3D tilt cards on hover,
+// ASCII art accents, terminal status bar.
+
+const V6 = () => {
+  const v6Styles = {
+    bg: '#0a0a0a',
+    ink: '#e8e6e0',
+    dim: '#6b6862',
+    accent: '#00ff88',
+    warn: '#ff3366',
+    mono: '"JetBrains Mono", ui-monospace, monospace',
+    sans: '"Inter Tight", system-ui, sans-serif',
+    display: '"Instrument Serif", Georgia, serif',
+  };
+
+  const [cmd, setCmd] = React.useState(0);
+  const cmds = ['> fessa --init', '> loading /studio ...', '> ready. welcome.'];
+  React.useEffect(() => {
+    const id = setInterval(() => setCmd((c) => (c + 1) % cmds.length), 2000);
+    return () => clearInterval(id);
+  }, []);
+
+  const tiltRef = React.useRef({});
+  const onTilt = (key) => (e) => {
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(1200px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) translateZ(20px)`;
+  };
+  const onTiltOut = (e) => {
+    e.currentTarget.style.transform = '';
+  };
+
+  const projects = [
+    { id: '001', t: 'NOORDERHAVEN', k: 'ID/WEB/CMS', y: '2025', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=80' },
+    { id: '002', t: 'STROOM', k: 'COMMERCE', y: '2025', img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1000&q=80' },
+    { id: '003', t: 'DE_WIJK', k: 'PLATFORM', y: '2024', img: 'https://images.unsplash.com/photo-1545987796-200677ee1011?w=1000&q=80' },
+    { id: '004', t: 'KADE_17', k: 'WEBSITE', y: '2024', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&q=80' },
+  ];
+
+  return (
+    <div style={{
+      width: '100%', height: '100%', overflow: 'auto',
+      background: v6Styles.bg, color: v6Styles.ink,
+      fontFamily: v6Styles.mono, fontSize: 14, position: 'relative',
+    }}>
+      {/* Scanlines */}
+      <div style={{
+        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 5,
+        background: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px)',
+        mixBlendMode: 'multiply',
+      }} />
+      {/* Vignette */}
+      <div style={{
+        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 6,
+        background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)',
+      }} />
+
+      {/* Terminal status bar */}
+      <div style={{
+        position: 'sticky', top: 0, zIndex: 20,
+        background: v6Styles.bg, borderBottom: `1px solid ${v6Styles.dim}`,
+        padding: '10px 24px',
+        display: 'grid', gridTemplateColumns: 'auto 1fr auto auto auto', gap: 24,
+        fontSize: 12, letterSpacing: '0.05em', alignItems: 'center',
+      }}>
+        <span style={{ color: v6Styles.accent }}>● FESSA.SH</span>
+        <span style={{ color: v6Styles.dim }}>~/studio/main</span>
+        <span style={{ color: v6Styles.dim }}>[utr · nl]</span>
+        <span style={{ color: v6Styles.warn }}>STATUS: 02 OPEN SLOTS</span>
+        <span style={{ color: v6Styles.ink }}>26.04.2026</span>
+      </div>
+
+      {/* Top nav grid */}
+      <div style={{ borderBottom: `1px solid ${v6Styles.dim}`, display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)' }}>
+        {['HOME', 'WERK', 'DIENSTEN', 'STUDIO', 'JOURNAL', 'CONTACT'].map((n, i) => (
+          <a key={n} href={`#${n.toLowerCase()}`} className="v6-nav" style={{
+            padding: '16px 20px', borderLeft: i === 0 ? 'none' : `1px solid ${v6Styles.dim}`,
+            textDecoration: 'none', color: v6Styles.ink,
+            display: 'flex', justifyContent: 'space-between', fontSize: 12, letterSpacing: '0.08em',
+          }}>
+            <span>[{String(i).padStart(2, '0')}]</span>
+            <span>{n}</span>
+          </a>
+        ))}
+      </div>
+
+      {/* Hero */}
+      <section style={{ padding: '80px 40px 40px', position: 'relative' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ fontSize: 12, color: v6Styles.accent, marginBottom: 40, minHeight: 20 }}>
+            {cmds[cmd]}<span className="v6-blink">_</span>
+          </div>
+
+          <h1 className="v6-glitch" data-text="FESSA STUDIO" style={{
+            fontFamily: v6Styles.sans, fontWeight: 700,
+            fontSize: 'clamp(100px, 14vw, 240px)', lineHeight: 0.88,
+            letterSpacing: '-0.05em', margin: 0, position: 'relative',
+          }}>
+            FESSA<br />STUDIO
+          </h1>
+
+          <div style={{
+            marginTop: 48, display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 32,
+            alignItems: 'start', borderTop: `1px solid ${v6Styles.dim}`, paddingTop: 24,
+          }}>
+            <div style={{ fontSize: 12, color: v6Styles.dim }}>
+              [DESCR]<br />
+              [TYPE ]<br />
+              [YEAR ]<br />
+              [LOCN ]
+            </div>
+            <div style={{ fontSize: 16, lineHeight: 1.6, fontFamily: v6Styles.sans }}>
+              <div style={{ fontSize: 22, marginBottom: 24, maxWidth: 680 }}>
+                Een digitale studio die websites, webshops en platformen bouwt voor merken en makers met een scherp idee.
+              </div>
+              <div style={{ color: v6Styles.dim, fontSize: 13, fontFamily: v6Styles.mono, letterSpacing: '0.05em' }}>
+                &gt; digital studio · independent<br />
+                &gt; est. 2019<br />
+                &gt; utrecht, netherlands (+1 remote)
+              </div>
+            </div>
+            <pre style={{ fontSize: 10, color: v6Styles.accent, margin: 0, lineHeight: 1.2 }}>{`
+    ╔═══════╗
+    ║ ▓▓▓▓▓ ║
+    ║ ▓░░░▓ ║
+    ║ ▓░*░▓ ║
+    ║ ▓░░░▓ ║
+    ║ ▓▓▓▓▓ ║
+    ╚═══════╝
+     fessa.1
+            `}</pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Tagline panel */}
+      <section style={{
+        padding: '80px 40px', borderTop: `1px solid ${v6Styles.dim}`, borderBottom: `1px solid ${v6Styles.dim}`,
+        background: `linear-gradient(135deg, transparent 49%, ${v6Styles.dim}11 50%, transparent 51%)`,
+        backgroundSize: '12px 12px',
+      }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ fontSize: 12, color: v6Styles.dim, marginBottom: 24 }}>// MANIFEST.TXT</div>
+          <p style={{
+            fontFamily: v6Styles.sans, fontSize: 'clamp(40px, 5vw, 84px)', fontWeight: 500,
+            lineHeight: 1.05, letterSpacing: '-0.03em', margin: 0, maxWidth: 1200,
+          }}>
+            We bouwen <span style={{ color: v6Styles.accent }}>géén</span> templates.
+            We bouwen <span style={{ fontFamily: v6Styles.display, fontStyle: 'italic', fontWeight: 400, color: v6Styles.accent }}>eigenzinnige</span> websites — regel voor regel, pixel voor pixel.
+          </p>
+        </div>
+      </section>
+
+      {/* Projects — 3D tilt cards */}
+      <section id="werk" style={{ padding: '80px 40px' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 48 }}>
+            <h2 style={{ fontFamily: v6Styles.sans, fontSize: 48, fontWeight: 700, letterSpacing: '-0.03em', margin: 0 }}>
+              <span style={{ color: v6Styles.accent }}>$</span> ls ./werk
+            </h2>
+            <div style={{ fontSize: 12, color: v6Styles.dim }}>
+              4 items · sorted by year desc
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, perspective: '1200px' }}>
+            {projects.map((p) => (
+              <div
+                key={p.id}
+                onMouseMove={onTilt(p.id)}
+                onMouseLeave={onTiltOut}
+                className="v6-card"
+                style={{
+                  position: 'relative', border: `1px solid ${v6Styles.dim}`,
+                  padding: 16, transition: 'transform 0.4s cubic-bezier(.2,.7,.3,1), border-color 0.3s',
+                  transformStyle: 'preserve-3d',
+                }}
+              >
+                <div style={{ position: 'relative', height: 360, overflow: 'hidden', marginBottom: 16 }}>
+                  <img src={p.img} alt="" style={{
+                    width: '100%', height: '100%', objectFit: 'cover',
+                    filter: 'saturate(0.3) contrast(1.2) brightness(0.9)',
+                    display: 'block',
+                  }} />
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: `linear-gradient(135deg, ${v6Styles.accent}20, transparent 50%)`,
+                    mixBlendMode: 'screen',
+                  }} />
+                  <div style={{
+                    position: 'absolute', top: 12, left: 12, fontSize: 10,
+                    color: v6Styles.accent, background: 'rgba(0,0,0,0.7)',
+                    padding: '3px 8px', letterSpacing: '0.1em',
+                  }}>ID_{p.id}</div>
+                  <div style={{
+                    position: 'absolute', top: 12, right: 12, fontSize: 10,
+                    color: v6Styles.ink, background: 'rgba(0,0,0,0.7)',
+                    padding: '3px 8px',
+                  }}>{p.y}</div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <div>
+                    <div style={{ fontFamily: v6Styles.sans, fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em' }}>{p.t}</div>
+                    <div style={{ fontSize: 11, color: v6Styles.dim, marginTop: 4, letterSpacing: '0.1em' }}>&gt; {p.k}</div>
+                  </div>
+                  <div style={{ fontSize: 20, color: v6Styles.accent }}>↗</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ASCII divider */}
+      <section style={{ padding: '40px', textAlign: 'center', color: v6Styles.dim, fontSize: 10, letterSpacing: '0.2em', borderTop: `1px dashed ${v6Styles.dim}`, borderBottom: `1px dashed ${v6Styles.dim}` }}>
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      </section>
+
+      {/* Services as table */}
+      <section id="diensten" style={{ padding: '100px 40px' }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <h2 style={{ fontFamily: v6Styles.sans, fontSize: 'clamp(56px, 7vw, 108px)', fontWeight: 700, lineHeight: 0.95, letterSpacing: '-0.04em', margin: '0 0 64px', maxWidth: 1100 }}>
+            <span style={{ color: v6Styles.accent }}>#</span> wat we maken —<br />
+            <span style={{ fontFamily: v6Styles.display, fontStyle: 'italic', fontWeight: 400, color: v6Styles.accent }}>alles in huis.</span>
+          </h2>
+
+          <div style={{ border: `1px solid ${v6Styles.dim}` }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr 2fr 120px', padding: '14px 24px', borderBottom: `1px solid ${v6Styles.dim}`, fontSize: 11, color: v6Styles.dim, letterSpacing: '0.1em' }}>
+              <span>ID</span>
+              <span>DIENST</span>
+              <span>OMSCHRIJVING</span>
+              <span style={{ textAlign: 'right' }}>STACK</span>
+            </div>
+            {[
+              { id: 'S.01', t: 'Strategie', d: 'Positionering, IA, tone of voice', s: 'brain.exe' },
+              { id: 'S.02', t: 'Identiteit', d: 'Visuele taal voor digitale kanalen', s: 'figma' },
+              { id: 'S.03', t: 'Webdesign', d: 'Maatwerk UI, art direction', s: 'figma + code' },
+              { id: 'S.04', t: 'Development', d: 'Snelle, toegankelijke websites & apps', s: 'next · astro' },
+              { id: 'S.05', t: 'CMS', d: 'Redactievriendelijke content systemen', s: 'sanity · payload' },
+              { id: 'S.06', t: 'E-commerce', d: 'Schaalbare webshops met karakter', s: 'shopify · custom' },
+            ].map((s) => (
+              <div key={s.id} className="v6-row" style={{
+                display: 'grid', gridTemplateColumns: '80px 1fr 2fr 120px', padding: '20px 24px',
+                borderBottom: `1px solid ${v6Styles.dim}`, alignItems: 'center',
+                fontSize: 14,
+              }}>
+                <span style={{ color: v6Styles.accent }}>{s.id}</span>
+                <span style={{ fontFamily: v6Styles.sans, fontSize: 22, fontWeight: 600, letterSpacing: '-0.01em' }}>{s.t}</span>
+                <span style={{ color: v6Styles.dim, fontFamily: v6Styles.sans, fontSize: 15 }}>{s.d}</span>
+                <span style={{ textAlign: 'right', color: v6Styles.ink, fontSize: 12 }}>{s.s}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" style={{ padding: '120px 40px 60px', borderTop: `1px solid ${v6Styles.dim}` }}>
+        <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+          <div style={{ fontSize: 12, color: v6Styles.accent, marginBottom: 32 }}>$ fessa --contact</div>
+          <h2 style={{
+            fontFamily: v6Styles.sans, fontSize: 'clamp(80px, 11vw, 200px)',
+            fontWeight: 700, letterSpacing: '-0.05em', lineHeight: 0.88, margin: 0,
+          }}>
+            LETS<br />
+            <span style={{ fontFamily: v6Styles.display, fontStyle: 'italic', fontWeight: 400, color: v6Styles.accent }}>build_</span>
+          </h2>
+          <div style={{ marginTop: 64, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, borderTop: `1px solid ${v6Styles.dim}`, paddingTop: 32 }}>
+            <a href="mailto:hallo@fessastudio.nl" className="v6-mail" style={{
+              fontFamily: v6Styles.sans, fontSize: 36, fontWeight: 500,
+              color: v6Styles.ink, textDecoration: 'none', letterSpacing: '-0.02em',
+            }}>
+              hallo@fessastudio.nl <span style={{ color: v6Styles.accent }}>→</span>
+            </a>
+            <div style={{ fontSize: 13, lineHeight: 1.9, color: v6Styles.dim, letterSpacing: '0.04em' }}>
+              FESSA.STUDIO — BV<br />
+              OUDEGRACHT 142<br />
+              3511AZ · UTRECHT · NL<br />
+              +31 30 123 45 67<br />
+              @FESSA.STUDIO
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer status */}
+      <div style={{
+        borderTop: `1px solid ${v6Styles.dim}`, padding: '10px 24px',
+        display: 'grid', gridTemplateColumns: 'auto 1fr auto auto', gap: 24,
+        fontSize: 11, color: v6Styles.dim, letterSpacing: '0.05em',
+      }}>
+        <span style={{ color: v6Styles.accent }}>● CONN_OK</span>
+        <span>© FESSA.STUDIO 2026 — ALL RIGHTS, NO WRONGS</span>
+        <span>V.2.6.1</span>
+        <span>MADE IN UTRECHT</span>
+      </div>
+
+      <style>{`
+        .v6-blink { animation: v6blink 1s steps(2) infinite; color: ${v6Styles.accent}; }
+        @keyframes v6blink { 50% { opacity: 0; } }
+        .v6-glitch { color: ${v6Styles.ink}; }
+        .v6-glitch::before, .v6-glitch::after {
+          content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+          pointer-events: none; white-space: pre-line;
+        }
+        .v6-glitch::before { color: ${v6Styles.accent}; animation: v6gl1 3s infinite steps(1); mix-blend-mode: screen; }
+        .v6-glitch::after { color: ${v6Styles.warn}; animation: v6gl2 3.4s infinite steps(1); mix-blend-mode: screen; }
+        @keyframes v6gl1 { 0%,97%,100% { clip-path: inset(0 0 100% 0); transform: translate(0); } 98% { clip-path: inset(10% 0 80% 0); transform: translate(-3px,0); } 99% { clip-path: inset(55% 0 30% 0); transform: translate(3px,0); } }
+        @keyframes v6gl2 { 0%,95%,100% { clip-path: inset(0 0 100% 0); transform: translate(0); } 96% { clip-path: inset(30% 0 50% 0); transform: translate(2px,0); } 97% { clip-path: inset(70% 0 10% 0); transform: translate(-2px,0); } }
+        .v6-nav { transition: background 0.2s; }
+        .v6-nav:hover { background: ${v6Styles.accent}; color: ${v6Styles.bg}; }
+        .v6-card:hover { border-color: ${v6Styles.accent}; }
+        .v6-row { transition: background 0.2s; }
+        .v6-row:hover { background: rgba(0,255,136,0.06); }
+        .v6-mail:hover { color: ${v6Styles.accent}; }
+      `}</style>
+    </div>
+  );
+};
+
+window.V6 = V6;
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(V6));
+</script>
+</body>
+</html>
