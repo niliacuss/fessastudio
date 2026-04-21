@@ -699,3 +699,597 @@ footer {
                                                                                                }
                                                                                                }
                                                                                                
+
+/* =========================================================
+   PRIJZEN PAGE STYLES
+   ========================================================= */
+
+/* Hero padding override for prijzen (use page-header already) */
+
+/* Container variants */
+.container.narrow {
+  max-width: 900px;
+}
+
+/* Pakketten section */
+.pakketten-section {
+  padding: 40px 0 120px;
+  background: var(--cream);
+}
+
+.pakketten-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .pakketten-grid {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+    margin: 0 auto;
+    gap: 20px;
+  }
+}
+
+/* Individueel pakket */
+.pakket {
+  background: var(--bone);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s var(--ease);
+}
+
+.pakket:hover {
+  transform: translateY(-4px);
+}
+
+.pakket.featured {
+  background: var(--ink);
+  color: var(--cream);
+  box-shadow: 0 20px 50px rgba(26, 23, 20, 0.15);
+}
+
+@media (min-width: 960px) {
+  .pakket.featured {
+    transform: scale(1.03);
+  }
+  .pakket.featured:hover {
+    transform: scale(1.03) translateY(-4px);
+  }
+}
+
+/* Badge */
+.pakket-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--ink);
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+/* Pakket header */
+.pakket-header {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.12);
+  margin-bottom: 24px;
+}
+
+.pakket.featured .pakket-header {
+  border-bottom-color: rgba(244, 239, 230, 0.18);
+}
+
+.pakket-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 12px;
+}
+
+.pakket.featured .pakket-label {
+  color: var(--accent);
+}
+
+.pakket-titel {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+
+.pakket.featured .pakket-titel {
+  color: var(--cream);
+}
+
+.pakket-sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--mocha);
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+.pakket.featured .pakket-sub {
+  color: rgba(244, 239, 230, 0.8);
+}
+
+/* Prijs */
+.pakket-prijs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.prijs-van {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--mocha);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pakket.featured .prijs-van {
+  color: rgba(244, 239, 230, 0.7);
+}
+
+.prijs-bedrag {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.pakket.featured .prijs-bedrag {
+  color: var(--cream);
+}
+
+.prijs-tot {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--mocha);
+  margin-top: 4px;
+}
+
+.pakket.featured .prijs-tot {
+  color: rgba(244, 239, 230, 0.7);
+}
+
+/* Pakket body */
+.pakket-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.pakket-voor {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--mocha);
+  margin-bottom: 20px;
+}
+
+.pakket.featured .pakket-voor {
+  color: rgba(244, 239, 230, 0.85);
+}
+
+.pakket-voor strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.pakket.featured .pakket-voor strong {
+  color: var(--cream);
+}
+
+/* Features list */
+.pakket-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  flex: 1;
+}
+
+.pakket-features li {
+  position: relative;
+  padding: 10px 0 10px 24px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ink);
+  border-bottom: 1px solid rgba(26, 23, 20, 0.08);
+}
+
+.pakket-features li:last-child {
+  border-bottom: none;
+}
+
+.pakket-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 14px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.pakket.featured .pakket-features li {
+  color: var(--cream);
+  border-bottom-color: rgba(244, 239, 230, 0.12);
+}
+
+.pakket-body .btn {
+  margin-top: auto;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Altijd bij section */
+.altijd-bij {
+  padding: 120px 0;
+  background: var(--bone);
+}
+
+.altijd-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .altijd-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .altijd-bij { padding: 80px 0; }
+}
+
+.altijd-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+@media (max-width: 600px) {
+  .altijd-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+.altijd-item h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.altijd-item p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--mocha);
+  margin: 0;
+}
+
+/* Extra kosten */
+.extra-kosten {
+  padding: 120px 0;
+  background: var(--cream);
+}
+
+@media (max-width: 960px) {
+  .extra-kosten { padding: 80px 0; }
+}
+
+.kosten-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .kosten-grid { grid-template-columns: 1fr; }
+}
+
+.kosten-item {
+  background: var(--bone);
+  padding: 28px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(26, 23, 20, 0.08);
+}
+
+.kosten-item h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.kosten-prijs {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--accent);
+  margin: 0 0 12px;
+}
+
+.kosten-item p:last-child {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--mocha);
+  margin: 0;
+}
+
+/* FAQ */
+.faq-section {
+  padding: 120px 0;
+  background: var(--bone);
+}
+
+@media (max-width: 960px) {
+  .faq-section { padding: 80px 0; }
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(26, 23, 20, 0.12);
+  padding: 24px 0;
+}
+
+.faq-item summary {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 40px;
+  transition: color 0.2s var(--ease);
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: var(--accent);
+  transition: transform 0.2s var(--ease);
+  font-weight: 300;
+  line-height: 1;
+}
+
+.faq-item[open] summary::after {
+  content: '−';
+}
+
+.faq-item summary:hover { color: var(--accent); }
+
+.faq-item p {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--mocha);
+}
+
+/* CTA section */
+.cta-section {
+  padding: 120px 0;
+  background: var(--cream);
+}
+
+@media (max-width: 960px) {
+  .cta-section { padding: 80px 0; }
+}
+
+.cta-box {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 80px 48px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.cta-box h2 {
+  color: var(--cream);
+  margin: 12px 0 20px;
+  font-size: clamp(32px, 5vw, 56px);
+}
+
+.cta-box .lead {
+  color: rgba(244, 239, 230, 0.85);
+  max-width: 560px;
+  margin: 0 auto 32px;
+}
+
+.cta-box .eyebrow {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.cta-box .btn-primary {
+  background: var(--accent);
+  color: var(--ink);
+  padding: 18px 36px;
+  font-size: 15px;
+}
+
+.cta-box .btn-primary:hover {
+  background: var(--cream);
+}
+
+@media (max-width: 600px) {
+  .cta-box { padding: 48px 24px; }
+}
+
+/* =========================================================
+   HOMEPAGE PRIJZEN-PREVIEW (compacte weergave onder 'Wat we doen')
+   ========================================================= */
+.prijzen-preview {
+  background: var(--bone);
+  padding: 120px 0;
+}
+
+@media (max-width: 960px) {
+  .prijzen-preview { padding: 80px 0; }
+}
+
+.prijzen-preview-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+
+@media (max-width: 960px) {
+  .prijzen-preview-header {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.prijzen-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 960px) {
+  .prijzen-mini-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.prijzen-mini {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid rgba(26, 23, 20, 0.06);
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.prijzen-mini:hover {
+  transform: translateY(-4px);
+}
+
+.prijzen-mini.highlight {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.prijzen-mini .mini-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 8px;
+}
+
+.prijzen-mini.highlight .mini-label {
+  color: var(--accent);
+}
+
+.prijzen-mini .mini-titel {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.prijzen-mini.highlight .mini-titel {
+  color: var(--cream);
+}
+
+.prijzen-mini .mini-sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--mocha);
+  margin-bottom: 12px;
+}
+
+.prijzen-mini.highlight .mini-sub {
+  color: rgba(244, 239, 230, 0.8);
+}
+
+.prijzen-mini .mini-prijs {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: auto;
+}
+
+.prijzen-mini.highlight .mini-prijs {
+  color: var(--cream);
+}
+
+.prijzen-mini .mini-prijs small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mocha);
+  margin-bottom: 2px;
+}
+
+.prijzen-mini.highlight .mini-prijs small {
+  color: rgba(244, 239, 230, 0.6);
+}
+
+.prijzen-preview-cta {
+  display: flex;
+  justify-content: center;
+}
+
+/* Active nav state already handled by .nav-links a.active::after */
