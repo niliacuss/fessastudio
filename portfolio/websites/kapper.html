@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Atelier Noord — Kapsalon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f4efe8; color: #1a1714; font-family: "Inter Tight", system-ui, sans-serif; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; cursor: pointer; }
+
+  /* Responsive overrides for inline React grids */
+  @media (max-width: 900px) {
+    header > div, nav > div { flex-wrap: wrap !important; gap: 14px !important; padding: 14px 20px !important; }
+    header nav, [style*="display: 'flex'"][style*="gap: 28"] { flex-wrap: wrap !important; }
+    section { padding-left: 20px !important; padding-right: 20px !important; }
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns: 1.2fr 1fr"],
+    [style*="grid-template-columns: 1.15fr 1fr"],
+    [style*="grid-template-columns: 1.3fr 1fr"],
+    [style*="grid-template-columns: 2fr 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+    [style*="font-size: clamp(56px"],
+    [style*="font-size: clamp(64px"],
+    [style*="font-size: clamp(72px"] { font-size: clamp(42px, 9vw, 64px) !important; }
+    [style*="padding: 56px"],
+    [style*="padding: 64px"],
+    [style*="padding: 80px"] { padding: 32px !important; }
+    [style*="padding: '40px 32px"],
+    [style*="padding: '60px 32px"],
+    [style*="padding: '80px 32px"],
+    [style*="padding: '100px 32px"] { padding: 40px 20px !important; }
+    [style*="min-height: 540"],[style*="min-height: 600"],[style*="min-height: 640"] { min-height: auto !important; }
+  }
+  @media (max-width: 560px) {
+    [style*="grid-template-columns: repeat(4, 1fr)"],
+    [style*="grid-template-columns: repeat(3, 1fr)"],
+    [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
+    [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="font-size: 44"],[style*="font-size: 48"],[style*="font-size: 56"] { font-size: 32px !important; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const C = { bg: '#f4efe8', ink: '#1a1714', dim: '#766e64', accent: '#b8906a', dark: '#2a221c' };
+const serif = '"EB Garamond", Georgia, serif';
+
+const App = () => {
+  const team = [
+    { n: 'Anouk', r: 'Creative director', img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80' },
+    { n: 'Jonas', r: 'Senior stylist',     img: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80' },
+    { n: 'Marit', r: 'Colorist',           img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80' },
+    { n: 'Sem',   r: 'Stylist',            img: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80' },
+  ];
+  const services = [
+    { t: 'Knippen', p: '€ 48', d: 'Heren 30min · Dames 45min. Inclusief wassen en styling.' },
+    { t: 'Kleuren & highlights', p: 'vanaf € 95', d: 'Balayage, foils, gloss. Persoonlijk consult vooraf.' },
+    { t: 'Treatments', p: 'vanaf € 35', d: 'Olaplex, keratine, scalp therapy — voor zacht, gezond haar.' },
+    { t: 'Bruid & gala', p: 'op aanvraag', d: 'Upstyles, inclusief proefsessie en haarverzorgingsplan.' },
+  ];
+  const portfolio = [
+    'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80',
+    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80',
+    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80',
+    'https://images.unsplash.com/photo-1521490214150-1b3bdf93f690?w=800&q=80',
+    'https://images.unsplash.com/photo-1521490214150-1b3bdf93f690?w=800&q=80',
+    'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80',
+  ];
+
+  return (
+    <div>
+      {/* Nav */}
+      <header style={{ position: 'sticky', top: 0, background: C.bg, zIndex: 10, borderBottom: `1px solid ${C.ink}15` }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '20px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ fontFamily: serif, fontSize: 24, letterSpacing: '0.02em', fontWeight: 500 }}>Atelier Noord</div>
+          <nav style={{ display: 'flex', gap: 32, fontSize: 15 }}>
+            <a>Behandelingen</a><a>Portfolio</a><a>Team</a><a>Salon</a><a>Contact</a>
+          </nav>
+          <a style={{ background: C.ink, color: C.bg, padding: '12px 22px', borderRadius: 999, fontSize: 14 }}>Afspraak maken →</a>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section style={{ padding: '32px' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 32, alignItems: 'stretch' }}>
+          <div style={{ position: 'relative', padding: '80px 60px', minHeight: 620 }}>
+            <div style={{ fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.dim, marginBottom: 40 }}>Kapsalon · Utrecht Noord · sinds 2014</div>
+            <h1 style={{ fontFamily: serif, fontSize: 'clamp(72px, 9vw, 144px)', fontWeight: 400, lineHeight: 0.95, letterSpacing: '-0.025em', margin: 0 }}>
+              Een knipbeurt<br />
+              die <span style={{ fontStyle: 'italic' }}>past</span> bij<br />
+              hoe je leeft.
+            </h1>
+            <p style={{ fontSize: 19, lineHeight: 1.55, marginTop: 40, maxWidth: 460, color: C.dim }}>
+              Atelier Noord is een klein salon voor mensen die hun haar serieus nemen. We nemen de tijd, vragen door, en komen met een kapsel dat nog weken later fijn blijft.
+            </p>
+            <div style={{ marginTop: 48, display: 'flex', gap: 12, alignItems: 'center' }}>
+              <a style={{ background: C.ink, color: C.bg, padding: '16px 28px', borderRadius: 999, fontSize: 16, fontWeight: 500 }}>Online reserveren</a>
+              <a style={{ padding: '16px 20px', fontSize: 16, borderBottom: `1px solid ${C.ink}` }}>Bel 030 — 22 34 567</a>
+            </div>
+            <div style={{ position: 'absolute', bottom: 0, left: 60, right: 0, display: 'flex', gap: 40, fontSize: 13, color: C.dim }}>
+              <div><strong style={{ color: C.ink, fontFamily: serif, fontSize: 22, fontWeight: 500 }}>4.9</strong> ★★★★★<br /><span>op 612 reviews</span></div>
+              <div><strong style={{ color: C.ink, fontFamily: serif, fontSize: 22, fontWeight: 500 }}>11 jaar</strong><br /><span>aan de Oudegracht</span></div>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateRows: '1.4fr 1fr', gap: 16 }}>
+            <div style={{ borderRadius: 24, overflow: 'hidden', position: 'relative' }}>
+              <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute', left: 20, bottom: 20, background: 'rgba(244,239,232,0.9)', backdropFilter: 'blur(8px)', padding: '10px 14px', borderRadius: 12, fontSize: 13, fontFamily: serif, fontStyle: 'italic' }}>Signature cut · Anouk</div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div style={{ borderRadius: 20, overflow: 'hidden' }}>
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div style={{ borderRadius: 20, overflow: 'hidden' }}>
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section style={{ padding: '80px 32px' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 48, borderBottom: `1px solid ${C.ink}20`, paddingBottom: 20 }}>
+            <h2 style={{ fontFamily: serif, fontSize: 64, fontWeight: 400, letterSpacing: '-0.02em', margin: 0 }}>Behandelingen.</h2>
+            <span style={{ fontSize: 14, color: C.dim }}>Bekijk alle tarieven →</span>
+          </div>
+          <div>
+            {services.map((s, i) => (
+              <a key={s.t} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr 1fr auto', gap: 24, padding: '28px 0', borderBottom: `1px solid ${C.ink}15`, alignItems: 'center', transition: 'padding 0.3s' }} className="row">
+                <div style={{ fontFamily: serif, fontSize: 32, fontWeight: 500, letterSpacing: '-0.01em' }}>{s.t}</div>
+                <div style={{ fontSize: 15, color: C.dim }}>{s.d}</div>
+                <div style={{ fontSize: 16, fontFamily: serif, color: C.accent, fontStyle: 'italic' }}>{s.p}</div>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: C.ink, color: C.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio */}
+      <section style={{ padding: '60px 32px' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 28 }}>
+            <div>
+              <div style={{ fontSize: 13, color: C.accent, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>Portfolio</div>
+              <h2 style={{ fontFamily: serif, fontSize: 56, fontWeight: 400, letterSpacing: '-0.02em', margin: 0 }}>Recent <span style={{ fontStyle: 'italic' }}>werk.</span></h2>
+            </div>
+            <a style={{ fontSize: 15 }}>Op Instagram →</a>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12, aspectRatio: '3/1' }}>
+            {portfolio.map((u, i) => (
+              <div key={i} style={{
+                borderRadius: 16, overflow: 'hidden',
+                gridRow: i === 1 || i === 4 ? 'span 1' : 'span 1',
+                transform: i % 2 ? 'translateY(24px)' : '',
+              }}>
+                <img src={u} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section style={{ padding: '100px 32px', background: C.dark, color: C.bg }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+          <div style={{ maxWidth: 620, marginBottom: 56 }}>
+            <div style={{ fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.accent, marginBottom: 16 }}>Het team</div>
+            <h2 style={{ fontFamily: serif, fontSize: 72, fontWeight: 400, letterSpacing: '-0.02em', lineHeight: 1, margin: 0 }}>
+              Vier stylisten. <br />Eén <span style={{ fontStyle: 'italic', color: C.accent }}>obsessie</span>.
+            </h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+            {team.map(m => (
+              <div key={m.n}>
+                <div style={{ borderRadius: 20, overflow: 'hidden', aspectRatio: '4/5', marginBottom: 16 }}>
+                  <img src={m.img} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(0.15)' }} />
+                </div>
+                <div style={{ fontFamily: serif, fontSize: 26, fontWeight: 500 }}>{m.n}</div>
+                <div style={{ fontSize: 14, opacity: 0.7 }}>{m.r}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Visit */}
+      <section style={{ padding: '100px 32px' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}>
+          <div>
+            <div style={{ fontSize: 13, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.dim, marginBottom: 16 }}>Bezoek ons</div>
+            <h2 style={{ fontFamily: serif, fontSize: 72, fontWeight: 400, letterSpacing: '-0.02em', lineHeight: 1, margin: 0 }}>
+              Oudegracht 217, <br />Utrecht.
+            </h2>
+            <div style={{ marginTop: 36, fontSize: 17, lineHeight: 1.7 }}>
+              Dinsdag t/m vrijdag · 09:00 — 19:00<br />
+              Zaterdag · 08:30 — 17:00<br />
+              Zondag &amp; maandag · gesloten
+            </div>
+            <div style={{ marginTop: 36, display: 'flex', gap: 12 }}>
+              <a style={{ background: C.ink, color: C.bg, padding: '16px 28px', borderRadius: 999, fontSize: 16 }}>Afspraak maken →</a>
+              <a style={{ padding: '16px 24px', border: `1px solid ${C.ink}30`, borderRadius: 999, fontSize: 16 }}>Route plannen</a>
+            </div>
+          </div>
+          <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4/3' }}>
+            <img src="https://images.unsplash.com/photo-1521490214150-1b3bdf93f690?w=1200&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+      </section>
+
+      <footer style={{ padding: '32px', borderTop: `1px solid ${C.ink}15`, fontSize: 13, color: C.dim, display: 'flex', justifyContent: 'space-between', maxWidth: 1280, margin: '0 auto' }}>
+        <span>© Atelier Noord · 2026</span>
+        <span>Instagram · LinkedIn · Treatwell</span>
+      </footer>
+    </div>
+  );
+};
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

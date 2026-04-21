@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slagerij Bakker — Ambachtelijk vlees uit de streek</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf6f0;--card:#fff;--ink:#1a0f0a;--dim:#6b5a4d;--blood:#8a2020;--blood-d:#5a1010;--butter:#f2d27a;--cream:#efe4cf}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;cursor:pointer}img{display:block;max-width:100%}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+.serif{font-family:"Playfair Display",serif}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-size:15px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:transform .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-p{background:var(--blood);color:#fff;box-shadow:0 10px 24px #8a202033}
+.btn-g{background:transparent;border:1px solid #1a0f0a33;color:var(--ink)}
+.kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);font-weight:700}
+
+/* Top bar */
+.top{background:var(--ink);color:var(--butter);padding:10px 0;font-size:12px;letter-spacing:.08em}
+.top-i{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.top span::before{content:"●";margin-right:8px;color:var(--blood)}
+
+/* Nav */
+.nav{background:var(--bg);border-bottom:1px solid #0001;position:sticky;top:0;z-index:50}
+.nav-i{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:12px}
+.logo{font-family:"Playfair Display",serif;font-weight:700;font-size:26px;letter-spacing:-.01em;display:flex;align-items:center;gap:12px}
+.logo .crest{width:34px;height:34px;background:var(--blood);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:14px;font-family:Inter;font-weight:700}
+.logo small{display:block;font-size:10px;letter-spacing:.22em;font-family:Inter;font-weight:500;color:var(--blood);margin-top:-2px}
+.nav-links{display:flex;gap:26px;font-size:14px;font-weight:500}
+
+/* Hero */
+.hero{padding:clamp(40px,5vw,80px) 0 clamp(60px,6vw,100px);position:relative;overflow:hidden}
+.hero-g{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.hero h1{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(52px,8.5vw,140px);letter-spacing:-.03em;line-height:.92;margin:0;text-wrap:balance}
+.hero h1 em{font-style:italic;color:var(--blood)}
+.hero h1 .stamp{display:inline-block;font-family:Inter;font-weight:700;font-size:.25em;letter-spacing:.2em;color:var(--blood);border:2px solid var(--blood);padding:6px 14px;border-radius:4px;text-transform:uppercase;vertical-align:middle;transform:rotate(-4deg);margin-left:.2em}
+.hero .sub{font-size:18px;line-height:1.55;color:var(--dim);max-width:520px;margin-top:28px}
+.hero-cta{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}
+.meta-row{display:flex;gap:26px;margin-top:42px;padding-top:28px;border-top:1px solid #0001;flex-wrap:wrap}
+.meta-row > div{font-size:13px;color:var(--dim)}
+.meta-row strong{display:block;font-family:"Playfair Display",serif;font-weight:500;font-size:26px;color:var(--ink)}
+
+.hero-vis{position:relative}
+.hv-main{aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:var(--blood-d)}
+.hv-main img{width:100%;height:100%;object-fit:cover}
+.hv-stamp{position:absolute;top:24px;right:24px;width:120px;height:120px;border-radius:50%;background:var(--butter);color:var(--blood-d);display:grid;place-items:center;text-align:center;font-family:"Playfair Display",serif;line-height:1.05;font-size:13px;font-weight:600;letter-spacing:.05em;transform:rotate(-8deg);box-shadow:0 12px 30px #0002}
+.hv-stamp span{font-size:28px;display:block;font-weight:700}
+.hv-card{position:absolute;left:-20px;bottom:30px;background:#fff;border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 40px #0002;max-width:280px}
+.hv-card .em{font-size:26px}
+.hv-card strong{font-size:14px;display:block}
+.hv-card span{font-size:12px;color:var(--dim)}
+
+/* Marquee */
+.marq{background:var(--ink);color:var(--butter);padding:14px 0;font-family:"Playfair Display",serif;font-style:italic;font-size:22px;overflow:hidden;white-space:nowrap}
+.marq-track{display:inline-flex;gap:50px;animation:scroll 30s linear infinite;padding-right:50px}
+.marq-track span::before{content:"✦";color:var(--blood);margin-right:50px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Showcase */
+.show{padding:clamp(60px,7vw,120px) 0}
+.show-h{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:end;margin-bottom:48px}
+.show-h h2{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(42px,6.5vw,96px);letter-spacing:-.025em;line-height:.98;margin:8px 0 0;text-wrap:balance}
+.show-h h2 em{font-style:italic;color:var(--blood)}
+.show-h p{color:var(--dim);font-size:16px;line-height:1.6;margin:0}
+.show-g{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:280px;gap:16px}
+.cut{border-radius:20px;overflow:hidden;position:relative;background:var(--cream);transition:transform .4s}
+.cut:hover{transform:translateY(-4px)}
+.cut img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.cut:hover img{transform:scale(1.06)}
+.cut::after{content:"";position:absolute;inset:auto 0 0 0;height:60%;background:linear-gradient(transparent,#000a);pointer-events:none}
+.cut-meta{position:absolute;left:20px;right:20px;bottom:18px;color:#fff;display:flex;justify-content:space-between;align-items:end;gap:12px}
+.cut-meta h4{margin:0;font-family:"Playfair Display",serif;font-weight:500;font-size:22px}
+.cut-meta span{font-size:12px;opacity:.85;display:block;margin-top:2px}
+.cut-meta .pr{background:var(--butter);color:var(--blood-d);padding:6px 12px;border-radius:999px;font-weight:700;font-size:13px}
+.cut.big{grid-column:span 2;grid-row:span 2}
+
+/* Origin */
+.orig{padding:clamp(60px,6vw,100px) 0;background:var(--cream);position:relative;overflow:hidden}
+.orig::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='1.3' fill='%238a2020' opacity='.15'/%3E%3C/svg%3E")}
+.orig .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.orig .ph{aspect-ratio:4/5;border-radius:24px;overflow:hidden}
+.orig .ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.95)}
+.orig h2{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(40px,5.5vw,80px);letter-spacing:-.02em;line-height:1;margin:10px 0 24px}
+.orig h2 em{font-style:italic;color:var(--blood)}
+.orig p{font-size:17px;line-height:1.7;color:var(--dim);margin:0 0 20px}
+.farms{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px;padding-top:32px;border-top:1px solid #0002}
+.farms h4{margin:0;font-family:"Playfair Display",serif;font-weight:500;font-size:18px}
+.farms span{font-size:13px;color:var(--dim);display:block;margin-top:3px}
+
+/* Week */
+.week{padding:clamp(60px,7vw,110px) 0}
+.week-g{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.wk{background:#fff;border-radius:20px;overflow:hidden;transition:transform .3s}
+.wk:hover{transform:translateY(-4px)}
+.wk .im{aspect-ratio:4/3;overflow:hidden}
+.wk .im img{width:100%;height:100%;object-fit:cover}
+.wk .bd{padding:22px 24px}
+.wk .bd .day{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blood);font-weight:700}
+.wk h3{margin:4px 0 8px;font-family:"Playfair Display",serif;font-weight:500;font-size:26px;letter-spacing:-.01em}
+.wk p{margin:0;color:var(--dim);font-size:14px;line-height:1.55}
+.wk .pr{margin-top:14px;font-family:"Playfair Display",serif;font-weight:600;font-size:22px}
+.wk .pr small{font-size:13px;color:var(--dim);font-weight:400;margin-left:6px}
+
+/* CTA */
+.cta{padding:clamp(60px,7vw,110px) 0}
+.cta-card{background:var(--blood);color:#fff;border-radius:32px;padding:clamp(40px,6vw,80px);position:relative;overflow:hidden;text-align:center}
+.cta-card::before,.cta-card::after{content:"";position:absolute;border-radius:50%;background:var(--butter);opacity:.15;filter:blur(60px)}
+.cta-card::before{width:400px;height:400px;top:-200px;left:-100px}
+.cta-card::after{width:400px;height:400px;bottom:-200px;right:-100px}
+.cta-card h2{font-family:"Playfair Display",serif;font-weight:400;font-size:clamp(40px,6.5vw,96px);margin:0 0 20px;letter-spacing:-.025em;line-height:1;position:relative}
+.cta-card h2 em{font-style:italic;color:var(--butter)}
+.cta-card p{position:relative;max-width:500px;margin:0 auto 28px;opacity:.9;font-size:17px;line-height:1.55}
+
+footer{padding:40px 0;border-top:1px solid #0001;font-size:13px;color:var(--dim)}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media (max-width:900px){
+  .nav-links{display:none}
+  .hero-g,.show-h,.orig .wrap{grid-template-columns:1fr}
+  .show-g{grid-template-columns:1fr 1fr;grid-auto-rows:240px}
+  .cut.big{grid-column:span 2;grid-row:span 1}
+  .week-g{grid-template-columns:1fr}
+  .hv-card{left:auto;right:20px}
+  .farms{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .show-g{grid-template-columns:1fr;grid-auto-rows:220px}
+  .cut.big{grid-column:span 1}
+  .hv-stamp{width:90px;height:90px;font-size:11px}
+  .hv-stamp span{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap top-i">
+  <span>Biologisch · Boerderij-vlees · Sinds 1946</span>
+  <span>Geopend vandaag tot 18:00 · Hoofdstraat 34 Bunnik</span>
+</div></div>
+<nav class="nav"><div class="wrap nav-i">
+  <div class="logo"><span class="crest">B</span><div>Slagerij Bakker<small>Anno 1946</small></div></div>
+  <div class="nav-links"><a>Vleeswaren</a><a>Week-specials</a><a>Catering</a><a>Onze boeren</a><a>Winkel</a></div>
+  <a class="btn btn-p">Online bestellen</a>
+</div></nav>
+
+<section class="hero wrap"><div class="hero-g">
+  <div>
+    <span class="kicker">Ambachtelijk · Familiebedrijf · 3e generatie</span>
+    <h1 style="margin-top:18px">Vlees met een <em>verhaal</em>. <span class="stamp">Boer &amp; dier</span></h1>
+    <p class="sub">Bij Bakker weten we hoe onze koe heet. We werken exclusief met vier boerderijen uit de Kromme Rijnstreek — grasgevoerd, langzaam gegroeid, zonder omwegen naar uw bord.</p>
+    <div class="hero-cta">
+      <a class="btn btn-p">Bestel voor morgen →</a>
+      <a class="btn btn-g">Weekaanbieding bekijken</a>
+    </div>
+    <div class="meta-row">
+      <div><strong>78 jaar</strong>familiebedrijf</div>
+      <div><strong>4</strong>vaste boerderijen</div>
+      <div><strong>0 km</strong>tussenhandel</div>
+      <div><strong>5.0</strong>op Google</div>
+    </div>
+  </div>
+  <div class="hero-vis">
+    <div class="hv-main"><img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=900&q=80" alt=""></div>
+    <div class="hv-stamp"><div><span>100%</span>weide<br>gegroeid</div></div>
+    <div class="hv-card"><span class="em">🥩</span><div><strong>Dry-aged Entrecôte</strong><span>35 dagen gerijpt · vanaf €6,20 / 100g</span></div></div>
+  </div>
+</div></section>
+
+<div class="marq"><div class="marq-track">
+  <span>Dry-aged rundvlees</span><span>Huisgemaakte worst</span><span>Gerookte hammen</span><span>Wild uit de Utrechtse Heuvelrug</span><span>Ambachtelijke paté</span>
+  <span>Dry-aged rundvlees</span><span>Huisgemaakte worst</span><span>Gerookte hammen</span><span>Wild uit de Utrechtse Heuvelrug</span><span>Ambachtelijke paté</span>
+</div></div>
+
+<section class="show wrap">
+  <div class="show-h">
+    <div><span class="kicker">De toonbank</span><h2>Uit onze <em>vitrine</em>.</h2></div>
+    <p>Elke week vers gesneden, ingemaakt en uitgestald. Alles met bloeddruppel-garantie: als het niet goed is, betaalt u niet.</p>
+  </div>
+  <div class="show-g">
+    <a class="cut big"><img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=900&q=80"><div class="cut-meta"><div><h4>Tomahawk steak</h4><span>Dry-aged · 850g gemiddeld</span></div><span class="pr">€48</span></div></a>
+    <a class="cut"><img src="https://images.unsplash.com/photo-1606851091851-e8c8c0fca5ba?w=600&q=80"><div class="cut-meta"><div><h4>Huisworst</h4><span>Per kilo</span></div><span class="pr">€14</span></div></a>
+    <a class="cut"><img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=600&q=80"><div class="cut-meta"><div><h4>Gerookte ham</h4><span>250g</span></div><span class="pr">€9</span></div></a>
+    <a class="cut"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80"><div class="cut-meta"><div><h4>Runderstoof</h4><span>Maaltijd, 2 pers.</span></div><span class="pr">€16</span></div></a>
+    <a class="cut"><img src="https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?w=600&q=80"><div class="cut-meta"><div><h4>Kippendij</h4><span>Biologisch · per kg</span></div><span class="pr">€12</span></div></a>
+  </div>
+</section>
+
+<section class="orig"><div class="wrap">
+  <div class="ph"><img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80"></div>
+  <div>
+    <span class="kicker">Onze boeren</span>
+    <h2>We kennen onze koeien bij <em>naam</em>.</h2>
+    <p>Geen ketens, geen tussenhandel. We rijden elke dinsdag naar onze vier vaste boerderijen in de Kromme Rijnstreek. Ze liggen allemaal binnen 15 kilometer van onze winkel.</p>
+    <p>Alle dieren groeien op grasland, krijgen ruimte en eten geen krachtvoer uit Zuid-Amerika. Dat proeft u.</p>
+    <div class="farms">
+      <div><h4>Boerderij De Reehorst</h4><span>Rundvee · Cothen, 8 km</span></div>
+      <div><h4>Hof Ter Aar</h4><span>Varkens · Wijk bij Duurstede, 12 km</span></div>
+      <div><h4>Kippenhof Rozendaal</h4><span>Pluimvee · Houten, 6 km</span></div>
+      <div><h4>Jagervereniging Heuvelrug</h4><span>Wild · oktober–januari</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="week wrap">
+  <span class="kicker">Deze week</span>
+  <h2 style="font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(38px,5.5vw,80px);margin:8px 0 0;letter-spacing:-.02em">Voor bij <em style="font-style:italic;color:var(--blood)">het weekend</em>.</h2>
+  <div class="week-g">
+    <div class="wk"><div class="im"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=80"></div><div class="bd"><div class="day">Vrijdag · Vis</div><h3>Runderbacon BLT</h3><p>Onze huisgerookte bacon, een dikke snee zuurdesem, een fatsoenlijke tomaat. Klaar.</p><div class="pr">€8,50<small> per broodje</small></div></div></div>
+    <div class="wk"><div class="im"><img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=700&q=80"></div><div class="bd"><div class="day">Zaterdag · BBQ</div><h3>Bakker BBQ-pakket</h3><p>Spare ribs, worst, saté, en een stuk picanha dat u nooit meer vergeet.</p><div class="pr">€49<small> · 4 personen</small></div></div></div>
+    <div class="wk"><div class="im"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=700&q=80"></div><div class="bd"><div class="day">Zondag · Traditie</div><h3>Runderrollade</h3><p>Rollade van een Blaarkop, langzaam gegaard in onze oven. Met jus van het vlees zelf.</p><div class="pr">€18<small> / 500g</small></div></div></div>
+  </div>
+</section>
+
+<section class="cta wrap"><div class="cta-card">
+  <span class="kicker" style="color:var(--butter);position:relative">Bestelservice</span>
+  <h2>Vóór 10:00 besteld, <em>vanmiddag</em> in huis.</h2>
+  <p>Gratis bezorging binnen Bunnik, Houten en Zeist bij bestellingen vanaf €25. Of kom gewoon even langs — dat is altijd gezelliger.</p>
+  <a class="btn" style="background:var(--butter);color:var(--blood-d);position:relative">Bestellen →</a>
+</div></section>
+
+<footer class="wrap"><div class="foot-row">
+  <span>© Slagerij Bakker · Hoofdstraat 34 · 3981 AD Bunnik</span>
+  <span>KVK 30147892 · Erkend sinds 1946</span>
+</div></footer>
+</body></html>

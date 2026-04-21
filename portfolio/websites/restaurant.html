@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Osteria Nove — Utrecht</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0c08;--ink:#f2ead8;--dim:#a89e89;--gold:#d6a44a;--wine:#7a2c2c;--cream:#f2ead8;--card:#1a150e}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;cursor:pointer}img{display:block;max-width:100%}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+.serif{font-family:"Cormorant Garamond",serif}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:0;font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:inherit;letter-spacing:.1em;text-transform:uppercase;transition:transform .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-p{background:var(--gold);color:#0f0c08}
+.btn-g{background:transparent;border:1px solid #f2ead855;color:var(--ink)}
+.kicker{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:500}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(15,12,8,.88);backdrop-filter:blur(14px);border-bottom:1px solid #ffffff10}
+.nav-i{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px 0;gap:12px}
+.nav-links{display:flex;gap:28px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.logo{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:30px;letter-spacing:.04em;text-align:center}
+.logo small{display:block;font-family:Inter;font-size:9px;letter-spacing:.4em;color:var(--gold);margin-top:-2px}
+.nav-right{justify-self:end}
+
+/* Hero */
+.hero{position:relative;min-height:85vh;display:grid;place-items:center;overflow:hidden;padding:clamp(40px,6vw,100px) 0}
+.hero::before{content:"";position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1800&q=80") center/cover;opacity:.35;filter:saturate(.8)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0f0c08 0%,#0f0c0855 40%,#0f0c0888 80%,#0f0c08 100%)}
+.hero-c{position:relative;z-index:2;text-align:center;max-width:1000px;padding:0 20px}
+.hero h1{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:clamp(44px,10vw,200px);letter-spacing:-.02em;line-height:.9;margin:22px 0 0;text-wrap:balance;overflow-wrap:break-word}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero .sub{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,2.4vw,30px);font-style:italic;line-height:1.45;color:var(--ink);max-width:680px;margin:32px auto 0;opacity:.85}
+.hero-cta{display:flex;gap:14px;margin-top:44px;justify-content:center;flex-wrap:wrap}
+.hero-meta{position:absolute;bottom:28px;left:0;right:0;z-index:2;display:flex;justify-content:space-between;padding:0 clamp(20px,4vw,40px);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim)}
+
+/* Divider */
+.div-orn{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;color:var(--gold);padding:clamp(40px,5vw,70px) 0}
+.div-orn::before,.div-orn::after{content:"";height:1px;background:linear-gradient(90deg,transparent,#d6a44a55,transparent)}
+.div-orn span{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px}
+
+/* Philosophy */
+.phil{padding:clamp(40px,6vw,100px) 0}
+.phil-g{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:center}
+.phil-im{aspect-ratio:4/5;background:#20180e;position:relative;overflow:hidden}
+.phil-im img{width:100%;height:100%;object-fit:cover;filter:sepia(.05) contrast(1.02)}
+.phil-im::after{content:"IX";position:absolute;top:24px;right:24px;font-family:"Cormorant Garamond",serif;font-size:120px;line-height:1;color:var(--gold);opacity:.7;font-style:italic}
+.phil h2{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:clamp(42px,6vw,88px);letter-spacing:-.015em;line-height:1;margin:20px 0 0;text-wrap:balance}
+.phil h2 em{font-style:italic;color:var(--gold)}
+.phil p{font-size:17px;line-height:1.75;color:var(--dim);margin:28px 0 0;max-width:560px}
+.phil p+p{margin-top:20px}
+.sig{margin-top:40px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:30px;color:var(--gold)}
+.sig small{display:block;font-family:Inter;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-style:normal;margin-top:6px}
+
+/* Menu */
+.menu{padding:clamp(60px,7vw,120px) 0;background:var(--card);position:relative}
+.menu::before{content:"Il Menu";position:absolute;top:50px;right:clamp(20px,4vw,40px);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(60px,9vw,140px);color:var(--gold);opacity:.1;line-height:1}
+.menu-h{text-align:center;margin-bottom:60px}
+.menu-h h2{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:clamp(44px,6.5vw,96px);letter-spacing:-.015em;line-height:1;margin:14px 0 0}
+.menu-h h2 em{font-style:italic;color:var(--gold)}
+.menu-g{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1100px;margin:0 auto}
+.menu-col h3{font-family:"Cormorant Garamond",serif;font-weight:500;font-style:italic;font-size:36px;color:var(--gold);margin:0 0 30px;padding-bottom:14px;border-bottom:1px solid #ffffff18;letter-spacing:.01em}
+.dish{display:flex;justify-content:space-between;align-items:start;gap:20px;padding:22px 0;border-bottom:1px dashed #ffffff10}
+.dish:last-child{border-bottom:none}
+.dish h4{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:24px;margin:0 0 6px;letter-spacing:.005em}
+.dish p{margin:0;font-size:14px;color:var(--dim);line-height:1.55;font-style:italic;font-family:"Cormorant Garamond",serif;font-size:15px}
+.dish .pr{font-family:"Cormorant Garamond",serif;font-size:22px;color:var(--gold);flex-shrink:0;padding-top:3px}
+
+/* Gallery */
+.gal{padding:clamp(60px,7vw,120px) 0}
+.gal-g{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:120px;gap:14px}
+.gal a{overflow:hidden;position:relative}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .8s,filter .4s;filter:saturate(.92)}
+.gal a:hover img{transform:scale(1.05);filter:saturate(1.1)}
+.g1{grid-column:span 7;grid-row:span 3}
+.g2{grid-column:span 5;grid-row:span 2}
+.g3{grid-column:span 3;grid-row:span 2}
+.g4{grid-column:span 2;grid-row:span 1}
+.g5{grid-column:span 5;grid-row:span 2}
+.g6{grid-column:span 7;grid-row:span 2}
+
+/* Reserve */
+.rsv{padding:clamp(60px,7vw,120px) 0;background:var(--card);position:relative;overflow:hidden}
+.rsv::before{content:"";position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80") center/cover;opacity:.2;filter:saturate(.8)}
+.rsv::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#1a150eee 0%,#1a150e99 60%,#1a150e 100%)}
+.rsv .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+.rsv h2{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:clamp(44px,6.5vw,96px);letter-spacing:-.015em;line-height:1;margin:14px 0 0}
+.rsv h2 em{font-style:italic;color:var(--gold)}
+.rsv p{color:var(--dim);line-height:1.7;margin:26px 0 0;max-width:480px;font-size:16px}
+.rsv-form{background:#0f0c08;padding:36px;border:1px solid #d6a44a22}
+.rsv-form label{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.rsv-form .r{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+.rsv-form input,.rsv-form select{width:100%;background:transparent;border:none;border-bottom:1px solid #ffffff22;color:var(--ink);padding:10px 0;font-family:"Cormorant Garamond",serif;font-size:22px}
+.rsv-form input:focus,.rsv-form select:focus{outline:none;border-color:var(--gold)}
+.rsv-form .btn{width:100%;justify-content:center;margin-top:8px}
+
+/* Hours */
+.hrs{padding:clamp(50px,6vw,100px) 0}
+.hrs-g{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:50px;align-items:start}
+.hrs h3{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:36px;margin:12px 0 18px;letter-spacing:-.01em}
+.hrs ul{list-style:none;padding:0;margin:0;font-size:14px;display:flex;flex-direction:column;gap:10px;font-variant-numeric:tabular-nums}
+.hrs li{display:flex;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid #ffffff12;color:var(--dim)}
+.hrs li.cl{color:var(--ink);opacity:.4}
+.hrs li.on{color:var(--gold)}
+.hrs p{color:var(--dim);line-height:1.65;margin:0 0 12px;font-size:15px}
+.hrs address{font-style:normal;font-size:16px;font-family:"Cormorant Garamond",serif}
+
+footer{padding:36px 0;border-top:1px solid #ffffff12;font-size:12px;color:var(--dim);letter-spacing:.05em}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media (max-width:900px){
+  .nav-i{grid-template-columns:auto 1fr auto;gap:14px;padding:14px 0}
+  .nav-links{display:none !important}
+  .nav-right{justify-self:end}
+  .logo{font-size:22px;text-align:left}
+  .phil-g,.rsv .wrap{grid-template-columns:1fr}
+  .hrs-g{grid-template-columns:1fr}
+  .menu-g{grid-template-columns:1fr;gap:40px}
+  .gal-g{grid-template-columns:repeat(6,1fr);grid-auto-rows:100px}
+  .g1,.g2,.g3,.g4,.g5,.g6{grid-column:span 3;grid-row:span 2}
+  .hero h1{font-size:clamp(54px,14vw,110px)}
+  .hero-meta{position:static;margin-top:24px;justify-content:center;gap:24px}
+}
+@media (max-width:560px){
+  .rsv-form .r{grid-template-columns:1fr}
+  .gal-g{grid-template-columns:repeat(2,1fr)}
+  .g1,.g2,.g3,.g4,.g5,.g6{grid-column:span 2;grid-row:span 2}
+  .nav-right .btn{padding:10px 16px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap nav-i">
+  <div class="nav-links"><a>Menu</a><a>Drankenkaart</a><a>Over ons</a><a>Privé dineren</a></div>
+  <div class="logo">Osteria Nove<small>— Utrecht —</small></div>
+  <div class="nav-right"><a class="btn btn-p">Reserveer</a></div>
+</div></nav>
+
+<section class="hero">
+  <div class="hero-c">
+    <span class="kicker">Cucina Romana · Dal 2012</span>
+    <h1>Een <em>Romeinse</em> avond, aan de Oudegracht.</h1>
+    <p class="sub">Vijftien gerechten, een zorgvuldige drankenkaart, en de pasta die nonna Luisa ons leerde. Geen poespas — alleen eten dat ergens over gaat. 100% halal keuken.</p>
+    <div class="hero-cta">
+      <a class="btn btn-p">Reserveer een tafel</a>
+      <a class="btn btn-g">Bekijk het menu</a>
+    </div>
+  </div>
+  <div class="hero-meta">
+    <span>★★★★★ — Michelin Bib Gourmand 2024</span>
+    <span>Dinsdag — Zaterdag · 18:00 — 23:00</span>
+  </div>
+</section>
+
+<div class="div-orn wrap"><span>✦</span></div>
+
+<section class="phil wrap"><div class="phil-g">
+  <div class="phil-im"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80" alt=""></div>
+  <div>
+    <span class="kicker">Onze keuken</span>
+    <h2>Negen tafels, één <em>belofte</em>.</h2>
+    <p>We zijn klein. Bewust. Twee serveersters, één gastheer, drie koks — en Luigi die 's ochtends naar de markt fietst. Dat is het hele team.</p>
+    <p>We koken zoals je in een Romeins trattoria kookt: met producten van het seizoen, met tijd voor een saus die zes uur pruttelt, en met de bereidheid om vanavond van plan te veranderen als de vis op het Oude Gracht beter is dan wat we op de kaart hadden.</p>
+    <div class="sig">— Luigi &amp; Chiara Ferrara<small>Chef patron</small></div>
+  </div>
+</div></section>
+
+<section class="menu"><div class="wrap">
+  <div class="menu-h">
+    <span class="kicker">Il Menu</span>
+    <h2>De <em>kaart</em> van deze week.</h2>
+    <p style="color:var(--dim);margin:20px auto 0;max-width:520px;line-height:1.6;font-size:15px">Wisselt met het seizoen, de markt, en soms de humeur van Luigi. Een compleet menu met sap- en thee-arrangement begint bij €68.</p>
+  </div>
+  <div class="menu-g">
+    <div class="menu-col">
+      <h3>Antipasti</h3>
+      <div class="dish"><div><h4>Vitello tonnato</h4><p>Kalfsmuis, tonijnmayonaise, kappertjes van Pantelleria</p></div><span class="pr">16</span></div>
+      <div class="dish"><div><h4>Carciofi alla giudia</h4><p>Krokant gefrituurde artisjok, citroen, pecorino</p></div><span class="pr">14</span></div>
+      <div class="dish"><div><h4>Burrata &amp; fichi</h4><p>Pugliese burrata, verse vijgen, honing uit de Maremma</p></div><span class="pr">17</span></div>
+      <div class="dish"><div><h4>Tartare di manzo</h4><p>Rundertartaar, eigeel, toscaanse olijfolie</p></div><span class="pr">18</span></div>
+
+      <h3 style="margin-top:42px">Primi</h3>
+      <div class="dish"><div><h4>Cacio e pepe</h4><p>Tonnarelli, Pecorino Romano 24 mesi, zwarte peper</p></div><span class="pr">19</span></div>
+      <div class="dish"><div><h4>Rigatoni all'Arrabbiata</h4><p>Runderbresaola (halal), San Marzano-tomaat, pecorino, chili</p></div><span class="pr">21</span></div>
+      <div class="dish"><div><h4>Ravioli di zucca</h4><p>Pompoen-ravioli, salieboter, geroosterde amandelen</p></div><span class="pr">22</span></div>
+    </div>
+    <div class="menu-col">
+      <h3>Secondi</h3>
+      <div class="dish"><div><h4>Saltimbocca alla romana</h4><p>Kalfsoester, halal rundercarpaccio, salie, druivensap-jus</p></div><span class="pr">28</span></div>
+      <div class="dish"><div><h4>Branzino al sale</h4><p>Zeebaars in zoutkorst, citroenolie, boontjes</p></div><span class="pr">32</span></div>
+      <div class="dish"><div><h4>Agnello arrosto</h4><p>Lamsrack uit de Utrechtse Heuvelrug, rozemarijn, tijm</p></div><span class="pr">34</span></div>
+      <div class="dish"><div><h4>Pollo arrosto al limone</h4><p>Langzaam gebraden scharrelkip (halal), venkel, citroen, krokante korst</p></div><span class="pr">26</span></div>
+
+      <h3 style="margin-top:42px">Dolci</h3>
+      <div class="dish"><div><h4>Tiramisù della casa</h4><p>Zoals nonna Luisa het ons leerde — punt.</p></div><span class="pr">11</span></div>
+      <div class="dish"><div><h4>Panna cotta ai frutti rossi</h4><p>Vanille, zomerfruit, granaatappelsiroop</p></div><span class="pr">10</span></div>
+      <div class="dish"><div><h4>Affogato</h4><p>Vanille-ijs, espresso, geroosterde hazelnoten</p></div><span class="pr">9</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="gal wrap">
+  <div style="text-align:center;margin-bottom:40px">
+    <span class="kicker">De ruimte</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(38px,5vw,72px);margin:14px 0 0;letter-spacing:-.015em">Waar je <em style="color:var(--gold);font-style:italic">uren</em> wegblijft.</h2>
+  </div>
+  <div class="gal-g">
+    <a class="g1"><img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?w=1200&q=80"></a>
+    <a class="g2"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80"></a>
+    <a class="g3"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80"></a>
+    <a class="g4"><img src="https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?w=500&q=80"></a>
+    <a class="g5"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=900&q=80"></a>
+    <a class="g6"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1100&q=80"></a>
+  </div>
+</section>
+
+<section class="rsv"><div class="wrap">
+  <div>
+    <span class="kicker">Reserveren</span>
+    <h2>Pak een <em>tafel</em>.</h2>
+    <p>We openen van dinsdag tot zaterdag, vanaf 18:00 uur. Voor grotere gezelschappen (vanaf 8 personen) of privé dineren: neem even contact op via telefoon, dan regelen we iets moois.</p>
+    <p style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;margin-top:24px">+31 30 233 09 21</p>
+  </div>
+  <form class="rsv-form" onsubmit="event.preventDefault()">
+    <div class="r"><div><label>Datum</label><input type="date"></div><div><label>Tijd</label><select><option>18:00</option><option>18:30</option><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option></select></div></div>
+    <div class="r"><div><label>Gasten</label><select><option>2 personen</option><option>3 personen</option><option>4 personen</option><option>5 personen</option><option>6 personen</option></select></div><div><label>Naam</label><input type="text" placeholder="Uw naam"></div></div>
+    <button class="btn btn-p">Bevestigen →</button>
+  </form>
+</div></section>
+
+<section class="hrs wrap"><div class="hrs-g">
+  <div>
+    <span class="kicker">Bezoek</span>
+    <h3>Oudegracht 124</h3>
+    <address>3511 AW Utrecht<br>+31 30 233 09 21<br>ciao@osterianove.nl</address>
+    <p style="margin-top:22px">Onder de 14e eeuwse werfkelders, vijf minuten lopen vanaf Utrecht Centraal. Parkeren: Paardenveld (3 min).</p>
+  </div>
+  <div>
+    <span class="kicker">Openingstijden</span>
+    <h3>Eten</h3>
+    <ul>
+      <li class="cl"><span>Maandag</span><span>Gesloten</span></li>
+      <li class="on"><span>Vandaag · Di</span><span>18:00 — 23:00</span></li>
+      <li><span>Woensdag</span><span>18:00 — 23:00</span></li>
+      <li><span>Donderdag</span><span>18:00 — 23:00</span></li>
+      <li><span>Vrijdag</span><span>18:00 — 00:00</span></li>
+      <li><span>Zaterdag</span><span>18:00 — 00:00</span></li>
+      <li class="cl"><span>Zondag</span><span>Gesloten</span></li>
+    </ul>
+  </div>
+  <div>
+    <span class="kicker">Sapbar</span>
+    <h3>Aperitivo</h3>
+    <ul>
+      <li><span>Wo — Vr</span><span>17:00 — 18:00</span></li>
+      <li><span>Za</span><span>16:00 — 18:00</span></li>
+    </ul>
+    <p style="margin-top:22px">Een uurtje eerder binnenlopen? Een glas huisgemaakte granaatappel-limonade, wat bruschetta, en een plek aan de marmeren bar. Zonder reservering.</p>
+  </div>
+</div></section>
+
+<footer class="wrap"><div class="foot-row">
+  <span>© Osteria Nove · Oudegracht 124 Utrecht</span>
+  <span>KVK 55488712 · @osterianove_utrecht</span>
+</div></footer>
+</body></html>

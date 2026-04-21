@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Versmarkt De Hoek — Supermarkt</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff9ef; color: #1b2818; font-family: "Inter Tight", system-ui, sans-serif; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+
+  /* Responsive overrides for inline React grids */
+  @media (max-width: 900px) {
+    header > div { flex-wrap: wrap !important; gap: 14px !important; padding: 14px 20px !important; }
+    header nav { display: none !important; }
+    header input { font-size: 14px !important; }
+    section { padding-left: 20px !important; padding-right: 20px !important; }
+    [style*="grid-template-columns: 1.15fr 1fr"],
+    [style*="grid-template-columns: repeat(6, 1fr)"],
+    [style*="grid-template-columns: repeat(4, 1fr)"],
+    [style*="grid-template-columns: 1fr 1fr 1fr"],
+    [style*="grid-template-columns: 1.3fr 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [style*="font-size: clamp(56px"] { font-size: clamp(44px, 10vw, 68px) !important; }
+    [style*="padding: 56px"] { padding: 32px !important; }
+    [style*="padding: '40px 32px 60px'"],
+    [style*="padding: '20px 32px 60px'"],
+    [style*="padding: '60px 32px'"],
+    [style*="padding: '80px 32px'"] { padding: 32px 20px !important; }
+    [style*="min-height: 540px"] { min-height: auto !important; }
+  }
+  @media (max-width: 560px) {
+    [style*="grid-template-columns: repeat(6, 1fr)"],
+    [style*="grid-template-columns: repeat(4, 1fr)"],
+    [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr 1fr !important; }
+    [style*="font-size: 44"] { font-size: 28px !important; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const C = { green: '#1b2818', moss: '#3a5a38', cream: '#fff9ef', tom: '#d6492b', mustard: '#e6a829' };
+const serif = '"Fraunces", Georgia, serif';
+
+const App = () => {
+  const [q, setQ] = React.useState('');
+  const cats = [
+    { n: 'Groente & fruit', img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80' },
+    { n: 'Brood & banket',  img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80' },
+    { n: 'Zuivel & kaas',   img: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=900&q=80' },
+    { n: 'Vlees & vis',     img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80' },
+    { n: 'Dranken',         img: 'https://images.unsplash.com/photo-1510629589788-f7a60ac0ba00?w=900&q=80' },
+    { n: 'Specialiteiten',  img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80' },
+  ];
+  const deals = [
+    { n: 'Hollandse aardbeien', p: '€2,49', o: '€3,29', img: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=700&q=80' },
+    { n: 'Griekse yoghurt 1kg', p: '€3,19', o: '€4,49', img: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=700&q=80' },
+    { n: 'Desembrood kruim',    p: '€2,79', o: '€3,49', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=700&q=80' },
+    { n: 'Avocado Hass (2 st)', p: '€1,99', o: '€2,79', img: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=700&q=80' },
+  ];
+
+  return (
+    <div>
+      {/* Topbar */}
+      <div style={{ background: C.green, color: C.cream, fontSize: 13 }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', padding: '10px 32px', display: 'flex', justifyContent: 'space-between' }}>
+          <span>Gratis bezorgd boven €35  ·  Vandaag besteld, vanavond in huis</span>
+          <span style={{ opacity: 0.7 }}>Klantenservice  ·  Vestigingen  ·  NL / EN</span>
+        </div>
+      </div>
+
+      {/* Nav */}
+      <header style={{ position: 'sticky', top: 0, background: C.cream, zIndex: 10, borderBottom: `1px solid ${C.green}20` }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', gap: 32 }}>
+          <div style={{ fontFamily: serif, fontSize: 26, fontWeight: 600, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill={C.tom} /><path d="M14 6 Q 18 10 14 22 Q 10 10 14 6" fill={C.moss} /></svg>
+            De Hoek
+          </div>
+          <nav style={{ display: 'flex', gap: 24, fontSize: 15 }}>
+            <a>Aanbiedingen</a><a>Assortiment</a><a>Recepten</a><a>Over ons</a><a>Contact</a>
+          </nav>
+          <div style={{ flex: 1, maxWidth: 420, marginLeft: 'auto', position: 'relative' }}>
+            <input value={q} onChange={e => setQ(e.target.value)} placeholder="Zoek in 18.000+ producten..." style={{ width: '100%', padding: '12px 16px 12px 42px', borderRadius: 999, border: `1px solid ${C.green}30`, background: '#fff', fontSize: 14, fontFamily: 'inherit' }} />
+            <svg style={{ position: 'absolute', top: 13, left: 16 }} width="16" height="16" viewBox="0 0 16 16"><circle cx="7" cy="7" r="5" fill="none" stroke={C.green} strokeWidth="1.5" /><path d="M11 11 L14 14" stroke={C.green} strokeWidth="1.5" /></svg>
+          </div>
+          <button style={{ background: C.green, color: C.cream, border: 'none', padding: '12px 20px', borderRadius: 999, fontSize: 14, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit' }}>🛒 Mandje · €0,00</button>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section style={{ padding: '40px 32px 60px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 32 }}>
+          <div style={{ position: 'relative', background: C.moss, color: C.cream, borderRadius: 32, padding: 56, overflow: 'hidden', minHeight: 540 }}>
+            <div style={{ fontSize: 14, opacity: 0.8, marginBottom: 16 }}>Weekactie · t/m zondag</div>
+            <h1 style={{ fontFamily: serif, fontSize: 'clamp(56px, 6vw, 92px)', lineHeight: 0.98, letterSpacing: '-0.03em', fontWeight: 500, margin: 0 }}>
+              Vers van de <br /><span style={{ fontStyle: 'italic' }}>buurt.</span><br />
+              Niet van de <br /><span style={{ color: C.mustard }}>hoop.</span>
+            </h1>
+            <p style={{ fontSize: 19, lineHeight: 1.55, opacity: 0.9, maxWidth: 440, marginTop: 32 }}>
+              Groente, fruit en brood van lokale telers en bakkers. Deze week tot 35% korting op seizoensproducten.
+            </p>
+            <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
+              <a style={{ background: C.tom, color: '#fff', padding: '16px 28px', borderRadius: 999, fontSize: 16, textDecoration: 'none', fontWeight: 500 }}>Bekijk aanbiedingen →</a>
+              <a style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.3)', color: C.cream, padding: '16px 24px', borderRadius: 999, fontSize: 16, textDecoration: 'none' }}>Folder openen</a>
+            </div>
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80" alt="" style={{ position: 'absolute', right: -40, bottom: -60, width: 340, height: 340, objectFit: 'cover', borderRadius: '50%', border: `12px solid ${C.moss}`, boxShadow: '0 20px 60px rgba(0,0,0,0.25)' }} />
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateRows: '1.2fr 1fr', gap: 24 }}>
+            <div style={{ position: 'relative', borderRadius: 32, overflow: 'hidden' }}>
+              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute', top: 24, left: 24, background: C.mustard, color: C.green, padding: '6px 14px', borderRadius: 999, fontSize: 13, fontWeight: 600 }}>Nieuw deze week</div>
+              <div style={{ position: 'absolute', bottom: 24, left: 24, right: 24, color: '#fff' }}>
+                <div style={{ fontFamily: serif, fontSize: 28, fontWeight: 500, letterSpacing: '-0.01em' }}>Italiaanse specialiteiten</div>
+                <div style={{ fontSize: 14, opacity: 0.9 }}>Pasta, olie, kaas — rechtstreeks uit Emilia-Romagna</div>
+              </div>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              <div style={{ background: C.tom, color: '#fff', borderRadius: 24, padding: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <div style={{ fontSize: 60, fontFamily: serif, fontWeight: 600, lineHeight: 1 }}>-30%</div>
+                <div style={{ fontSize: 15 }}>op alle biologische groente →</div>
+              </div>
+              <div style={{ borderRadius: 24, overflow: 'hidden', position: 'relative' }}>
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=700&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent, rgba(0,0,0,0.6))' }} />
+                <div style={{ position: 'absolute', bottom: 20, left: 20, color: '#fff', fontFamily: serif, fontSize: 22, fontWeight: 500 }}>Dagverse<br/>broden</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section style={{ padding: '20px 32px 60px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 28 }}>
+            <h2 style={{ fontFamily: serif, fontSize: 44, fontWeight: 500, letterSpacing: '-0.02em', margin: 0 }}>Waar wil je beginnen?</h2>
+            <a style={{ fontSize: 15 }}>Alle categorieën →</a>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 16 }}>
+            {cats.map(c => (
+              <a key={c.n} style={{ textDecoration: 'none', cursor: 'pointer' }}>
+                <div style={{ aspectRatio: '1', borderRadius: 20, overflow: 'hidden', marginBottom: 10 }}>
+                  <img src={c.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }} onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'} onMouseLeave={e => e.currentTarget.style.transform = ''} />
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 500 }}>{c.n}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Deals */}
+      <section style={{ padding: '60px 32px', background: '#fff' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 32 }}>
+            <div>
+              <div style={{ fontSize: 13, color: C.tom, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>Bekijk de folder</div>
+              <h2 style={{ fontFamily: serif, fontSize: 48, fontWeight: 500, letterSpacing: '-0.02em', margin: 0 }}>Deze week in de bonus.</h2>
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button style={{ width: 44, height: 44, borderRadius: '50%', border: `1px solid ${C.green}30`, background: 'transparent', cursor: 'pointer' }}>←</button>
+              <button style={{ width: 44, height: 44, borderRadius: '50%', border: 'none', background: C.green, color: C.cream, cursor: 'pointer' }}>→</button>
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+            {deals.map(d => (
+              <div key={d.n} style={{ background: C.cream, borderRadius: 20, padding: 20, position: 'relative' }}>
+                <div style={{ position: 'absolute', top: 16, right: 16, background: C.tom, color: '#fff', width: 56, height: 56, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: serif, fontSize: 15, fontWeight: 600, transform: 'rotate(-8deg)' }}>ACTIE</div>
+                <div style={{ aspectRatio: '1', borderRadius: 14, overflow: 'hidden', marginBottom: 16 }}>
+                  <img src={d.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 8 }}>{d.n}</div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+                  <span style={{ fontFamily: serif, fontSize: 28, fontWeight: 600, color: C.tom }}>{d.p}</span>
+                  <span style={{ fontSize: 14, color: C.green, opacity: 0.5, textDecoration: 'line-through' }}>{d.o}</span>
+                </div>
+                <button style={{ marginTop: 12, width: '100%', padding: '10px', borderRadius: 999, border: `1px solid ${C.green}30`, background: '#fff', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>+ Aan mandje</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Story with big image */}
+      <section style={{ padding: '100px 32px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}>
+          <div style={{ borderRadius: 32, overflow: 'hidden', aspectRatio: '4/5' }}>
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div>
+            <div style={{ fontSize: 13, color: C.moss, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 16 }}>Ons verhaal</div>
+            <h2 style={{ fontFamily: serif, fontSize: 64, fontWeight: 500, letterSpacing: '-0.03em', lineHeight: 1, margin: 0 }}>
+              Sinds 1987 de <span style={{ fontStyle: 'italic', color: C.moss }}>buurtwinkel</span> op de hoek.
+            </h2>
+            <p style={{ fontSize: 18, lineHeight: 1.6, marginTop: 24, color: '#0005' }}>
+              Wat begon als een groentewinkel van opa Theo is uitgegroeid tot de vertrouwde supermarkt van de buurt. We kennen onze leveranciers bij naam, onze klanten bij voornaam, en we geloven dat een boodschap doen ook gewoon leuk mag zijn.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 40 }}>
+              {[{ k: '38', v: 'jaar op de hoek' }, { k: '120+', v: 'lokale leveranciers' }, { k: '4.8', v: 'klantreviews' }].map(s => (
+                <div key={s.v} style={{ borderTop: `1px solid ${C.green}30`, paddingTop: 12 }}>
+                  <div style={{ fontFamily: serif, fontSize: 42, fontWeight: 600, color: C.moss, letterSpacing: '-0.02em' }}>{s.k}</div>
+                  <div style={{ fontSize: 13, opacity: 0.7 }}>{s.v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo grid */}
+      <section style={{ padding: '40px 32px 100px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <h2 style={{ fontFamily: serif, fontSize: 44, fontWeight: 500, letterSpacing: '-0.02em', marginBottom: 24 }}>Even langskomen?</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, aspectRatio: '4/1.4' }}>
+            {[
+              'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
+              'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
+              'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&q=80',
+              'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80',
+            ].map((u, i) => (
+              <img key={i} src={u} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 20, transform: i % 2 ? 'translateY(16px)' : '' }} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ background: C.green, color: C.cream, padding: '60px 32px 32px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 40, marginBottom: 40 }}>
+          <div>
+            <div style={{ fontFamily: serif, fontSize: 28, fontWeight: 500 }}>De Hoek · Versmarkt</div>
+            <div style={{ fontSize: 14, opacity: 0.7, marginTop: 12, lineHeight: 1.6 }}>Burgemeester Reigerstraat 82<br />3581 KT Utrecht<br />030 — 234 56 78</div>
+          </div>
+          {[
+            { t: 'Winkelen', l: ['Assortiment', 'Aanbiedingen', 'Folder', 'Receptenboek'] },
+            { t: 'Service', l: ['Bezorgen', 'Retour', 'Veelgestelde vragen', 'Contact'] },
+            { t: 'Over ons', l: ['Onze verhalen', 'Leveranciers', 'Duurzaamheid', 'Werken bij'] },
+          ].map(col => (
+            <div key={col.t}>
+              <div style={{ fontSize: 13, opacity: 0.6, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14 }}>{col.t}</div>
+              {col.l.map(x => <div key={x} style={{ marginBottom: 8, fontSize: 15 }}>{x}</div>)}
+            </div>
+          ))}
+        </div>
+        <div style={{ maxWidth: 1320, margin: '0 auto', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', fontSize: 12, opacity: 0.6 }}>
+          <span>© Versmarkt De Hoek BV · 2026</span>
+          <span>Algemene voorwaarden · Privacy · Cookies</span>
+        </div>
+      </footer>
+    </div>
+  );
+};
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

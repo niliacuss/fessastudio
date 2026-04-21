@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apotheek De Linde — Uw wijkapotheek</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7f5;--card:#fff;--ink:#0f2a28;--dim:#5a6f6c;--mint:#9ccfbf;--green:#1f5f4f;--accent:#e85d4a;--cream:#f0e6d2}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none;cursor:pointer}img{display:block;max-width:100%}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,36px)}
+.serif{font-family:"Fraunces",serif}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-size:15px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:transform .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-p{background:var(--green);color:#fff}
+.btn-g{background:transparent;border:1px solid #0f2a2833;color:var(--ink)}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:600}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(244,247,245,.92);backdrop-filter:blur(10px);border-bottom:1px solid #0001}
+.nav-i{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:12px}
+.logo{font-family:"Fraunces",serif;font-weight:600;font-size:22px;display:flex;align-items:center;gap:10px}
+.lmark{width:28px;height:28px;border-radius:8px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:16px}
+.nav-links{display:flex;gap:26px;font-size:14px}
+.status-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:#e6f4ee;color:var(--green);border-radius:999px;font-size:12px;font-weight:600}
+.status-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:#2aa876;box-shadow:0 0 0 4px #2aa87622;animation:p 2s infinite}
+@keyframes p{50%{box-shadow:0 0 0 7px #2aa87611}}
+
+/* Hero */
+.hero{padding:clamp(40px,5vw,80px) 0 clamp(60px,6vw,100px)}
+.hero-g{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center}
+.hero h1{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(44px,7vw,104px);letter-spacing:-.025em;line-height:.98;margin:0;text-wrap:balance}
+.hero h1 em{font-style:italic;color:var(--green)}
+.hero .sub{font-size:18px;line-height:1.55;color:var(--dim);max-width:520px;margin-top:28px}
+.hero-cta{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.trust{display:flex;gap:24px;margin-top:36px;flex-wrap:wrap}
+.trust > div{font-size:13px;color:var(--dim)}
+.trust strong{display:block;font-size:22px;color:var(--ink);font-family:"Fraunces",serif;font-weight:500}
+
+.hero-vis{position:relative;aspect-ratio:4/5;border-radius:32px;overflow:hidden;background:var(--green)}
+.hero-vis img{width:100%;height:100%;object-fit:cover}
+.hero-vis::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(transparent,#0007)}
+.hero-card{position:absolute;left:20px;right:20px;bottom:20px;background:#fff;border-radius:18px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 20px 40px #0002}
+.hero-card .ic{width:44px;height:44px;border-radius:12px;background:#e6f4ee;color:var(--green);display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.hero-card h4{margin:0;font-size:15px;font-weight:600}
+.hero-card p{margin:2px 0 0;font-size:12px;color:var(--dim)}
+
+/* Quick services */
+.quick{padding:clamp(50px,6vw,90px) 0;background:#fff}
+.quick-g{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.q{padding:26px 22px;border-radius:18px;background:var(--bg);display:flex;flex-direction:column;gap:12px;transition:transform .3s,background .3s;cursor:pointer}
+.q:hover{transform:translateY(-3px);background:var(--green);color:#fff}
+.q:hover .q-ic{background:#fff;color:var(--green)}
+.q:hover p,.q:hover .arr{color:#ffffffcc}
+.q-ic{width:48px;height:48px;border-radius:14px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:22px;transition:.3s}
+.q h3{margin:0;font-size:18px;font-weight:600;font-family:"Fraunces",serif}
+.q p{margin:0;font-size:13px;color:var(--dim);line-height:1.5}
+.q .arr{font-size:12px;font-weight:600;margin-top:auto;color:var(--green);transition:.3s}
+
+/* Hours + contact strip */
+.strip{background:var(--green);color:#fff;padding:clamp(40px,5vw,70px) 0;position:relative;overflow:hidden}
+.strip::before{content:"+";position:absolute;right:-40px;top:-40px;font-size:400px;font-family:"Fraunces",serif;font-weight:300;opacity:.07;line-height:1}
+.strip .wrap{position:relative;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px;align-items:start}
+.strip h2{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(34px,4.5vw,60px);letter-spacing:-.02em;line-height:1;margin:0 0 14px}
+.strip .kicker{color:var(--mint)}
+.strip p{margin:0;opacity:.85;line-height:1.55;font-size:15px}
+.hours-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:14px;font-variant-numeric:tabular-nums}
+.hours-list li{display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid #ffffff22}
+.hours-list li.today{color:var(--mint);font-weight:600}
+
+/* Team */
+.team{padding:clamp(60px,7vw,110px) 0}
+.team-h{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:end;margin-bottom:40px}
+.team-h h2{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(40px,6vw,88px);letter-spacing:-.025em;line-height:1;margin:8px 0 0;text-wrap:balance}
+.team-h h2 em{font-style:italic;color:var(--accent)}
+.team-h p{color:var(--dim);font-size:16px;line-height:1.6;margin:0}
+.team-g{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.t{background:#fff;border-radius:20px;overflow:hidden;transition:transform .3s}
+.t:hover{transform:translateY(-4px)}
+.t .p{aspect-ratio:4/5;background:var(--mint);overflow:hidden}
+.t .p img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05)}
+.t .inf{padding:18px 20px}
+.t h4{margin:0;font-size:18px;font-family:"Fraunces",serif;font-weight:500}
+.t span{display:block;margin-top:3px;font-size:13px;color:var(--dim)}
+
+/* Review */
+.rev{padding:clamp(60px,6vw,100px) 0;background:var(--cream)}
+.rev-g{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.r{background:#fff;border-radius:20px;padding:28px;position:relative}
+.r::before{content:"\201C";position:absolute;top:6px;left:22px;font-family:"Fraunces",serif;font-size:90px;color:var(--green);opacity:.2;line-height:1}
+.r p{margin:32px 0 20px;font-family:"Fraunces",serif;font-size:18px;line-height:1.45;color:var(--ink)}
+.r .cite{display:flex;align-items:center;gap:12px}
+.r .cite img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.r .cite strong{font-size:14px;display:block}
+.r .cite span{font-size:12px;color:var(--dim)}
+
+/* CTA */
+.cta{padding:clamp(60px,7vw,110px) 0}
+.cta-card{background:var(--ink);color:#fff;border-radius:32px;padding:clamp(36px,5vw,64px);display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.cta-card::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(var(--accent),transparent 70%);opacity:.5}
+.cta-card h2{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(36px,5vw,76px);margin:0;letter-spacing:-.025em;line-height:1;position:relative}
+.cta-card p{color:#ffffffaa;line-height:1.6;margin:0 0 22px;position:relative}
+
+footer{padding:36px 0;border-top:1px solid #0001;font-size:13px;color:var(--dim)}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media (max-width:900px){
+  .nav-links{display:none}
+  .status-pill{display:none}
+  .hero-g,.strip .wrap,.team-h,.cta-card{grid-template-columns:1fr}
+  .quick-g,.rev-g{grid-template-columns:1fr 1fr}
+  .team-g{grid-template-columns:1fr 1fr}
+  .hero-vis{aspect-ratio:4/3;max-height:420px}
+}
+@media (max-width:560px){
+  .quick-g,.rev-g,.team-g{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap nav-i">
+  <div class="logo"><span class="lmark">+</span>De Linde</div>
+  <div class="nav-links"><a>Herhaalrecept</a><a>Diensten</a><a>Openingstijden</a><a>Contact</a></div>
+  <span class="status-pill">Nu geopend · tot 17:30</span>
+</div></nav>
+
+<section class="hero wrap"><div class="hero-g">
+  <div>
+    <span class="kicker">Wijkapotheek sinds 1962</span>
+    <h1>Uw medicijn, <em>persoonlijk</em> afgeleverd.</h1>
+    <p class="sub">Apotheek De Linde is er voor de hele wijk. Geen wachtrijen, wel een vertrouwd gezicht. Herhaalrecepten regelt u online, de rest regelen wij persoonlijk.</p>
+    <div class="hero-cta">
+      <a class="btn btn-p">Herhaalrecept bestellen →</a>
+      <a class="btn btn-g">Vraag een gesprek aan</a>
+    </div>
+    <div class="trust">
+      <div><strong>4.9 / 5</strong>op 842 reviews</div>
+      <div><strong>24u</strong>bezorging in de wijk</div>
+      <div><strong>18</strong>zorgverzekeraars</div>
+    </div>
+  </div>
+  <div class="hero-vis">
+    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=900&q=80" alt="">
+    <div class="hero-card">
+      <div class="ic">🕐</div>
+      <div><h4>Klaar binnen 10 minuten</h4><p>Spoedrecept? Loop gewoon binnen.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="quick"><div class="wrap">
+  <span class="kicker">Onze diensten</span>
+  <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,5vw,64px);margin:8px 0 0;letter-spacing:-.02em">Alles wat u nodig heeft, <em style="color:var(--accent);font-style:italic">onder één dak</em>.</h2>
+  <div class="quick-g">
+    <div class="q"><div class="q-ic">℞</div><h3>Recepten</h3><p>Nieuwe en herhaalrecepten, ook digitaal bij uw huisarts opgehaald.</p><span class="arr">Meer info →</span></div>
+    <div class="q"><div class="q-ic">💊</div><h3>Medicatie-check</h3><p>Jaarlijks gesprek over al uw medicijnen door een farmaceutisch consulent.</p><span class="arr">Plan een gesprek →</span></div>
+    <div class="q"><div class="q-ic">🚚</div><h3>Bezorging</h3><p>Binnen 24u thuisbezorgd in Utrecht-Oost. Gratis bij abonnement.</p><span class="arr">Abonnement →</span></div>
+    <div class="q"><div class="q-ic">💉</div><h3>Reisadvies</h3><p>Vaccinaties, malariaprofylaxe en een compleet reisapotheekje.</p><span class="arr">Afspraak →</span></div>
+  </div>
+</div></section>
+
+<section class="strip"><div class="wrap">
+  <div>
+    <span class="kicker">Altijd bereikbaar</span>
+    <h2>Of u nu een spoedrecept heeft of een vraag — we staan klaar.</h2>
+    <p>Buiten openingstijden neemt de dienstapotheek Utrecht Stad het over, 24 uur per dag bereikbaar.</p>
+    <a class="btn" style="background:#fff;color:var(--green);margin-top:22px">030 — 281 44 55</a>
+  </div>
+  <div>
+    <span class="kicker">Openingstijden</span>
+    <ul class="hours-list" style="margin-top:18px">
+      <li class="today"><span>Vandaag (ma)</span><span>08:00 — 17:30</span></li>
+      <li><span>Dinsdag</span><span>08:00 — 17:30</span></li>
+      <li><span>Woensdag</span><span>08:00 — 17:30</span></li>
+      <li><span>Donderdag</span><span>08:00 — 20:00</span></li>
+      <li><span>Vrijdag</span><span>08:00 — 17:30</span></li>
+      <li><span>Za / Zo</span><span>Gesloten</span></li>
+    </ul>
+  </div>
+  <div>
+    <span class="kicker">Dienstapotheek</span>
+    <p style="margin-top:18px">Voor spoed buiten onze uren:<br><strong style="font-size:20px;font-family:'Fraunces',serif;font-weight:500;color:#fff">Dienstapotheek Utrecht Stad</strong><br>Meidoornkade 22<br>030 — 500 40 20</p>
+  </div>
+</div></section>
+
+<section class="team wrap">
+  <div class="team-h">
+    <div><span class="kicker">Het team</span><h2>Mensen die uw <em>naam</em> onthouden.</h2></div>
+    <p>Acht collega's, samen goed voor 147 jaar farmaceutische ervaring. We werken volgens het principe: één vaste apotheker per cliënt, zodat er écht iemand meekijkt.</p>
+  </div>
+  <div class="team-g">
+    <div class="t"><div class="p"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=500&q=80"></div><div class="inf"><h4>Dr. Sanne Hofman</h4><span>Gevestigd apotheker</span></div></div>
+    <div class="t"><div class="p"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&q=80"></div><div class="inf"><h4>Youssef El Amrani</h4><span>Tweede apotheker</span></div></div>
+    <div class="t"><div class="p"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500&q=80"></div><div class="inf"><h4>Margriet Dekker</h4><span>Farmaceutisch consulent</span></div></div>
+    <div class="t"><div class="p"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80"></div><div class="inf"><h4>Lars van Bergen</h4><span>Assistent</span></div></div>
+  </div>
+</section>
+
+<section class="rev"><div class="wrap">
+  <span class="kicker">Wat klanten zeggen</span>
+  <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,5vw,60px);margin:8px 0 32px;letter-spacing:-.02em;max-width:800px">Persoonlijke zorg is geen <em style="font-style:italic;color:var(--accent)">slogan</em>, het is ons werk.</h2>
+  <div class="rev-g">
+    <div class="r"><p>Sanne belt me altijd als ik een nieuw medicijn krijg om te checken of het strookt met de rest. Dat vind je nergens meer.</p><div class="cite"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80"><div><strong>Greetje K.</strong><span>Vaste klant sinds 1998</span></div></div></div>
+    <div class="r"><p>Bestelde zaterdagmiddag online een herhaalrecept, maandagochtend lag het voor de deur. Keurig verpakt en met uitleg erbij.</p><div class="cite"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80"><div><strong>Mohammed A.</strong><span>Nieuwe klant</span></div></div></div>
+    <div class="r"><p>Mijn moeder van 87 wordt hier echt met naam gekend. Dat is met alle zorgen die er nu zijn onbetaalbaar.</p><div class="cite"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80"><div><strong>Iris de Vries</strong><span>Mantelzorger</span></div></div></div>
+  </div>
+</div></section>
+
+<section class="cta wrap"><div class="cta-card">
+  <div>
+    <span class="kicker" style="color:var(--mint)">Overstappen?</span>
+    <h2>Nieuwe apotheek in <em style="font-style:italic;color:var(--mint)">drie minuten</em>.</h2>
+  </div>
+  <div>
+    <p>Wij regelen alles met uw vorige apotheek. U hoeft niks te bellen, niks op te halen. Vul uw naam in en we nemen contact op.</p>
+    <a class="btn btn-p" style="background:#fff;color:var(--ink)">Overstappen →</a>
+  </div>
+</div></section>
+
+<footer class="wrap"><div class="foot-row">
+  <span>© Apotheek De Linde · Lindenlaan 47 · 3581 GH Utrecht</span>
+  <span>BIG 79814522515 · Onderdeel Coöperatie Apotheken Utrecht</span>
+</div></footer>
+</body></html>

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Volt. — Electronica shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{--bg:#0a0c10;--panel:#11151c;--ink:#eef1f5;--dim:#89909a;--acc:#7df9ff;--pink:#ff5eaa;--yel:#ffd84a}
+ *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+ a{color:inherit;text-decoration:none;cursor:pointer}img{display:block;max-width:100%}
+ .wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+ .mono{font-family:"JetBrains Mono",monospace}
+
+ /* Animated gradient background behind hero */
+ .gradbg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+ .gradbg::before,.gradbg::after{content:"";position:absolute;width:50vw;height:50vw;border-radius:50%;filter:blur(100px);opacity:.35;animation:drift 22s ease-in-out infinite}
+ .gradbg::before{background:var(--acc);top:-20%;left:-10%}
+ .gradbg::after{background:var(--pink);bottom:-30%;right:-10%;animation-delay:-10s}
+ @keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(8vw,4vw) scale(1.1)}}
+
+ .nav{position:sticky;top:0;z-index:50;background:rgba(10,12,16,.72);backdrop-filter:blur(14px);border-bottom:1px solid #ffffff10}
+ .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:12px}
+ .logo{font-size:22px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+ .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 14px var(--acc)}
+ .nav-links{display:flex;gap:24px;font-size:14px}
+ .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:transform .2s,box-shadow .2s}
+ .btn:hover{transform:translateY(-1px)}
+ .btn-primary{background:var(--acc);color:#001318;font-weight:600;box-shadow:0 0 30px #7df9ff55}
+ .btn-primary:hover{box-shadow:0 0 50px #7df9ff99}
+ .btn-ghost{background:#ffffff0a;border:1px solid #ffffff1a;color:var(--ink)}
+
+ /* Hero */
+ .hero{position:relative;padding:clamp(40px,6vw,80px) 0 clamp(30px,5vw,60px);overflow:hidden}
+ .hero > *{position:relative;z-index:1}
+ .hero h1{font-size:clamp(56px,10vw,160px);font-weight:800;letter-spacing:-.045em;line-height:.88;margin:0;text-wrap:balance}
+ .hero h1 .glow{color:var(--acc);text-shadow:0 0 40px #7df9ff77}
+ .hero-sub{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;margin-top:40px;align-items:end}
+ .hero-sub p{font-size:clamp(17px,1.5vw,22px);line-height:1.5;color:var(--dim);margin:0;max-width:640px}
+ .hero-cta{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+
+ .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--acc);color:var(--acc);border-radius:999px;font-size:12px;font-family:"JetBrains Mono",monospace;letter-spacing:.08em;margin-bottom:28px}
+ .pill::before{content:"";width:7px;height:7px;background:var(--acc);border-radius:50%;box-shadow:0 0 10px var(--acc);animation:blink 1.6s infinite}
+ @keyframes blink{50%{opacity:.4}}
+
+ /* Feature product showcase */
+ .fp{padding:clamp(40px,5vw,80px) 0}
+ .fp-g{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:stretch}
+ .fp-main{background:linear-gradient(135deg,#1a1f2a,#0d1117);border-radius:28px;padding:40px;border:1px solid #ffffff12;position:relative;overflow:hidden;min-height:460px}
+ .fp-main::after{content:"";position:absolute;top:-30%;right:-30%;width:80%;height:120%;background:radial-gradient(circle,var(--pink) 0%,transparent 60%);opacity:.3}
+ .fp-main img{position:absolute;right:-5%;bottom:-10%;max-width:60%;max-height:90%;filter:drop-shadow(0 30px 60px #0008)}
+ .fp-main h3{font-size:14px;color:var(--pink);letter-spacing:.15em;font-family:"JetBrains Mono",monospace;margin:0}
+ .fp-main h2{font-size:clamp(36px,4vw,56px);font-weight:700;letter-spacing:-.03em;line-height:.98;margin:10px 0 14px;max-width:60%}
+ .fp-main p{color:var(--dim);font-size:15px;line-height:1.6;max-width:55%;margin-bottom:24px}
+ .fp-side{display:grid;grid-template-rows:1fr 1fr;gap:20px}
+ .fp-card{background:var(--panel);border-radius:24px;padding:28px;border:1px solid #ffffff10;position:relative;overflow:hidden;transition:transform .3s,border-color .3s}
+ .fp-card:hover{transform:translateY(-3px);border-color:var(--acc)}
+ .fp-card img{position:absolute;right:-5%;bottom:-15%;max-width:55%;max-height:85%}
+ .fp-card h4{font-size:13px;font-family:"JetBrains Mono",monospace;color:var(--yel);margin:0;letter-spacing:.1em}
+ .fp-card h3{font-size:24px;font-weight:700;letter-spacing:-.02em;margin:8px 0 6px;max-width:55%}
+ .fp-card .price{font-size:28px;font-weight:800;letter-spacing:-.02em}
+ .fp-card .price em{font-style:normal;color:var(--dim);font-size:15px;text-decoration:line-through;font-weight:500;margin-left:8px}
+
+ /* Cat chips */
+ .cats{display:flex;gap:10px;overflow-x:auto;padding:20px 0 30px;scrollbar-width:none}
+ .cats::-webkit-scrollbar{display:none}
+ .cat{flex:0 0 auto;padding:12px 22px;background:var(--panel);border:1px solid #ffffff10;border-radius:999px;font-size:14px;transition:all .3s;cursor:pointer}
+ .cat:hover,.cat.on{background:var(--acc);color:#001318;border-color:var(--acc);transform:translateY(-1px)}
+
+ /* Products */
+ .sec{padding:clamp(50px,6vw,90px) 0}
+ .sec-h{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+ .sec-h h2{font-size:clamp(34px,5vw,64px);font-weight:800;letter-spacing:-.035em;line-height:.95;margin:0}
+ .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);font-family:"JetBrains Mono",monospace;margin-bottom:10px}
+
+ .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+ .prod{background:var(--panel);border:1px solid #ffffff0d;border-radius:20px;padding:18px;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative}
+ .prod:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 14px 40px #7df9ff22}
+ .prod-img{aspect-ratio:1;border-radius:14px;background:#0006;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:14px;position:relative}
+ .prod-img img{max-width:85%;max-height:85%;object-fit:contain;transition:transform .5s}
+ .prod:hover .prod-img img{transform:scale(1.08) rotate(-2deg)}
+ .prod-tag{position:absolute;top:12px;left:12px;font-size:10px;padding:4px 9px;border-radius:999px;font-family:"JetBrains Mono",monospace;letter-spacing:.1em}
+ .t-new{background:var(--acc);color:#001318}
+ .t-sale{background:var(--pink);color:#fff}
+ .t-hot{background:var(--yel);color:#111}
+ .prod-brand{font-size:11px;color:var(--dim);font-family:"JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+ .prod-name{font-size:16px;font-weight:600;margin:4px 0 10px;letter-spacing:-.01em}
+ .prod-foot{display:flex;justify-content:space-between;align-items:baseline}
+ .prod-foot .price{font-size:20px;font-weight:800;letter-spacing:-.02em}
+ .prod-foot .add{width:36px;height:36px;border-radius:999px;background:var(--acc);color:#001318;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
+
+ /* Specs */
+ .specs{padding:clamp(50px,6vw,90px) 0;background:linear-gradient(180deg,transparent,#0005)}
+ .specs-g{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+ .spec{text-align:left}
+ .spec .n{font-size:56px;font-weight:800;letter-spacing:-.04em;color:var(--acc);line-height:1}
+ .spec .l{font-size:13px;color:var(--dim);font-family:"JetBrains Mono",monospace;letter-spacing:.08em;margin-top:10px;text-transform:uppercase}
+
+ /* CTA */
+ .cta{padding:clamp(60px,7vw,120px) 0;position:relative;text-align:center}
+ .cta h2{font-size:clamp(48px,8vw,128px);font-weight:800;letter-spacing:-.045em;line-height:.92;margin:0 0 28px}
+
+ footer{padding:40px 0;border-top:1px solid #ffffff0c;font-size:13px;color:var(--dim)}
+ .foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+ @media (max-width:900px){
+   .hero-sub,.fp-g,.specs-g{grid-template-columns:1fr}
+   .fp-side{grid-template-rows:auto auto;grid-template-columns:1fr 1fr}
+   .grid-4{grid-template-columns:repeat(2,1fr);gap:12px}
+   .nav-links{display:none}
+   .fp-main img,.fp-card img{max-width:45%;opacity:.85}
+   .fp-main h2,.fp-main p,.fp-card h3{max-width:100%}
+ }
+ @media (max-width:520px){
+   .specs-g{grid-template-columns:repeat(2,1fr)}
+   .fp-side{grid-template-columns:1fr}
+ }
+</style>
+</head>
+<body>
+  <nav class="nav"><div class="wrap nav-inner">
+    <div class="logo"><span class="dot"></span>Volt.</div>
+    <div class="nav-links">
+      <a>Audio</a><a>Telefoons</a><a>Laptops</a><a>Gaming</a><a>Smart home</a><a>Support</a>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center"><a style="font-size:14px">🔍</a><button class="btn btn-primary">Winkelmand · 0</button></div>
+  </div></nav>
+
+  <section class="hero"><div class="gradbg"></div><div class="wrap">
+    <span class="pill">LIVE · NIEUWE COLLECTIE 2026</span>
+    <h1>Tech die <span class="glow">klopt</span>.<br>Service die <em style="font-style:italic;opacity:.6">meent</em>.</h1>
+    <div class="hero-sub">
+      <p>Volt. is een onafhankelijke electronica shop in Utrecht. We testen alles wat we verkopen, en helpen je kiezen — zonder commissie-gedoe of pushy sales.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary">Shop deals →</button>
+        <button class="btn btn-ghost">Ons advies</button>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="wrap fp"><div class="fp-g">
+    <div class="fp-main">
+      <h3>→ FEATURED · AUDIO</h3>
+      <h2>Sony WH-1000XM5. Nieuw in onze Audio Lab.</h2>
+      <p>De stilste koptelefoon die we dit jaar hebben getest. 40mm driver, 30u batterij, adaptive noise cancelling.</p>
+      <div style="display:flex;gap:12px;align-items:baseline">
+        <span style="font-size:36px;font-weight:800;letter-spacing:-.02em">€ 399</span>
+        <span style="color:var(--dim);text-decoration:line-through">€ 469</span>
+        <span class="prod-tag t-sale" style="position:static">−15%</span>
+      </div>
+      <button class="btn btn-primary" style="margin-top:20px">Luister eerst →</button>
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&q=80" alt="">
+    </div>
+    <div class="fp-side">
+      <div class="fp-card">
+        <h4>→ GAMING</h4>
+        <h3>PS5 Slim bundel</h3>
+        <div class="price">€ 549<em>€ 599</em></div>
+        <img src="https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?w=600&q=80">
+      </div>
+      <div class="fp-card">
+        <h4>→ MOBIEL</h4>
+        <h3>iPhone 16 Pro</h3>
+        <div class="price">€ 1.229</div>
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80">
+      </div>
+    </div>
+  </div></section>
+
+  <section class="wrap">
+    <div class="cats">
+      <a class="cat on">Alles</a><a class="cat">Koptelefoons</a><a class="cat">Speakers</a><a class="cat">Laptops</a><a class="cat">Telefoons</a><a class="cat">Tablets</a><a class="cat">Camera's</a><a class="cat">Smart home</a><a class="cat">Wearables</a><a class="cat">Gaming</a>
+    </div>
+  </section>
+
+  <section class="wrap sec" style="padding-top:20px">
+    <div class="sec-h">
+      <div><div class="kicker">→ TRENDING DEZE WEEK</div><h2>Wat nu <span style="color:var(--acc)">populair</span> is.</h2></div>
+      <a style="font-size:15px;color:var(--acc)">Bekijk alles →</a>
+    </div>
+    <div class="grid-4">
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&q=80"><span class="prod-tag t-new">NEW</span></div><div class="prod-brand">Apple</div><div class="prod-name">AirPods Pro 2</div><div class="prod-foot"><span class="price">€ 279</span><span class="add">+</span></div></a>
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&q=80"><span class="prod-tag t-hot">HOT</span></div><div class="prod-brand">Sonos</div><div class="prod-name">Era 300 speaker</div><div class="prod-foot"><span class="price">€ 499</span><span class="add">+</span></div></a>
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500&q=80"><span class="prod-tag t-sale">−20%</span></div><div class="prod-brand">Microsoft</div><div class="prod-name">Surface Laptop 7</div><div class="prod-foot"><span class="price">€ 1.199</span><span class="add">+</span></div></a>
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=500&q=80"></div><div class="prod-brand">Samsung</div><div class="prod-name">Galaxy Watch 7</div><div class="prod-foot"><span class="price">€ 329</span><span class="add">+</span></div></a>
+
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1519558260268-cde7e03a0152?w=500&q=80"></div><div class="prod-brand">Bose</div><div class="prod-name">QuietComfort Ultra</div><div class="prod-foot"><span class="price">€ 449</span><span class="add">+</span></div></a>
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=500&q=80"><span class="prod-tag t-new">NEW</span></div><div class="prod-brand">DJI</div><div class="prod-name">Mini 4 Pro drone</div><div class="prod-foot"><span class="price">€ 869</span><span class="add">+</span></div></a>
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=500&q=80"></div><div class="prod-brand">Nintendo</div><div class="prod-name">Switch OLED</div><div class="prod-foot"><span class="price">€ 349</span><span class="add">+</span></div></a>
+      <a class="prod"><div class="prod-img"><img src="https://images.unsplash.com/photo-1551355716-b9536591f07d?w=500&q=80"><span class="prod-tag t-sale">−15%</span></div><div class="prod-brand">GoPro</div><div class="prod-name">Hero 13 Black</div><div class="prod-foot"><span class="price">€ 449</span><span class="add">+</span></div></a>
+    </div>
+  </section>
+
+  <section class="specs"><div class="wrap specs-g">
+    <div class="spec"><div class="n">14</div><div class="l">Jaar in Utrecht</div></div>
+    <div class="spec"><div class="n">4.9★</div><div class="l">Op 3.200 reviews</div></div>
+    <div class="spec"><div class="n">&lt;24u</div><div class="l">Levertijd in NL</div></div>
+    <div class="spec"><div class="n">30 dgn</div><div class="l">Retour, zonder gedoe</div></div>
+  </div></section>
+
+  <section class="cta"><div class="gradbg"></div><div class="wrap" style="position:relative">
+    <h2>Kom langs.<br>Test. <span class="glow">Weet.</span></h2>
+    <p style="color:var(--dim);font-size:18px;max-width:560px;margin:0 auto 36px;line-height:1.55">Onze winkel aan de Lange Nieuwstraat heeft een audio-lab, een game-booth en koffie. Eerlijk advies, geen druk.</p>
+    <button class="btn btn-primary" style="padding:18px 30px;font-size:16px">Bezoek onze winkel →</button>
+  </div></section>
+
+  <footer><div class="wrap foot-row">
+    <span>© Volt. BV · Lange Nieuwstraat 47 Utrecht · KVK 88223344</span>
+    <span class="mono">INSTAGRAM · YOUTUBE · TIKTOK</span>
+  </div></footer>
+</body></html>

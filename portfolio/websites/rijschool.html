@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Rijschool Koers — Utrecht</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #0e1419; color: #f3f2ee; font-family: "Inter Tight", system-ui, sans-serif; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; cursor: pointer; }
+
+  /* Responsive overrides for inline React grids */
+  @media (max-width: 900px) {
+    header > div, nav > div { flex-wrap: wrap !important; gap: 14px !important; padding: 14px 20px !important; }
+    section { padding-left: 20px !important; padding-right: 20px !important; }
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns: 1.2fr 1fr"],
+    [style*="grid-template-columns: 1.15fr 1fr"],
+    [style*="grid-template-columns: 1.3fr 1fr"],
+    [style*="grid-template-columns: 2fr 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+    [style*="font-size: clamp(56px"],
+    [style*="font-size: clamp(64px"],
+    [style*="font-size: clamp(72px"] { font-size: clamp(42px, 9vw, 64px) !important; }
+    [style*="padding: 56px"],[style*="padding: 64px"],[style*="padding: 80px"] { padding: 32px !important; }
+    [style*="padding: '40px 32px"],
+    [style*="padding: '60px 32px"],
+    [style*="padding: '80px 32px"],
+    [style*="padding: '100px 32px"] { padding: 40px 20px !important; }
+    [style*="min-height: 540"],[style*="min-height: 600"],[style*="min-height: 640"] { min-height: auto !important; }
+  }
+  @media (max-width: 560px) {
+    [style*="grid-template-columns: repeat(4, 1fr)"],
+    [style*="grid-template-columns: repeat(3, 1fr)"],
+    [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
+    [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="font-size: 44"],[style*="font-size: 48"],[style*="font-size: 56"] { font-size: 32px !important; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const C = { bg: '#0e1419', ink: '#f3f2ee', dim: '#9aa0a6', lime: '#d4ff3d', orange: '#ff6b1a', panel: '#1a2128' };
+const mono = '"JetBrains Mono", ui-monospace, monospace';
+
+const App = () => {
+  const packs = [
+    { n: 'Starter 10', h: '10 uur', p: '€ 599', d: 'Eerste kennismaking, basisvaardigheden, goede start.' },
+    { n: 'Standaard 30', h: '30 uur', p: '€ 1.650', d: 'Meest gekozen. Gemiddelde leerling slaagt in dit traject.', best: true },
+    { n: 'Spoedtraject', h: '4 weken', p: '€ 2.400', d: 'In 4 weken klaar voor het examen. Inclusief tussentijdse toets.' },
+  ];
+  const team = [
+    { n: 'Youssef', j: 'Hoofdinstructeur · 14 jaar', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80' },
+    { n: 'Eva', j: 'Instructeur · schakel & auto', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80' },
+    { n: 'Tariq', j: 'Instructeur · automaat', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80' },
+  ];
+
+  return (
+    <div>
+      {/* Nav */}
+      <header style={{ position: 'sticky', top: 0, background: 'rgba(14,20,25,0.9)', backdropFilter: 'blur(12px)', zIndex: 10, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', padding: '18px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em' }}>
+            <svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="2" width="28" height="28" rx="8" fill={C.lime} /><path d="M10 22 L10 16 L16 10 L22 16 L22 22" fill="none" stroke={C.bg} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            Koers
+          </div>
+          <nav style={{ display: 'flex', gap: 28, fontSize: 14 }}>
+            <a>Pakketten</a><a>Instructeurs</a><a>Theorie</a><a>Ervaringen</a><a>FAQ</a>
+          </nav>
+          <a style={{ background: C.lime, color: C.bg, padding: '11px 20px', borderRadius: 999, fontSize: 14, fontWeight: 600 }}>Proefles boeken →</a>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section style={{ padding: '60px 32px 40px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '6px 14px', background: 'rgba(212,255,61,0.12)', border: `1px solid ${C.lime}40`, borderRadius: 999, fontSize: 12, fontFamily: mono, color: C.lime, marginBottom: 32 }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: C.lime }} />
+            SLAGINGSPERCENTAGE EERSTE POGING: 74% · CBR UTRECHT
+          </div>
+          <h1 style={{ fontSize: 'clamp(72px, 9vw, 152px)', fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 0.9, margin: 0 }}>
+            Jouw rijbewijs.<br />
+            <span style={{ color: C.lime }}>Geen drama.</span>
+          </h1>
+          <div style={{ marginTop: 48, display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 64, alignItems: 'end' }}>
+            <p style={{ fontSize: 22, lineHeight: 1.5, color: C.dim, maxWidth: 560, margin: 0 }}>
+              Een rijschool in Utrecht die jou centraal zet. Rustige instructeurs, een duidelijk lesplan, en lessen op momenten die écht bij je passen.
+            </p>
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+              <a style={{ background: C.lime, color: C.bg, padding: '18px 30px', borderRadius: 999, fontSize: 17, fontWeight: 600 }}>Proefles — €35 →</a>
+              <a style={{ background: 'transparent', color: C.ink, padding: '18px 28px', borderRadius: 999, fontSize: 17, border: '1px solid rgba(255,255,255,0.15)' }}>Bekijk pakketten</a>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero image row */}
+        <div style={{ maxWidth: 1320, margin: '60px auto 0', display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 16 }}>
+          <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '16/9', position: 'relative' }}>
+            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1600&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 60%, rgba(14,20,25,0.7))' }} />
+            <div style={{ position: 'absolute', bottom: 20, left: 24, right: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+              <div>
+                <div style={{ fontFamily: mono, fontSize: 11, color: C.lime, letterSpacing: '0.15em' }}>LES 12 / 30</div>
+                <div style={{ fontSize: 22, fontWeight: 600, marginTop: 4 }}>Invoegen op de A27</div>
+              </div>
+              <div style={{ fontFamily: mono, fontSize: 13, color: C.dim }}>◉ LIVE RITTENPLAN</div>
+            </div>
+          </div>
+          <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4/5' }}>
+            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4/5' }}>
+            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+      </section>
+
+      {/* Stats strip */}
+      <section style={{ padding: '80px 32px', borderTop: '1px solid rgba(255,255,255,0.08)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40 }}>
+          {[
+            { k: '74%', v: 'slaagt in één keer' },
+            { k: '28', v: 'gem. aantal lessen' },
+            { k: '4.9★', v: 'op 847 reviews' },
+            { k: '7 dgn', v: 'van proefles tot start' },
+          ].map(s => (
+            <div key={s.v}>
+              <div style={{ fontSize: 72, fontWeight: 800, letterSpacing: '-0.04em', color: C.lime, lineHeight: 1 }}>{s.k}</div>
+              <div style={{ fontSize: 14, color: C.dim, marginTop: 8, fontFamily: mono, letterSpacing: '0.05em' }}>{s.v.toUpperCase()}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Packages */}
+      <section style={{ padding: '100px 32px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <div style={{ maxWidth: 700, marginBottom: 56 }}>
+            <div style={{ fontFamily: mono, fontSize: 12, color: C.lime, letterSpacing: '0.12em', marginBottom: 14 }}>01 · PAKKETTEN</div>
+            <h2 style={{ fontSize: 72, fontWeight: 700, letterSpacing: '-0.035em', lineHeight: 0.95, margin: 0 }}>Kies een traject dat bij jou past.</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            {packs.map(p => (
+              <div key={p.n} style={{
+                background: p.best ? C.lime : C.panel,
+                color: p.best ? C.bg : C.ink,
+                borderRadius: 28, padding: 32,
+                border: p.best ? 'none' : '1px solid rgba(255,255,255,0.08)',
+                position: 'relative', display: 'flex', flexDirection: 'column',
+              }}>
+                {p.best && <div style={{ position: 'absolute', top: -10, right: 24, background: C.orange, color: '#fff', fontSize: 11, padding: '6px 12px', borderRadius: 999, fontWeight: 600, letterSpacing: '0.05em' }}>POPULAIR</div>}
+                <div style={{ fontFamily: mono, fontSize: 12, opacity: 0.7, letterSpacing: '0.1em' }}>{p.h.toUpperCase()}</div>
+                <div style={{ fontSize: 36, fontWeight: 700, letterSpacing: '-0.02em', margin: '12px 0 24px' }}>{p.n}</div>
+                <div style={{ fontSize: 56, fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1 }}>{p.p}</div>
+                <div style={{ fontSize: 15, opacity: 0.75, marginTop: 16, lineHeight: 1.5, flex: 1 }}>{p.d}</div>
+                <a style={{ marginTop: 32, padding: '14px 20px', borderRadius: 999, background: p.best ? C.bg : C.lime, color: p.best ? C.lime : C.bg, textAlign: 'center', fontWeight: 600, fontSize: 15 }}>Kies {p.n} →</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team */}
+      <section style={{ padding: '100px 32px', background: C.panel }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
+            <div>
+              <div style={{ fontFamily: mono, fontSize: 12, color: C.lime, letterSpacing: '0.12em', marginBottom: 14 }}>02 · INSTRUCTEURS</div>
+              <h2 style={{ fontSize: 64, fontWeight: 700, letterSpacing: '-0.035em', lineHeight: 0.95, margin: 0 }}>Rustige <br/>mensen.</h2>
+            </div>
+            <p style={{ fontSize: 18, color: C.dim, lineHeight: 1.6, margin: 0, maxWidth: 500 }}>
+              Onze instructeurs zijn geen schreeuwers. We geloven dat je het beste leert in een omgeving waar je fouten mag maken — want daar leer je van.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            {team.map(m => (
+              <div key={m.n} style={{ background: C.bg, borderRadius: 24, overflow: 'hidden' }}>
+                <div style={{ aspectRatio: '5/4', overflow: 'hidden' }}>
+                  <img src={m.img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ padding: 24 }}>
+                  <div style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-0.01em' }}>{m.n}</div>
+                  <div style={{ fontSize: 13, color: C.dim, marginTop: 4, fontFamily: mono }}>{m.j}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Theory */}
+      <section style={{ padding: '100px 32px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}>
+          <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4/3' }}>
+            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1200&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div>
+            <div style={{ fontFamily: mono, fontSize: 12, color: C.lime, letterSpacing: '0.12em', marginBottom: 14 }}>03 · THEORIE</div>
+            <h2 style={{ fontSize: 64, fontWeight: 700, letterSpacing: '-0.035em', lineHeight: 0.95, margin: 0 }}>
+              Theorie binnen één dag.
+            </h2>
+            <p style={{ fontSize: 18, lineHeight: 1.6, color: C.dim, marginTop: 24 }}>
+              Van 9:00 tot 16:00 ben je klaar om het CBR-examen dezelfde week te doen. Inclusief lunch, online oefenexamens en een slaag-of-geld-terug garantie.
+            </p>
+            <div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
+              <a style={{ background: C.lime, color: C.bg, padding: '16px 26px', borderRadius: 999, fontSize: 16, fontWeight: 600 }}>€ 129 · Reserveer dag</a>
+              <a style={{ padding: '16px 22px', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 999, fontSize: 16 }}>Planning bekijken</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section style={{ padding: '80px 32px', background: C.lime, color: C.bg }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 48, alignItems: 'center' }}>
+          <h2 style={{ fontSize: 'clamp(56px, 7vw, 112px)', fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 0.95, margin: 0 }}>
+            Start met een proefles van €35.
+          </h2>
+          <div>
+            <p style={{ fontSize: 17, lineHeight: 1.55, opacity: 0.75, margin: 0 }}>
+              90 minuten rijden met een van onze instructeurs. Daarna beslis je of Koers bij je past. Zonder verplichtingen.
+            </p>
+            <a style={{ display: 'inline-flex', marginTop: 28, background: C.bg, color: C.lime, padding: '20px 30px', borderRadius: 999, fontSize: 18, fontWeight: 600 }}>Plan mijn proefles →</a>
+          </div>
+        </div>
+      </section>
+
+      <footer style={{ padding: '40px 32px', fontSize: 13, color: C.dim, fontFamily: mono, display: 'flex', justifyContent: 'space-between', maxWidth: 1320, margin: '0 auto' }}>
+        <span>© RIJSCHOOL KOERS · UTRECHT · KVK 87654321</span>
+        <span>INSTAGRAM · TIKTOK · WHATSAPP 06 — 12 34 56 78</span>
+      </footer>
+    </div>
+  );
+};
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

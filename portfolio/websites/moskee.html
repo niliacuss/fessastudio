@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<title>Moskee Al-Noer — Utrecht</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter+Tight:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f5f1e8; color: #1c2b1f; font-family: "Inter Tight", system-ui, sans-serif; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; cursor: pointer; }
+
+  /* Responsive overrides for inline React grids */
+  @media (max-width: 900px) {
+    header > div, nav > div { flex-wrap: wrap !important; gap: 14px !important; padding: 14px 20px !important; }
+    section { padding-left: 20px !important; padding-right: 20px !important; }
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns: 1.2fr 1fr"],
+    [style*="grid-template-columns: 1.15fr 1fr"],
+    [style*="grid-template-columns: 1.3fr 1fr"],
+    [style*="grid-template-columns: 2fr 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+    [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+    [style*="font-size: clamp(56px"],
+    [style*="font-size: clamp(64px"],
+    [style*="font-size: clamp(72px"] { font-size: clamp(42px, 9vw, 64px) !important; }
+    [style*="padding: 56px"],[style*="padding: 64px"],[style*="padding: 80px"] { padding: 32px !important; }
+    [style*="padding: '40px 32px"],
+    [style*="padding: '60px 32px"],
+    [style*="padding: '80px 32px"],
+    [style*="padding: '100px 32px"] { padding: 40px 20px !important; }
+    [style*="min-height: 540"],[style*="min-height: 600"],[style*="min-height: 640"] { min-height: auto !important; }
+  }
+  @media (max-width: 560px) {
+    [style*="grid-template-columns: repeat(4, 1fr)"],
+    [style*="grid-template-columns: repeat(3, 1fr)"],
+    [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
+    [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    [style*="font-size: 44"],[style*="font-size: 48"],[style*="font-size: 56"] { font-size: 32px !important; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const C = { bg: '#f5f1e8', ink: '#1c2b1f', dim: '#5a6b5c', green: '#2d4a34', gold: '#a7875a', dark: '#0f1a12' };
+const serif = '"Cormorant Garamond", Georgia, serif';
+const arabic = '"Amiri", serif';
+
+const App = () => {
+  const prayers = [
+    { n: 'Fajr',    ar: 'الفجر',  a: '05:12', iq: '05:42' },
+    { n: 'Dhuhr',   ar: 'الظهر',  a: '13:18', iq: '13:45' },
+    { n: 'Asr',     ar: 'العصر',  a: '17:02', iq: '17:30', next: true },
+    { n: 'Maghrib', ar: 'المغرب', a: '20:44', iq: '20:50' },
+    { n: 'Isha',    ar: 'العشاء', a: '22:28', iq: '22:45' },
+  ];
+  const events = [
+    { d: '19', m: 'APR', t: 'Iftar gemeenschap', x: 'Elke avond tijdens ramadan · open voor iedereen', img: 'https://images.unsplash.com/photo-1583067353059-d36ab5c9d03a?w=800&q=80' },
+    { d: '22', m: 'APR', t: 'Khutbah in het Nederlands', x: 'Vrijdagpreek van imam Youssef · 13:15', img: 'https://images.unsplash.com/photo-1584286595398-a59e7dfb7991?w=800&q=80' },
+    { d: '27', m: 'APR', t: 'Buurtmaaltijd', x: 'Samen eten met wijkgenoten · aanmelden vooraf', img: 'https://images.unsplash.com/photo-1576181256399-834e3b3a49bf?w=800&q=80' },
+  ];
+
+  return (
+    <div>
+      {/* Top strip */}
+      <div style={{ background: C.dark, color: C.bg, fontSize: 13, padding: '8px 32px', textAlign: 'center', fontFamily: arabic, letterSpacing: '0.04em' }}>
+        بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+      </div>
+
+      {/* Nav */}
+      <header style={{ background: C.bg, borderBottom: `1px solid ${C.ink}15`, position: 'sticky', top: 0, zIndex: 10 }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', padding: '22px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <svg width="36" height="36" viewBox="0 0 36 36">
+              <path d="M18 4 Q12 10 12 18 L12 30 Q12 32 14 32 L22 32 Q24 32 24 30 L24 18 Q24 10 18 4 Z" fill={C.green}/>
+              <circle cx="18" cy="3" r="1.5" fill={C.gold}/>
+              <path d="M18 3 L18 7" stroke={C.gold} strokeWidth="1.5"/>
+            </svg>
+            <div>
+              <div style={{ fontFamily: serif, fontSize: 22, fontWeight: 600, letterSpacing: '0.01em', lineHeight: 1 }}>Moskee Al‑Noer</div>
+              <div style={{ fontSize: 11, color: C.dim, fontFamily: arabic, marginTop: 2 }}>مسجد النور</div>
+            </div>
+          </div>
+          <nav style={{ display: 'flex', gap: 28, fontSize: 15 }}>
+            <a>Gebedstijden</a><a>Onze gemeenschap</a><a>Activiteiten</a><a>Onderwijs</a><a>Bezoek</a>
+          </nav>
+          <a style={{ background: C.green, color: C.bg, padding: '12px 22px', borderRadius: 999, fontSize: 14, fontWeight: 500 }}>Steun ons →</a>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section style={{ padding: '40px 32px 0' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', position: 'relative', borderRadius: 32, overflow: 'hidden', minHeight: 640 }}>
+          <img src="https://images.unsplash.com/photo-1519817914152-22c3b4f7e5ef?w=1800&q=80" style={{ width: '100%', height: 640, objectFit: 'cover' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(100deg, rgba(15,26,18,0.85) 0%, rgba(15,26,18,0.45) 45%, transparent 75%)' }} />
+
+          <div style={{ position: 'absolute', inset: 0, padding: 64, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', color: C.bg }}>
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '6px 14px', background: 'rgba(245,241,232,0.15)', backdropFilter: 'blur(10px)', borderRadius: 999, fontSize: 13, marginBottom: 40 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: C.gold }} />
+                <span>Open vandaag · 05:00 — 23:00</span>
+              </div>
+              <h1 style={{ fontFamily: serif, fontSize: 'clamp(64px, 9vw, 140px)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 0.98, margin: 0, maxWidth: 900 }}>
+                Een plek van <span style={{ fontStyle: 'italic', color: C.gold }}>rust</span>,<br />
+                gebed en <span style={{ fontStyle: 'italic', color: C.gold }}>gemeenschap</span>.
+              </h1>
+              <div style={{ fontFamily: arabic, fontSize: 28, marginTop: 24, color: C.gold, opacity: 0.9 }}>نور على نور</div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 40, alignItems: 'end' }}>
+              <p style={{ fontSize: 19, lineHeight: 1.6, maxWidth: 560, margin: 0, opacity: 0.92 }}>
+                Moskee Al‑Noer is sinds 1996 een open huis voor de moslimgemeenschap van Utrecht en iedereen die nieuwsgierig is. Welkom om te bidden, leren, of gewoon kennis te maken.
+              </p>
+              <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+                <a style={{ background: C.bg, color: C.ink, padding: '16px 26px', borderRadius: 999, fontSize: 15, fontWeight: 500 }}>Plan een bezoek →</a>
+                <a style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.3)', color: C.bg, padding: '16px 22px', borderRadius: 999, fontSize: 15 }}>Rondleiding</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Prayer times card - overlapping hero */}
+      <section style={{ padding: '0 32px', marginTop: -80, position: 'relative', zIndex: 2 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', background: C.bg, borderRadius: 28, padding: 36, boxShadow: '0 24px 60px rgba(28,43,31,0.18)', border: `1px solid ${C.ink}10` }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 24 }}>
+            <div>
+              <div style={{ fontSize: 12, color: C.gold, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 6 }}>Gebedstijden · vandaag</div>
+              <div style={{ fontFamily: serif, fontSize: 32, fontWeight: 500, letterSpacing: '-0.01em' }}>
+                Dinsdag 19 Shawwāl
+              </div>
+            </div>
+            <div style={{ fontSize: 13, color: C.dim }}>Volgend gebed: <strong style={{ color: C.green }}>Asr · over 1u 14m</strong></div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12 }}>
+            {prayers.map(p => (
+              <div key={p.n} style={{
+                padding: '20px 18px',
+                borderRadius: 18,
+                background: p.next ? C.green : 'transparent',
+                color: p.next ? C.bg : C.ink,
+                border: p.next ? 'none' : `1px solid ${C.ink}15`,
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+                  <div style={{ fontFamily: serif, fontSize: 22, fontWeight: 500 }}>{p.n}</div>
+                  <div style={{ fontFamily: arabic, fontSize: 20, opacity: p.next ? 0.9 : 0.6 }}>{p.ar}</div>
+                </div>
+                <div style={{ marginTop: 14, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, fontSize: 13 }}>
+                  <div>
+                    <div style={{ opacity: 0.6, fontSize: 11, letterSpacing: '0.08em' }}>ADHAN</div>
+                    <div style={{ fontFamily: serif, fontSize: 22, fontWeight: 500, marginTop: 2 }}>{p.a}</div>
+                  </div>
+                  <div>
+                    <div style={{ opacity: 0.6, fontSize: 11, letterSpacing: '0.08em' }}>IQAMAH</div>
+                    <div style={{ fontFamily: serif, fontSize: 22, fontWeight: 500, marginTop: 2 }}>{p.iq}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pillars intro */}
+      <section style={{ padding: '140px 32px 80px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ fontFamily: arabic, fontSize: 40, color: C.gold, marginBottom: 16 }}>الصلاة · العلم · الصدقة</div>
+          <h2 style={{ fontFamily: serif, fontSize: 'clamp(56px, 6vw, 84px)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.05, margin: 0 }}>
+            Drie pijlers waar we elke dag aan werken: <span style={{ fontStyle: 'italic', color: C.green }}>gebed, kennis en zorg</span> voor de ander.
+          </h2>
+        </div>
+      </section>
+
+      {/* Four pillar image grid */}
+      <section style={{ padding: '0 32px 100px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+          {[
+            { t: 'Vrijdaggebed', d: 'Khutbah in Arabisch én Nederlands', img: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80' },
+            { t: 'Koran‑onderwijs', d: 'Wekelijks, voor jong en oud', img: 'https://images.unsplash.com/photo-1584286595398-a59e7dfb7991?w=800&q=80' },
+            { t: 'Buurtmaaltijden', d: 'Elke laatste zondag van de maand', img: 'https://images.unsplash.com/photo-1576181256399-834e3b3a49bf?w=800&q=80' },
+            { t: 'Open rondleidingen', d: 'Elke 2e zaterdag · aanmelden vrij', img: 'https://images.unsplash.com/photo-1584286595398-a59e7dfb7991?w=800&q=80' },
+          ].map((p, i) => (
+            <div key={p.t} style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', aspectRatio: '3/4' }}>
+              <img src={p.img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(15,26,18,0.85))' }} />
+              <div style={{ position: 'absolute', bottom: 22, left: 22, right: 22, color: C.bg }}>
+                <div style={{ fontSize: 12, fontFamily: arabic, color: C.gold, marginBottom: 6 }}>٠{i + 1}</div>
+                <div style={{ fontFamily: serif, fontSize: 26, fontWeight: 500 }}>{p.t}</div>
+                <div style={{ fontSize: 13, opacity: 0.85, marginTop: 4 }}>{p.d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Events */}
+      <section style={{ padding: '100px 32px', background: C.dark, color: C.bg }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 48, alignItems: 'end', marginBottom: 56 }}>
+            <div>
+              <div style={{ fontSize: 12, color: C.gold, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 14 }}>Agenda</div>
+              <h2 style={{ fontFamily: serif, fontSize: 72, fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 0.95, margin: 0 }}>
+                Deze <span style={{ fontStyle: 'italic', color: C.gold }}>maand</span>.
+              </h2>
+            </div>
+            <p style={{ fontSize: 18, lineHeight: 1.6, color: '#c9c2b2', margin: 0, maxWidth: 500 }}>
+              Een greep uit onze activiteiten — van lezingen en Koranstudie tot gezamenlijke iftars en buurtbijeenkomsten. Iedereen is welkom.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            {events.map(e => (
+              <div key={e.t} style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 24, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
+                  <img src={e.img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ padding: 24, display: 'flex', gap: 16 }}>
+                  <div style={{ textAlign: 'center', paddingRight: 16, borderRight: `1px solid ${C.gold}40`, minWidth: 56 }}>
+                    <div style={{ fontFamily: serif, fontSize: 40, fontWeight: 500, color: C.gold, lineHeight: 1 }}>{e.d}</div>
+                    <div style={{ fontSize: 11, letterSpacing: '0.1em', opacity: 0.6, marginTop: 4 }}>{e.m}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: serif, fontSize: 22, fontWeight: 500 }}>{e.t}</div>
+                    <div style={{ fontSize: 13, color: '#c9c2b2', marginTop: 6, lineHeight: 1.45 }}>{e.x}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Community split */}
+      <section style={{ padding: '100px 32px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}>
+          <div>
+            <div style={{ fontFamily: arabic, fontSize: 32, color: C.gold, marginBottom: 10 }}>أهلا وسهلا</div>
+            <h2 style={{ fontFamily: serif, fontSize: 'clamp(48px, 6vw, 80px)', fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1, margin: 0 }}>
+              Voor <span style={{ fontStyle: 'italic', color: C.green }}>iedereen</span>.<br />
+              Niet alleen<br />voor moslims.
+            </h2>
+            <p style={{ fontSize: 18, lineHeight: 1.6, color: C.dim, marginTop: 28, maxWidth: 500 }}>
+              Of je nu langskomt voor het gebed, een rondleiding, of gewoon een kop thee — onze deur staat open. We geloven dat begrip begint bij ontmoeting.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, marginTop: 48, borderTop: `1px solid ${C.ink}20`, paddingTop: 32 }}>
+              {[{ k: '1996', v: 'opgericht' }, { k: '2.400', v: 'leden' }, { k: '42', v: 'nationaliteiten' }].map(s => (
+                <div key={s.v}>
+                  <div style={{ fontFamily: serif, fontSize: 44, fontWeight: 500, color: C.green, letterSpacing: '-0.02em' }}>{s.k}</div>
+                  <div style={{ fontSize: 13, color: C.dim, marginTop: 4 }}>{s.v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateRows: '1.3fr 1fr', gap: 16 }}>
+            <div style={{ borderRadius: 24, overflow: 'hidden' }}>
+              <img src="https://images.unsplash.com/photo-1519817914152-22c3b4f7e5ef?w=1200&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div style={{ borderRadius: 20, overflow: 'hidden' }}>
+                <img src="https://images.unsplash.com/photo-1584286595398-a59e7dfb7991?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div style={{ borderRadius: 20, overflow: 'hidden' }}>
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Donate */}
+      <section style={{ padding: '100px 32px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', background: C.green, color: C.bg, borderRadius: 32, padding: 64, position: 'relative', overflow: 'hidden' }}>
+          <svg style={{ position: 'absolute', right: -100, bottom: -100, opacity: 0.08 }} width="400" height="400" viewBox="0 0 100 100">
+            <polygon points="50,5 61,35 93,35 67,55 76,88 50,68 24,88 33,55 7,35 39,35" fill={C.gold} />
+          </svg>
+          <div style={{ fontSize: 12, color: C.gold, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 16 }}>Sadaqah & zakat</div>
+          <h2 style={{ fontFamily: serif, fontSize: 'clamp(56px, 7vw, 96px)', fontWeight: 500, letterSpacing: '-0.025em', lineHeight: 0.98, margin: 0, maxWidth: 800 }}>
+            Steun onze <span style={{ fontStyle: 'italic', color: C.gold }}>gemeenschap</span>.
+          </h2>
+          <p style={{ fontSize: 19, lineHeight: 1.55, maxWidth: 640, marginTop: 28, opacity: 0.9 }}>
+            Van onderhoud van het gebouw tot de wekelijkse voedselpakketten voor wijkbewoners — alles wat we doen, doen we dankzij onze gemeenschap.
+          </p>
+          <div style={{ display: 'flex', gap: 12, marginTop: 40 }}>
+            <a style={{ background: C.bg, color: C.ink, padding: '18px 28px', borderRadius: 999, fontSize: 16, fontWeight: 500 }}>Doneer eenmalig →</a>
+            <a style={{ border: '1px solid rgba(255,255,255,0.3)', color: C.bg, padding: '18px 24px', borderRadius: 999, fontSize: 16 }}>Maandelijks steunen</a>
+          </div>
+        </div>
+      </section>
+
+      {/* Visit */}
+      <section style={{ padding: '60px 32px 100px' }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }}>
+          <div>
+            <div style={{ fontSize: 12, color: C.gold, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 14 }}>Bezoek</div>
+            <h2 style={{ fontFamily: serif, fontSize: 56, fontWeight: 500, letterSpacing: '-0.02em', margin: 0, lineHeight: 1 }}>
+              Nieuwekade 87,<br />Utrecht.
+            </h2>
+            <div style={{ marginTop: 32, fontSize: 17, lineHeight: 1.8 }}>
+              Dagelijks geopend van 05:00 tot 23:00<br />
+              Rondleidingen elke 2e zaterdag om 14:00<br />
+              030 — 234 56 78 · info@al‑noer.nl
+            </div>
+          </div>
+          <div style={{ borderRadius: 24, overflow: 'hidden', aspectRatio: '4/3' }}>
+            <img src="https://images.unsplash.com/photo-1519817914152-22c3b4f7e5ef?w=1200&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+      </section>
+
+      <footer style={{ background: C.dark, color: '#c9c2b2', padding: '40px 32px', fontSize: 13 }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto', display: 'flex', justifyContent: 'space-between' }}>
+          <span style={{ fontFamily: arabic }}>© Moskee Al‑Noer · مسجد النور · 2026</span>
+          <span>Stichting Al‑Noer · ANBI · KVK 89012345</span>
+        </div>
+      </footer>
+    </div>
+  );
+};
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

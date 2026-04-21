@@ -1,0 +1,833 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TIDAL — Water, rethought.</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f0e6; --ink:#0a1a1f; --dim:#5a6a6e;
+  --reef:#ff6b3d; --kelp:#2d5a42; --azure:#3a8dd1; --sand:#e8dfc8; --shell:#faf7ef;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background 1.2s cubic-bezier(.4,0,.2,1),color 1.2s}
+body.sec-kelp{background:var(--kelp);color:var(--shell)}
+body.sec-azure{background:var(--azure);color:var(--shell)}
+body.sec-reef{background:var(--reef);color:var(--shell)}
+body.sec-ink{background:var(--ink);color:var(--shell)}
+body.sec-sand{background:var(--sand);color:var(--ink)}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.display{font-family:"Clash Display",sans-serif;font-weight:500;letter-spacing:-.035em;line-height:.92}
+.serif-i{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+.mono{font-family:"Inter",monospace;text-transform:uppercase;letter-spacing:.18em;font-weight:500;font-size:11px}
+.wrap{max-width:1400px;margin:0 auto;padding:0 clamp(20px,3.5vw,40px)}
+
+/* ============ Nav ============ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,3.5vw,40px);background:rgba(244,240,230,.85);backdrop-filter:blur(18px) saturate(1.2);border-bottom:1px solid #0a1a1f12;transition:background .6s,border-color .6s,color .6s}
+body.sec-kelp .nav,body.sec-azure .nav,body.sec-reef .nav,body.sec-ink .nav{background:rgba(10,26,31,.25);border-color:#ffffff18;color:var(--shell)}
+.nav .logo{display:flex;align-items:center;gap:10px;font-family:"Clash Display",sans-serif;font-weight:600;font-size:22px;letter-spacing:-.02em}
+.nav .logo svg{width:28px;height:28px}
+.nav-links{display:flex;gap:34px;font-size:14px;font-weight:500}
+.nav-links a{position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.7,0,.3,1)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-r{display:flex;align-items:center;gap:14px}
+.cart{position:relative;padding:9px 14px;border:1px solid currentColor;border-radius:999px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;transition:background .25s,color .25s}
+.cart:hover{background:currentColor;color:var(--bg)}
+.cart:hover svg{stroke:var(--bg)}
+.cart .dot{width:7px;height:7px;border-radius:50%;background:var(--reef)}
+.lang{font-size:12px;opacity:.6}
+
+/* ============ HERO ============ */
+.hero{padding:120px clamp(20px,3.5vw,40px) 60px;min-height:100vh;position:relative;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end}
+.hero-l .mono{color:var(--reef);margin-bottom:24px;display:inline-flex;align-items:center;gap:10px}
+.hero-l .mono::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--reef);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.hero h1{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(64px,10vw,168px);letter-spacing:-.04em;line-height:.88;margin-bottom:32px;text-wrap:balance}
+.hero h1 em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--reef);font-weight:400;letter-spacing:-.02em}
+.hero h1 .sq{display:inline-block;vertical-align:top;width:.7em;height:.7em;border-radius:50%;background:var(--azure);margin:.08em .15em 0}
+.hero p{font-size:18px;line-height:1.55;color:var(--dim);max-width:480px;margin-bottom:32px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:16px 26px;border-radius:999px;font-size:15px;font-weight:500;cursor:pointer;border:0;display:inline-flex;align-items:center;gap:10px;transition:transform .25s,background .25s;font-family:inherit}
+.btn:hover{transform:translateY(-2px)}
+.btn-p{background:var(--ink);color:var(--bg)}
+.btn-p:hover{background:var(--reef)}
+.btn-g{background:transparent;border:1px solid #0a1a1f33;color:var(--ink)}
+.btn-g:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.hero-r{position:relative;aspect-ratio:4/5;border-radius:28px;overflow:hidden;background:var(--azure)}
+.hero-r::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,#ffffff22,transparent 50%)}
+.hero-r img{width:100%;height:100%;object-fit:cover}
+.bottle-svg{position:absolute;inset:0;display:grid;place-items:center;padding:6%}
+.bottle-svg svg{width:72%;filter:drop-shadow(0 40px 60px rgba(0,0,0,.4)) drop-shadow(0 10px 15px rgba(0,0,0,.15));animation:float 6s ease-in-out infinite;transform-origin:center 90%}
+@keyframes float{
+  0%,100%{transform:translateY(0) rotate(-1.5deg)}
+  50%{transform:translateY(-14px) rotate(1.5deg)}
+}
+#heroBottleSvg #waterSurf{animation:wave 4s ease-in-out infinite}
+#heroBottleSvg #waterSurf2{animation:wave 4s ease-in-out infinite .3s reverse}
+@keyframes wave{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+.drops{position:absolute;inset:0;pointer-events:none}
+.drop{position:absolute;left:var(--x);top:var(--y);width:10px;height:14px;background:radial-gradient(ellipse at 30% 25%,#ffffffcc 0%,#ffffff66 40%,#ffffff22 80%);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;transform:scale(var(--s));animation:dropSlide 3.2s ease-in var(--d) infinite;opacity:0;filter:blur(.3px)}
+@keyframes dropSlide{
+  0%{opacity:0;transform:translateY(0) scale(var(--s))}
+  20%{opacity:1}
+  90%{opacity:.7;transform:translateY(60px) scale(var(--s))}
+  100%{opacity:0;transform:translateY(80px) scale(var(--s))}
+}
+
+.hero-caption{position:absolute;right:24px;bottom:24px;background:#fff;color:var(--ink);padding:14px 18px;border-radius:16px;display:flex;align-items:center;gap:12px;font-size:13px;box-shadow:0 20px 40px #0003}
+.hero-caption strong{display:block;font-family:"Clash Display",sans-serif;font-size:16px}
+.hero-caption .ic{width:34px;height:34px;background:var(--kelp);border-radius:10px;display:grid;place-items:center;color:#fff;flex-shrink:0}
+
+.hero-badges{position:absolute;left:24px;top:24px;display:flex;flex-direction:column;gap:8px}
+.hero-badges span{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);color:#fff;padding:6px 12px;border-radius:999px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;border:1px solid #ffffff33}
+
+.hero-bot{position:absolute;left:0;right:0;bottom:-1px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#0a1a1f18}
+.hero-bot > div{padding:18px clamp(12px,2vw,24px);background:var(--bg);display:flex;flex-direction:column;gap:4px;transition:background .6s}
+body.sec-kelp .hero-bot > div,body.sec-azure .hero-bot > div,body.sec-reef .hero-bot > div,body.sec-ink .hero-bot > div{background:transparent;color:var(--shell)}
+.hero-bot strong{font-family:"Clash Display",sans-serif;font-size:28px;letter-spacing:-.02em}
+.hero-bot strong em{font-family:"Instrument Serif",serif;color:var(--reef);font-style:italic}
+.hero-bot .mono{color:var(--dim);margin:0}
+body.sec-kelp .hero-bot .mono,body.sec-azure .hero-bot .mono,body.sec-reef .hero-bot .mono,body.sec-ink .hero-bot .mono{color:#ffffff99}
+
+/* ============ Marquee ============ */
+.marq{overflow:hidden;padding:22px 0;border-top:1px solid currentColor;border-bottom:1px solid currentColor;opacity:.2;white-space:nowrap}
+body .marq{opacity:1}
+.marq-track{display:inline-flex;gap:60px;animation:marq 32s linear infinite;padding-right:60px}
+.marq-track span{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(40px,6vw,96px);letter-spacing:-.03em;line-height:1;text-transform:uppercase;color:inherit}
+.marq-track span em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--reef);text-transform:none}
+.marq-track span::after{content:"";display:inline-block;width:.5em;height:.5em;border-radius:50%;background:currentColor;vertical-align:.2em;margin-left:60px}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ============ Impact stat — sticky fullbleed ============ */
+.impact{padding:clamp(60px,8vw,140px) clamp(20px,3.5vw,40px);text-align:center;position:relative;overflow:hidden}
+.impact::before{content:"~";position:absolute;top:-20%;left:50%;transform:translateX(-50%);font-family:"Instrument Serif",serif;font-size:80vw;color:currentColor;opacity:.04;line-height:1;pointer-events:none;z-index:0}
+.impact-c{position:relative;z-index:2;max-width:1200px;margin:0 auto}
+.impact .mono{display:block;margin-bottom:30px;opacity:.7}
+.impact h2{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(48px,9vw,180px);letter-spacing:-.045em;line-height:.88;text-wrap:balance}
+.impact h2 em{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+.impact h2 .big{font-size:1.3em;display:inline-block;line-height:.8}
+.impact .legend{display:flex;justify-content:center;gap:40px;margin-top:60px;flex-wrap:wrap}
+.impact .legend > div{text-align:left;max-width:260px}
+.impact .legend strong{display:block;font-family:"Clash Display",sans-serif;font-size:44px;letter-spacing:-.02em;margin-bottom:4px}
+.impact .legend p{font-size:13px;line-height:1.45;opacity:.8;margin-top:6px}
+
+/* ============ Products row ============ */
+.prod{padding:clamp(60px,7vw,120px) 0}
+.prod-h{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end;margin-bottom:50px;padding:0 clamp(20px,3.5vw,40px)}
+.prod-h h2{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(42px,6.5vw,100px);letter-spacing:-.035em;line-height:.95;text-wrap:balance}
+.prod-h h2 em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--reef)}
+.prod-h p{font-size:15px;line-height:1.55;opacity:.75}
+.prod-scroll{display:flex;gap:24px;overflow-x:auto;padding:10px clamp(20px,3.5vw,40px) 30px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.prod-scroll::-webkit-scrollbar{display:none}
+.prod-card{flex:0 0 clamp(260px,28vw,380px);scroll-snap-align:start;background:#fff;color:var(--ink);border-radius:24px;overflow:hidden;transition:transform .4s}
+.prod-card:hover{transform:translateY(-6px)}
+.prod-card .img{aspect-ratio:3/4;background:var(--azure);position:relative;overflow:hidden}
+.prod-card .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.prod-card:hover .img img{transform:scale(1.05)}
+.prod-card.v1 .img{background:var(--reef)}
+.prod-card.v2 .img{background:var(--kelp)}
+.prod-card.v3 .img{background:var(--sand)}
+.prod-card.v4 .img{background:var(--ink)}
+.prod-card.v5 .img{background:var(--azure)}
+.prod-card .img .tag{position:absolute;top:16px;left:16px;background:#fff;color:var(--ink);padding:6px 12px;border-radius:999px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.prod-card .bd{padding:22px 24px;display:flex;justify-content:space-between;align-items:start;gap:14px}
+.prod-card h4{font-family:"Clash Display",sans-serif;font-weight:500;font-size:22px;letter-spacing:-.01em}
+.prod-card .desc{font-size:13px;color:var(--dim);margin-top:4px}
+.prod-card .pr{font-family:"Clash Display",sans-serif;font-size:24px;font-weight:500;flex-shrink:0}
+.prod-nav{display:flex;justify-content:space-between;align-items:center;padding:10px clamp(20px,3.5vw,40px) 0}
+.prod-nav .mono{opacity:.7}
+.prod-nav .btns{display:flex;gap:10px}
+.prod-nav .btns button{width:46px;height:46px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center;transition:background .25s,color .25s;opacity:.6}
+.prod-nav .btns button:hover{background:currentColor;color:var(--bg);opacity:1}
+
+/* ============ Story sections (color-shifting) ============ */
+.story{padding:clamp(80px,10vw,160px) clamp(20px,3.5vw,40px);min-height:70vh;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.story-c .mono{display:block;margin-bottom:18px;opacity:.75}
+.story-c h2{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(44px,7vw,120px);letter-spacing:-.04em;line-height:.92;margin-bottom:28px;text-wrap:balance}
+.story-c h2 em{font-family:"Instrument Serif",serif;font-style:italic;font-weight:400}
+.story-c p{font-size:17px;line-height:1.6;opacity:.85;margin-bottom:16px;max-width:460px}
+.story-c p em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--reef);opacity:1}
+.story-c .row-num{font-family:"Instrument Serif",serif;font-style:italic;font-size:120px;line-height:.8;opacity:.15;margin-bottom:-30px}
+.story-im{aspect-ratio:4/5;border-radius:28px;overflow:hidden;position:relative;background:#00000010}
+.story-im img{width:100%;height:100%;object-fit:cover}
+.story-im .caption{position:absolute;left:20px;bottom:20px;background:#fff;color:var(--ink);padding:10px 14px;border-radius:12px;font-size:12px;box-shadow:0 20px 40px #0003}
+.story-im .caption strong{display:block;font-family:"Clash Display",sans-serif;font-size:14px;margin-bottom:2px}
+.story.reverse{grid-template-columns:1fr 1fr}
+.story.reverse .story-im{order:-1}
+
+/* ============ Configurator ============ */
+.config{padding:clamp(70px,8vw,140px) clamp(20px,3.5vw,40px)}
+.config-w{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.config-l .mono{display:block;margin-bottom:16px;opacity:.75}
+.config-l h2{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(42px,6vw,96px);letter-spacing:-.035em;line-height:.95;margin-bottom:20px;text-wrap:balance}
+.config-l h2 em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--reef)}
+.config-l p{font-size:16px;line-height:1.55;opacity:.8;margin-bottom:28px;max-width:440px}
+.config-opts{display:flex;flex-direction:column;gap:24px}
+.config-opts .g{padding:20px 0;border-top:1px solid currentColor;border-top-color:#0a1a1f18}
+body.sec-kelp .config-opts .g,body.sec-azure .config-opts .g,body.sec-reef .config-opts .g,body.sec-ink .config-opts .g{border-top-color:#ffffff22}
+.config-opts .lbl{display:flex;justify-content:space-between;margin-bottom:14px;font-size:13px;font-weight:500}
+.config-opts .lbl span:last-child{opacity:.6}
+.config-opts .chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{padding:10px 18px;border-radius:999px;border:1px solid currentColor;border-color:#0a1a1f2e;font-size:13px;cursor:pointer;transition:all .2s;font-family:inherit}
+body.sec-kelp .chip,body.sec-azure .chip,body.sec-reef .chip,body.sec-ink .chip{border-color:#ffffff33}
+.chip:hover{border-color:currentColor}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+body.sec-kelp .chip.on,body.sec-azure .chip.on,body.sec-reef .chip.on,body.sec-ink .chip.on{background:var(--shell);color:var(--ink);border-color:var(--shell)}
+.chip .sw{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:-2px;box-shadow:inset 0 0 0 1px #0002}
+
+.config-total{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid currentColor;border-top-color:#0a1a1f18;margin-top:10px}
+body.sec-kelp .config-total,body.sec-azure .config-total,body.sec-reef .config-total,body.sec-ink .config-total{border-top-color:#ffffff22}
+.config-total .pr{font-family:"Clash Display",sans-serif;font-size:44px;letter-spacing:-.02em}
+.config-total .pr em{font-family:"Instrument Serif",serif;color:var(--reef);font-style:italic}
+.config-total .add{padding:16px 26px;border-radius:999px;background:var(--reef);color:#fff;font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;transition:background .2s}
+.config-total .add:hover{background:var(--ink)}
+
+.config-r{aspect-ratio:4/5;border-radius:28px;position:relative;overflow:hidden;display:grid;place-items:center;transition:background .6s cubic-bezier(.4,0,.2,1);padding:8%}
+.config-r svg{width:70%;filter:drop-shadow(0 30px 50px rgba(0,0,0,.3));transition:transform .6s;animation:float 6s ease-in-out infinite}
+.config-r .cap{position:absolute;left:20px;top:20px;background:#ffffffcc;backdrop-filter:blur(8px);padding:8px 14px;border-radius:999px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);font-weight:600}
+.config-r .pattern{position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,#ffffff22 0%,transparent 40%),radial-gradient(circle at 70% 70%,#00000022 0%,transparent 50%);pointer-events:none}
+
+/* ============ How it works timeline ============ */
+.how{padding:clamp(70px,8vw,140px) clamp(20px,3.5vw,40px)}
+.how h2{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(44px,6vw,100px);letter-spacing:-.035em;line-height:.95;margin:20px auto 70px;max-width:16ch;text-align:center;text-wrap:balance}
+.how h2 em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--reef)}
+.how .mono{text-align:center;display:block;opacity:.7}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1400px;margin:0 auto;position:relative}
+.how-grid::before{content:"";position:absolute;top:40px;left:8%;right:8%;height:1px;background:currentColor;opacity:.2}
+.how-step{position:relative;padding-top:84px}
+.how-step .dot{position:absolute;top:26px;left:0;width:28px;height:28px;border-radius:50%;background:var(--reef);display:grid;place-items:center;color:#fff;font-family:"Clash Display",sans-serif;font-weight:600;font-size:13px;z-index:2}
+.how-step h4{font-family:"Clash Display",sans-serif;font-weight:500;font-size:26px;letter-spacing:-.015em;margin-bottom:10px}
+.how-step h4 em{font-family:"Instrument Serif",serif;font-style:italic;color:var(--reef)}
+.how-step p{font-size:14px;line-height:1.55;opacity:.75;max-width:220px}
+
+/* ============ Press / testimonial ============ */
+.press{padding:clamp(60px,7vw,120px) clamp(20px,3.5vw,40px);text-align:center}
+.press blockquote{font-family:"Instrument Serif",serif;font-weight:400;font-size:clamp(32px,4.5vw,64px);line-height:1.15;letter-spacing:-.02em;max-width:1000px;margin:0 auto;text-wrap:balance}
+.press blockquote em{font-style:italic;color:var(--reef)}
+.press .cite{margin-top:36px;display:inline-flex;gap:14px;align-items:center;font-size:14px}
+.press .cite img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.press .cite strong{display:block;font-weight:500}
+.press .cite span{font-size:12px;opacity:.7}
+.press-logos{margin-top:70px;padding-top:50px;border-top:1px solid currentColor;border-top-color:#0a1a1f22;display:grid;grid-template-columns:repeat(6,1fr);gap:30px;align-items:center;opacity:.55}
+body.sec-kelp .press-logos,body.sec-azure .press-logos,body.sec-reef .press-logos,body.sec-ink .press-logos{border-top-color:#ffffff33}
+.press-logos span{font-family:"Clash Display",sans-serif;font-weight:500;font-size:18px;letter-spacing:-.01em;text-align:center}
+.press-logos span em{font-family:"Instrument Serif",serif;font-style:italic}
+
+/* ============ Newsletter / CTA ============ */
+.cta{padding:clamp(80px,9vw,160px) clamp(20px,3.5vw,40px);position:relative;overflow:hidden}
+.cta-c{max-width:1200px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.cta-c .mono{display:block;margin-bottom:20px;opacity:.7}
+.cta-c h2{font-family:"Clash Display",sans-serif;font-weight:500;font-size:clamp(56px,11vw,200px);letter-spacing:-.05em;line-height:.86;text-wrap:balance;margin-bottom:40px}
+.cta-c h2 em{font-family:"Instrument Serif",serif;font-style:italic}
+.cta-c p{font-size:18px;line-height:1.5;max-width:520px;margin:0 auto 36px;opacity:.85}
+.cta-form{max-width:540px;margin:0 auto;display:flex;gap:10px;border:1px solid currentColor;border-color:#ffffff55;border-radius:999px;padding:6px;background:#00000020}
+.cta-form input{flex:1;background:transparent;border:0;padding:14px 20px;font:inherit;color:inherit;outline:none;font-size:15px}
+.cta-form input::placeholder{color:currentColor;opacity:.55}
+.cta-form button{padding:14px 26px;background:#fff;color:var(--ink);border-radius:999px;font-weight:500;font-size:15px;border:0;cursor:pointer;transition:background .2s}
+.cta-form button:hover{background:var(--reef);color:#fff}
+
+footer{padding:60px clamp(20px,3.5vw,40px) 30px}
+.foot-g{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.foot-g h5{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:16px;font-weight:500}
+.foot-g ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.foot-g ul a:hover{opacity:.6}
+.foot-g .big{font-family:"Clash Display",sans-serif;font-weight:500;font-size:28px;letter-spacing:-.015em;margin-bottom:14px}
+.foot-g .big em{font-family:"Instrument Serif",serif;color:var(--reef)}
+.foot-bot{padding-top:24px;border-top:1px solid currentColor;border-top-color:#ffffff33;display:flex;justify-content:space-between;font-size:12px;opacity:.65;flex-wrap:wrap;gap:14px}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1s cubic-bezier(.2,.8,.2,1)}
+.reveal.on{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .nav{height:56px;padding:0 16px}
+  .nav .logo{font-size:18px}
+  .nav .logo svg{width:22px;height:22px}
+  .nav-links{display:none}
+  .lang{display:none}
+  .cart{padding:7px 11px;font-size:12px}
+  .hero{grid-template-columns:1fr;padding:84px 16px 32px;gap:24px;min-height:auto}
+  .hero-l .mono{margin-bottom:14px;font-size:10px}
+  .hero h1{font-size:clamp(44px,13vw,72px);margin-bottom:20px;line-height:.95}
+  .hero h1 .sq{width:.55em;height:.55em}
+  .hero p{font-size:15px;margin-bottom:20px}
+  .hero-cta{gap:8px}
+  .btn{padding:13px 18px;font-size:14px}
+  .hero-r{aspect-ratio:3/4;max-height:460px;border-radius:20px}
+  .hero-badges{left:14px;top:14px}
+  .hero-badges span{font-size:10px;padding:5px 10px}
+  .hero-caption{right:14px;bottom:14px;padding:10px 12px;font-size:11px;border-radius:12px}
+  .hero-caption .ic{width:28px;height:28px}
+  .hero-caption strong{font-size:13px}
+  .hero-bot{grid-template-columns:1fr 1fr}
+  .hero-bot > div{padding:14px}
+  .hero-bot strong{font-size:22px}
+  .marq{padding:14px 0}
+  .marq-track{gap:40px;padding-right:40px}
+  .marq-track span{font-size:44px}
+  .marq-track span::after{margin-left:40px}
+  .impact{padding:60px 16px}
+  .impact h2{font-size:clamp(36px,10vw,64px)}
+  .impact .legend{gap:24px;margin-top:36px}
+  .impact .legend strong{font-size:32px}
+  .prod{padding:60px 0}
+  .prod-h{grid-template-columns:1fr;gap:16px;margin-bottom:28px;padding:0 16px}
+  .prod-h h2{font-size:clamp(34px,9vw,56px)}
+  .prod-scroll{padding:6px 16px 20px;gap:14px}
+  .prod-card{flex-basis:78vw;border-radius:18px}
+  .prod-card .bd{padding:16px 18px}
+  .prod-card h4{font-size:18px}
+  .prod-card .pr{font-size:20px}
+  .prod-nav{padding:6px 16px 0}
+  .story{grid-template-columns:1fr;gap:28px;padding:60px 16px;min-height:auto}
+  .story.reverse .story-im{order:0}
+  .story-im{border-radius:20px}
+  .story-c h2{font-size:clamp(36px,10vw,64px);margin-bottom:20px}
+  .story-c p{font-size:15px}
+  .story-c .row-num{font-size:80px;margin-bottom:-20px}
+  .config{padding:60px 16px}
+  .config-w{grid-template-columns:1fr;gap:32px}
+  .config-l h2{font-size:clamp(34px,9vw,56px)}
+  .config-l p{font-size:14px;margin-bottom:20px}
+  .config-opts .chips{gap:8px}
+  .chip{padding:8px 14px;font-size:12px}
+  .config-total .pr{font-size:32px}
+  .config-total .add{padding:12px 18px;font-size:13px}
+  .config-r{aspect-ratio:3/4;max-height:500px;border-radius:20px}
+  .how{padding:60px 16px}
+  .how h2{font-size:clamp(36px,9vw,56px);margin:14px auto 44px}
+  .how-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .how-grid::before{display:none}
+  .how-step{padding-top:60px}
+  .how-step .dot{top:18px;width:22px;height:22px;font-size:11px}
+  .how-step h4{font-size:20px}
+  .how-step p{font-size:13px}
+  .press{padding:60px 16px}
+  .press blockquote{font-size:clamp(24px,6vw,40px)}
+  .press-logos{grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;padding-top:32px}
+  .press-logos span{font-size:15px}
+  .cta{padding:70px 16px}
+  .cta-c h2{font-size:clamp(48px,14vw,96px);margin-bottom:28px}
+  .cta-c p{font-size:15px;margin-bottom:24px}
+  footer{padding:40px 16px 20px}
+  .foot-g{grid-template-columns:1fr 1fr;gap:28px}
+  .foot-g .big{font-size:22px}
+}
+@media (max-width:560px){
+  .hero-bot{grid-template-columns:1fr 1fr}
+  .hero-bot > div{padding:12px 10px}
+  .hero-bot strong{font-size:18px}
+  .hero-bot .mono{font-size:10px;letter-spacing:.1em}
+  .how-grid{grid-template-columns:1fr}
+  .cta-form{flex-direction:column;border-radius:22px;padding:10px}
+  .cta-form button{width:100%;justify-content:center;padding:14px}
+  .press-logos{grid-template-columns:repeat(2,1fr)}
+  .foot-g{grid-template-columns:1fr}
+  .impact .legend{flex-direction:column;align-items:center;gap:22px}
+  .impact .legend > div{text-align:center}
+}
+</style>
+</head>
+<body class="sec-bg">
+<!-- Nav -->
+<nav class="nav">
+  <a class="logo" href="#top">
+    <svg viewBox="0 0 32 32" fill="none"><path d="M16 4 C 10 14, 6 18, 6 22 a 10 10 0 0 0 20 0 c 0 -4, -4 -8, -10 -18 z" fill="currentColor"/></svg>
+    TIDAL
+  </a>
+  <div class="nav-links">
+    <a href="#shop">Shop</a>
+    <a href="#story">Our story</a>
+    <a href="#impact">Impact</a>
+    <a href="#build">Build a bottle</a>
+    <a href="#journal">Journal</a>
+  </div>
+  <div class="nav-r">
+    <span class="lang">EN · NL</span>
+    <a class="cart" href="#">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4 h10 l-1 9 H4 z M6 4 a2 2 0 0 1 4 0"/></svg>
+      3 <span class="dot"></span>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-l">
+    <span class="mono">New · Spring drop 25</span>
+    <h1 class="display">
+      Water,<br>
+      <em>re</em>thought<span class="sq"></span><br>
+      for the long<br>
+      run.
+    </h1>
+    <p>Reusable bottles designed to outlive a thousand single-use ones. Made in Portugal. Built to be dropped, re-filled, and passed on.</p>
+    <div class="hero-cta">
+      <a class="btn btn-p">Shop bottles →</a>
+      <a class="btn btn-g">Our impact</a>
+    </div>
+  </div>
+  <div class="hero-r">
+    <div class="hero-badges">
+      <span>● 100% Recycled steel</span>
+      <span>Plastic-free</span>
+      <span>Dishwasher safe</span>
+    </div>
+    <div class="bottle-svg" id="heroBottle">
+      <!-- Impressive layered bottle with animated water + condensation -->
+      <svg viewBox="0 0 220 460" fill="none" id="heroBottleSvg">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#2a0d03"/>
+            <stop offset=".18" stop-color="#ff6b3d"/>
+            <stop offset=".5" stop-color="#ffb596"/>
+            <stop offset=".62" stop-color="#ff8555"/>
+            <stop offset=".85" stop-color="#d94a20"/>
+            <stop offset="1" stop-color="#2a0d03"/>
+          </linearGradient>
+          <linearGradient id="gCap" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1a2c32"/>
+            <stop offset=".5" stop-color="#0a1a1f"/>
+            <stop offset="1" stop-color="#000"/>
+          </linearGradient>
+          <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff40"/>
+            <stop offset="1" stop-color="#ffffff10"/>
+          </linearGradient>
+          <radialGradient id="gHL" cx=".25" cy=".2" r=".5">
+            <stop offset="0" stop-color="#fff" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </radialGradient>
+          <clipPath id="bottleClip">
+            <path d="M60 78 h100 a14 14 0 0 1 14 14 v316 a32 32 0 0 1 -32 32 h-64 a32 32 0 0 1 -32 -32 v-316 a14 14 0 0 1 14 -14 z"/>
+          </clipPath>
+          <filter id="blur"><feGaussianBlur stdDeviation=".5"/></filter>
+        </defs>
+
+        <!-- Cap shadow -->
+        <ellipse cx="110" cy="52" rx="36" ry="4" fill="#000" opacity=".2"/>
+        <!-- Cap -->
+        <rect x="88" y="14" width="44" height="40" rx="6" fill="url(#gCap)"/>
+        <rect x="92" y="18" width="36" height="3" rx="1" fill="#ffffff25"/>
+        <!-- Cap collar -->
+        <rect x="80" y="48" width="60" height="30" rx="4" fill="url(#gCap)"/>
+        <line x1="80" y1="60" x2="140" y2="60" stroke="#ffffff20" stroke-width=".5"/>
+        <line x1="80" y1="66" x2="140" y2="66" stroke="#ffffff20" stroke-width=".5"/>
+
+        <!-- Bottle body -->
+        <g clip-path="url(#bottleClip)">
+          <!-- base gradient fill -->
+          <rect x="46" y="78" width="128" height="362" fill="url(#g1)"/>
+          <!-- water inside -->
+          <g id="bottleWater">
+            <path id="waterSurf" d="M46 240 Q 80 232 110 240 T 174 240 V440 H46 Z" fill="url(#gWater)"/>
+            <path id="waterSurf2" d="M46 244 Q 90 236 120 246 T 174 242 V440 H46 Z" fill="#ffffff18"/>
+          </g>
+          <!-- vertical highlight -->
+          <rect x="60" y="78" width="18" height="362" fill="url(#gHL)"/>
+          <!-- subtle inner shadow right side -->
+          <rect x="150" y="78" width="20" height="362" fill="#00000038"/>
+          <!-- embossed label area -->
+          <rect x="54" y="170" width="112" height="150" fill="#ffffff08"/>
+          <rect x="54" y="170" width="112" height="150" fill="none" stroke="#ffffff22" stroke-width=".5"/>
+          <!-- brand wordmark -->
+          <text x="110" y="245" text-anchor="middle" font-family="Clash Display,sans-serif" font-size="26" font-weight="700" fill="#fff" letter-spacing=".12em">TIDAL</text>
+          <text x="110" y="265" text-anchor="middle" font-family="Instrument Serif,serif" font-size="11" font-style="italic" fill="#ffffffcc">est. Porto · 2019</text>
+          <line x1="78" y1="280" x2="142" y2="280" stroke="#ffffff55" stroke-width=".5"/>
+          <text x="110" y="296" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#ffffffaa" letter-spacing=".25em">500 ML · 17 OZ</text>
+          <text x="110" y="310" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#ffffff66" letter-spacing=".2em">STAINLESS · DOUBLE WALL</text>
+        </g>
+
+        <!-- Specular highlight strip (outside clip for crisp edge) -->
+        <path d="M74 84 Q 70 100 72 260 Q 74 400 80 430" stroke="#ffffff80" stroke-width="6" stroke-linecap="round" fill="none" opacity=".5" filter="url(#blur)"/>
+        <path d="M76 90 Q 72 200 78 420" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none" opacity=".35"/>
+
+        <!-- Bottle outline for crispness -->
+        <path d="M60 78 h100 a14 14 0 0 1 14 14 v316 a32 32 0 0 1 -32 32 h-64 a32 32 0 0 1 -32 -32 v-316 a14 14 0 0 1 14 -14 z" stroke="#00000028" stroke-width="1" fill="none"/>
+
+        <!-- Base shadow -->
+        <ellipse cx="110" cy="444" rx="60" ry="5" fill="#000" opacity=".25"/>
+      </svg>
+
+      <!-- Floating condensation droplets (outside SVG so they can animate over bottle) -->
+      <div class="drops">
+        <span class="drop" style="--x:14%;--y:38%;--d:0s;--s:.7"></span>
+        <span class="drop" style="--x:24%;--y:58%;--d:.8s;--s:1"></span>
+        <span class="drop" style="--x:18%;--y:72%;--d:1.6s;--s:.6"></span>
+        <span class="drop" style="--x:78%;--y:44%;--d:.4s;--s:.9"></span>
+        <span class="drop" style="--x:82%;--y:66%;--d:1.2s;--s:.7"></span>
+        <span class="drop" style="--x:72%;--y:82%;--d:2s;--s:1.1"></span>
+      </div>
+    </div>
+    <div class="hero-caption">
+      <div class="ic">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 9 l4 4 8 -8"/></svg>
+      </div>
+      <div><strong>Lifetime warranty</strong>Carry it for decades.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Hero bottom stats -->
+<div class="hero-bot wrap" style="position:static;max-width:none;padding:0 clamp(20px,3.5vw,40px);margin-top:-1px">
+  <div><strong>2.8<em>M</em></strong><span class="mono">Plastic bottles saved</span></div>
+  <div><strong>4.2<em>kg</em></strong><span class="mono">CO₂ offset per bottle</span></div>
+  <div><strong>98%</strong><span class="mono">Recycled material</span></div>
+  <div><strong>1%</strong><span class="mono">To ocean cleanups</span></div>
+</div>
+
+<!-- Marquee -->
+<div class="marq"><div class="marq-track">
+  <span>Built to <em>last</em></span><span>Made in Portugal</span><span>Zero plastic</span><span>Dishwasher safe</span><span>Lifetime warranty</span>
+  <span>Built to <em>last</em></span><span>Made in Portugal</span><span>Zero plastic</span><span>Dishwasher safe</span><span>Lifetime warranty</span>
+</div></div>
+
+<!-- IMPACT -->
+<section class="impact" id="impact" data-bg="ink">
+  <div class="impact-c">
+    <span class="mono">§01 — The Problem</span>
+    <h2 class="reveal">Every minute, <em>one million</em> plastic bottles end up in the ocean.<br><span class="big serif-i">↯</span> We think that's enough.</h2>
+    <div class="legend">
+      <div><strong>1M</strong><p>Plastic bottles dumped every <em>minute</em>, worldwide.</p></div>
+      <div><strong>450yr</strong><p>Time a single bottle takes to <em>break down</em>.</p></div>
+      <div><strong>14M</strong><p>Tons of plastic added to our oceans <em>each year</em>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="prod" id="shop" data-bg="sand">
+  <div class="prod-h reveal">
+    <h2>The <em>collection</em> —<br>five shapes, twelve colors.</h2>
+    <p>Each bottle is made from 98% recycled steel, with a plant-based cap and a rubber base that refuses to slide off your desk. Built in Porto.</p>
+  </div>
+  <div class="prod-scroll" id="prodScroll">
+    <a class="prod-card v1">
+      <div class="img"><span class="tag">● Bestseller</span><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&q=80"></div>
+      <div class="bd"><div><h4>The Original · 500ml</h4><span class="desc">Terracotta · keeps cool 12h</span></div><span class="pr">€32</span></div>
+    </a>
+    <a class="prod-card v2">
+      <div class="img"><img src="https://images.unsplash.com/photo-1523362628745-0c100150b504?w=800&q=80"></div>
+      <div class="bd"><div><h4>The Long · 750ml</h4><span class="desc">Moss green · for long walks</span></div><span class="pr">€38</span></div>
+    </a>
+    <a class="prod-card v3">
+      <div class="img"><span class="tag">New</span><img src="https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=800&q=80"></div>
+      <div class="bd"><div><h4>The Tumbler · 400ml</h4><span class="desc">Dune · coffee or water</span></div><span class="pr">€28</span></div>
+    </a>
+    <a class="prod-card v4">
+      <div class="img"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80"></div>
+      <div class="bd"><div><h4>The Flask · 500ml</h4><span class="desc">Abyss · polished finish</span></div><span class="pr">€36</span></div>
+    </a>
+    <a class="prod-card v5">
+      <div class="img"><img src="https://images.unsplash.com/photo-1625708458528-802ec79b1ed8?w=800&q=80"></div>
+      <div class="bd"><div><h4>The Kids · 350ml</h4><span class="desc">Wave blue · leak proof</span></div><span class="pr">€24</span></div>
+    </a>
+  </div>
+  <div class="prod-nav wrap" style="max-width:none">
+    <span class="mono">Scroll · 5 of 12 shown</span>
+    <div class="btns">
+      <button id="prodPrev" aria-label="Previous">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 2 L3 7 L9 12"/></svg>
+      </button>
+      <button id="prodNext" aria-label="Next">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 2 L11 7 L5 12"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- STORY 1 -->
+<section class="story" id="story" data-bg="kelp">
+  <div class="story-im">
+    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=80" alt="">
+    <div class="caption"><strong>Porto, Portugal</strong>Our workshop since 2019.</div>
+  </div>
+  <div class="story-c">
+    <div class="row-num serif-i">01</div>
+    <span class="mono">The workshop</span>
+    <h2>Forged in <em>Porto</em>, <br>by 14 hands.</h2>
+    <p>Our bottles are made by a team of fourteen at a family-run factory on the edge of the Douro river. They've been working steel since 1987.</p>
+    <p>Every bottle is hand-checked, pressure-tested, and signed with the initials of whoever assembled it. You'll find them <em>inside the cap</em>.</p>
+  </div>
+</section>
+
+<!-- STORY 2 (reverse, different color) -->
+<section class="story reverse" data-bg="azure">
+  <div class="story-im">
+    <img src="https://images.unsplash.com/photo-1484291470158-b8f8d608850d?w=900&q=80" alt="">
+    <div class="caption"><strong>Azores, NL</strong>Ocean cleanup partner.</div>
+  </div>
+  <div class="story-c">
+    <div class="row-num serif-i">02</div>
+    <span class="mono">1% pledge</span>
+    <h2>Every bottle <em>cleans</em><br>the ocean a bit.</h2>
+    <p>One percent of every sale goes to <em>The Ocean Cleanup</em>. That means every bottle removes — on average — three plastic items from the North Pacific gyre.</p>
+    <p>In 2024 we funded the removal of <em>46,200 kg</em> of plastic. In 2025, we'd like to double that.</p>
+  </div>
+</section>
+
+<!-- CONFIGURATOR -->
+<section class="config" id="build" data-bg="sand">
+  <div class="config-w">
+    <div class="config-l">
+      <span class="mono">§02 — Build your own</span>
+      <h2>Pick your <em>combo</em>.</h2>
+      <p>Choose the shape, the size, and the color. We'll engrave it with your initials if you want — free of charge.</p>
+      <div class="config-opts">
+        <div class="g">
+          <div class="lbl"><span>Shape</span><span id="sShape">The Original</span></div>
+          <div class="chips" data-group="shape">
+            <button class="chip on" data-val="Original">Original</button>
+            <button class="chip" data-val="Long">Long</button>
+            <button class="chip" data-val="Tumbler">Tumbler</button>
+            <button class="chip" data-val="Flask">Flask</button>
+          </div>
+        </div>
+        <div class="g">
+          <div class="lbl"><span>Size</span><span id="sSize">500 ml</span></div>
+          <div class="chips" data-group="size">
+            <button class="chip" data-val="350">350 ml</button>
+            <button class="chip on" data-val="500">500 ml</button>
+            <button class="chip" data-val="750">750 ml</button>
+          </div>
+        </div>
+        <div class="g">
+          <div class="lbl"><span>Color</span><span id="sColor">Terracotta</span></div>
+          <div class="chips" data-group="color">
+            <button class="chip on" data-val="Terracotta" data-c="#ff6b3d"><span class="sw" style="background:#ff6b3d"></span>Terracotta</button>
+            <button class="chip" data-val="Kelp" data-c="#2d5a42"><span class="sw" style="background:#2d5a42"></span>Kelp</button>
+            <button class="chip" data-val="Azure" data-c="#3a8dd1"><span class="sw" style="background:#3a8dd1"></span>Azure</button>
+            <button class="chip" data-val="Dune" data-c="#d4b892"><span class="sw" style="background:#d4b892"></span>Dune</button>
+            <button class="chip" data-val="Abyss" data-c="#0a1a1f"><span class="sw" style="background:#0a1a1f"></span>Abyss</button>
+            <button class="chip" data-val="Shell" data-c="#faf7ef"><span class="sw" style="background:#faf7ef"></span>Shell</button>
+          </div>
+        </div>
+        <div class="g">
+          <div class="lbl"><span>Engraving</span><span id="sEngrave">None</span></div>
+          <div class="chips" data-group="eng">
+            <button class="chip on" data-val="None">None</button>
+            <button class="chip" data-val="Initials">Initials (free)</button>
+            <button class="chip" data-val="Name">Full name</button>
+          </div>
+        </div>
+      </div>
+      <div class="config-total">
+        <div class="pr"><em>€</em><span id="pTotal">32</span></div>
+        <button class="add" id="addCart">
+          Add to cart
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 h8 M7 3 l4 4 -4 4"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="config-r" id="configR" style="background:#ff6b3d">
+      <span class="cap" id="capLabel">Original · 500ml · Terracotta</span>
+      <div class="pattern"></div>
+      <svg viewBox="0 0 220 460" fill="none" id="bottleSvg">
+        <defs>
+          <linearGradient id="cfgCap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2c32"/><stop offset="1" stop-color="#000"/></linearGradient>
+          <radialGradient id="cfgHL" cx=".2" cy=".25" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+          <clipPath id="cfgClip"><path d="M60 78 h100 a14 14 0 0 1 14 14 v316 a32 32 0 0 1 -32 32 h-64 a32 32 0 0 1 -32 -32 v-316 a14 14 0 0 1 14 -14 z"/></clipPath>
+        </defs>
+        <ellipse cx="110" cy="52" rx="36" ry="4" fill="#000" opacity=".2"/>
+        <rect x="88" y="14" width="44" height="40" rx="6" fill="url(#cfgCap)"/>
+        <rect x="92" y="18" width="36" height="3" rx="1" fill="#ffffff25"/>
+        <rect x="80" y="48" width="60" height="30" rx="4" fill="url(#cfgCap)"/>
+        <line x1="80" y1="60" x2="140" y2="60" stroke="#ffffff20" stroke-width=".5"/>
+        <line x1="80" y1="66" x2="140" y2="66" stroke="#ffffff20" stroke-width=".5"/>
+        <g clip-path="url(#cfgClip)">
+          <path id="bottleBody" d="M46 78 h128 v362 h-128 z" fill="#ffffffee"/>
+          <rect x="60" y="78" width="18" height="362" fill="url(#cfgHL)"/>
+          <rect x="150" y="78" width="20" height="362" fill="#00000028"/>
+          <rect x="54" y="170" width="112" height="150" fill="#00000010"/>
+          <text x="110" y="245" text-anchor="middle" font-family="Clash Display,sans-serif" font-size="26" font-weight="700" letter-spacing=".12em" id="bottleWord">TIDAL</text>
+          <text x="110" y="265" text-anchor="middle" font-family="Instrument Serif,serif" font-size="11" font-style="italic" id="bottleEst">est. Porto · 2019</text>
+          <line x1="78" y1="280" x2="142" y2="280" stroke="#0a1a1f44" stroke-width=".5" id="bottleLine"/>
+          <text x="110" y="296" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" letter-spacing=".25em" id="bottleSize">500 ML · 17 OZ</text>
+          <text x="110" y="310" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" letter-spacing=".2em" id="bottleMat">STAINLESS · DOUBLE WALL</text>
+          <text x="110" y="390" text-anchor="middle" font-family="Instrument Serif,serif" font-size="12" font-style="italic" id="bottleEng" opacity="0"></text>
+        </g>
+        <path d="M74 84 Q 72 200 78 420" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none" opacity=".4"/>
+        <path d="M60 78 h100 a14 14 0 0 1 14 14 v316 a32 32 0 0 1 -32 32 h-64 a32 32 0 0 1 -32 -32 v-316 a14 14 0 0 1 14 -14 z" stroke="#00000028" stroke-width="1" fill="none"/>
+        <ellipse cx="110" cy="444" rx="60" ry="5" fill="#000" opacity=".25"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" data-bg="ink">
+  <span class="mono">§03 — How it works</span>
+  <h2>Made to be used <em>every day</em>, not every season.</h2>
+  <div class="how-grid">
+    <div class="how-step reveal">
+      <div class="dot">1</div>
+      <h4>Pick your <em>combo</em></h4>
+      <p>Four shapes, three sizes, twelve colors. Optional engraving.</p>
+    </div>
+    <div class="how-step reveal">
+      <div class="dot">2</div>
+      <h4>Made in <em>Porto</em></h4>
+      <p>Hand-assembled in 5 working days. Ships in plastic-free paper.</p>
+    </div>
+    <div class="how-step reveal">
+      <div class="dot">3</div>
+      <h4>Use it for <em>years</em></h4>
+      <p>Drop it, scratch it, live with it. Dishwasher safe.</p>
+    </div>
+    <div class="how-step reveal">
+      <div class="dot">4</div>
+      <h4>Send it <em>back</em></h4>
+      <p>When it breaks, we replace it. Old ones get recycled into new ones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section class="press" data-bg="reef">
+  <span class="mono">§04 — Press</span>
+  <blockquote class="reveal">"TIDAL doesn't make a water bottle — it makes an <em>object you'll actually keep</em>. A rare thing in consumer goods."</blockquote>
+  <div class="cite">
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80">
+    <div><strong>Monocle · Design Issue 2024</strong><span>Pieter Koops, Product editor</span></div>
+  </div>
+  <div class="press-logos">
+    <span>Monocle</span>
+    <span class="serif-i">Dezeen</span>
+    <span>It's Nice <em>That</em></span>
+    <span>Wallpaper*</span>
+    <span class="serif-i">Volkskrant</span>
+    <span>Kinfolk</span>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-bg="ink">
+  <div class="cta-c">
+    <span class="mono">Join the tide</span>
+    <h2>Less <em>plastic.</em><br>More <em>you.</em></h2>
+    <p>Get a monthly note about new drops, impact updates, and the occasional recipe for honest iced coffee. We send two emails a month — never more.</p>
+    <form class="cta-form" onsubmit="event.preventDefault();this.querySelector('button').textContent='Thanks — check your inbox ✓';this.querySelector('input').value=''">
+      <input type="email" placeholder="your@email.com" required>
+      <button>Subscribe →</button>
+    </form>
+  </div>
+</section>
+
+<footer style="background:var(--ink);color:var(--shell)">
+  <div class="wrap">
+    <div class="foot-g">
+      <div>
+        <div class="big">Water, <em>rethought.</em></div>
+        <p style="font-size:13px;opacity:.65;line-height:1.55;max-width:300px">Reusable bottles, 98% recycled, made in Porto since 2019. B-Corp certified.</p>
+      </div>
+      <div>
+        <h5>Shop</h5>
+        <ul><li><a>All bottles</a></li><li><a>Build your own</a></li><li><a>Gift cards</a></li><li><a>Accessories</a></li></ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul><li><a>Our story</a></li><li><a>Impact report</a></li><li><a>Workshop</a></li><li><a>Careers</a></li></ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul><li><a>Contact</a></li><li><a>Returns</a></li><li><a>Warranty</a></li><li><a>Recycling</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2019–2025 TIDAL B.V. · Porto · Amsterdam</span>
+      <span>Certified B-Corp · Carbon neutral since 2022</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Color-shifting body based on scroll position — triggers when section enters upper half
+const sections=document.querySelectorAll('[data-bg]');
+const bgIO=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const bg=e.target.dataset.bg;
+      document.body.className='sec-'+bg;
+    }
+  });
+},{rootMargin:'-20% 0px -55% 0px',threshold:0});
+sections.forEach(s=>bgIO.observe(s));
+// Default reset when top
+const topIO=new IntersectionObserver(es=>{
+  if(es[0].isIntersecting) document.body.className='';
+},{threshold:.3});
+topIO.observe(document.getElementById('top'));
+
+// Product scroll
+const ps=document.getElementById('prodScroll');
+document.getElementById('prodPrev').onclick=()=>ps.scrollBy({left:-380,behavior:'smooth'});
+document.getElementById('prodNext').onclick=()=>ps.scrollBy({left:380,behavior:'smooth'});
+
+// Configurator
+const state={shape:'Original',size:'500',color:'Terracotta',eng:'None',c:'#ff6b3d'};
+const prices={350:28,500:32,750:38};
+const shapeAdj={Original:0,Long:6,Tumbler:-4,Flask:4};
+const engAdj={None:0,Initials:0,Name:5};
+function updateConfig(){
+  document.getElementById('sShape').textContent='The '+state.shape;
+  document.getElementById('sSize').textContent=state.size+' ml';
+  document.getElementById('sColor').textContent=state.color;
+  document.getElementById('sEngrave').textContent=state.eng;
+  const total=prices[state.size]+shapeAdj[state.shape]+engAdj[state.eng];
+  document.getElementById('pTotal').textContent=total;
+  document.getElementById('configR').style.background=state.c;
+  document.getElementById('capLabel').textContent=state.shape+' · '+state.size+'ml · '+state.color;
+  // Body fill - white on dark bottle colors, dark text on light
+  const body=document.getElementById('bottleBody');
+  const dark=['#0a1a1f','#2d5a42'].includes(state.c.toLowerCase());
+  body.setAttribute('fill',dark?'#faf7efee':'#ffffffee');
+  const txtCol=dark?'#faf7ef':'#0a1a1f';
+  ['bottleWord','bottleEst','bottleSize','bottleMat','bottleEng'].forEach(id=>{
+    const el=document.getElementById(id);if(el) el.setAttribute('fill',txtCol);
+  });
+  const ln=document.getElementById('bottleLine');if(ln) ln.setAttribute('stroke',dark?'#ffffff55':'#0a1a1f44');
+  // Size label
+  const szMap={'350':'350 ML · 12 OZ','500':'500 ML · 17 OZ','750':'750 ML · 25 OZ'};
+  document.getElementById('bottleSize').textContent=szMap[state.size]||'';
+  // Engraving
+  const eng=document.getElementById('bottleEng');
+  if(state.eng==='Initials'){eng.textContent='— A.K. —';eng.setAttribute('opacity','.85')}
+  else if(state.eng==='Name'){eng.textContent='— Alex Kader —';eng.setAttribute('opacity','.85')}
+  else{eng.setAttribute('opacity','0')}
+}
+document.querySelectorAll('.chips').forEach(group=>{
+  group.addEventListener('click',e=>{
+    if(e.target.classList.contains('chip')){
+      group.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+      e.target.classList.add('on');
+      const g=group.dataset.group, v=e.target.dataset.val;
+      if(g==='shape') state.shape=v;
+      if(g==='size') state.size=v;
+      if(g==='color'){state.color=v;state.c=e.target.dataset.c}
+      if(g==='eng') state.eng=v;
+      updateConfig();
+    }
+  });
+});
+document.getElementById('addCart').onclick=function(){
+  const orig=this.innerHTML;
+  this.innerHTML='Added ✓';
+  this.style.background='#2d5a42';
+  setTimeout(()=>{this.innerHTML=orig;this.style.background=''},1600);
+};
+</script>
+</body>
+</html>
