@@ -15,7 +15,7 @@
   --dim:#8d8976;
   --accent:#d39d5a;
   --accent-h:#ecbb74;
-  --wine:#7a1f1a;
+  --ember:#7a1f1a;
   --foam:#c9ddd4;
   --line:#2a3430;
 }
@@ -521,12 +521,12 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
       <p><span class="k">Sittings</span>19:00 · 21:30<br>Saturday lunch · Noon</p>
       <p><span class="k">Closed</span>Sunday · Monday</p>
       <p><span class="k">Dayboats we work with</span>12 · from Sesimbra, Sines, Cascais</p>
-      <p><span class="k">Wine growers</span>24, all Portuguese</p>
+      <p><span class="k">Local producers</span>24, all Portuguese</p>
     </div>
     <div class="body">
       <p>Marea opened in 2012 in a stone house overlooking the mouth of the Tagus, where it meets the Atlantic. We have never held more than thirty seats. We will never hold more.</p>
       <p>Our menu changes with the wind, the tide, and whichever of the <em>twelve dayboats</em> we work with comes back full. Breakfast is often where dinner begins — at six in the morning, in a market that smells of salt and diesel.</p>
-      <p>We cook slowly over wood and charcoal, we season with <em>fleur de sel from Rio Maior</em>, and we pour wine from twenty-four growers. There is no tasting menu printed until the afternoon. There never will be.</p>
+      <p>We cook slowly over wood and charcoal, we season with <em>fleur de sel from Rio Maior</em>, and we source from twenty-four local producers. There is no tasting menu printed until the afternoon. There never will be.</p>
       <div class="sig">
         <div class="s">João Barros</div>
         <div class="c"><strong>Chef & Proprietor</strong>Born 12 km from this door</div>
@@ -561,7 +561,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
       <div class="hpin-card">
         <span class="num">№ 04</span>
         <img src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=1100&q=85" alt="">
-        <div class="cap"><h4>The <em>cellar</em></h4><div class="m">24 growers<br>all Portuguese</div></div>
+        <div class="cap"><h4>The <em>pantry</em></h4><div class="m">24 producers<br>all Portuguese</div></div>
       </div>
       <div class="hpin-card">
         <span class="num">№ 05</span>
@@ -585,14 +585,14 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
     <div class="tabs" id="menuTabs">
       <button class="on" data-tab="tasting" data-hover>Tasting</button>
       <button data-tab="hearth" data-hover>À la carte</button>
-      <button data-tab="wine" data-hover>Wine</button>
+      <button data-tab="mocktails" data-hover>Mocktails</button>
     </div>
   </div>
   <div class="menu-rows" id="menuRows">
     <!-- rendered via JS -->
   </div>
   <div class="menu-foot">
-    <span>Tasting menu · 8 courses · <em>€125</em> · with wine pairing +<em>€75</em></span>
+    <span>Tasting menu · 8 courses · <em>€125</em> · with mocktail pairing +<em>€45</em></span>
     <span>Menus change daily · printed at 16:00</span>
   </div>
 </section>
@@ -701,7 +701,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
         <div class="chips" data-group="menu">
           <button type="button" class="chip on" data-val="Tasting" data-hover>Tasting · €125</button>
           <button type="button" class="chip" data-val="À la carte" data-hover>À la carte</button>
-          <button type="button" class="chip" data-val="Pairing" data-hover>+ Pairing · €200</button>
+          <button type="button" class="chip" data-val="Pairing" data-hover>+ Mocktail pairing · €170</button>
         </div>
 
         <input class="big-input" type="text" placeholder="Your name" required>
@@ -713,7 +713,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
         </button>
         <div class="summary">
           <em id="summarySentence">A table for 2, tomorrow at 19:00.</em>
-          Tasting menu · wine pairing available at the table
+          Tasting menu · mocktail pairing available at the table
         </div>
       </div>
     </form>
@@ -812,7 +812,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
     </div>
     <div>
       <h5>The house</h5>
-      <ul><li><a>Menu</a></li><li><a>Wine cellar</a></li><li><a>Growers</a></li><li><a>Press</a></li></ul>
+      <ul><li><a>Menu</a></li><li><a>Mocktails</a></li><li><a>Growers</a></li><li><a>Press</a></li></ul>
     </div>
     <div>
       <h5>Say hello</h5>
@@ -957,16 +957,16 @@ const menuData={
   hearth:[
     {n:'<em>Whole</em> turbot, vine leaf, lemon',o:'— Rodovalho · folha de videira',d:'Whole turbot in vine leaves, cooked beside embers. Finished with lemon and butter at the table.',t:['Hearth','For 2'],p:88,img:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80'},
     {n:'Day-boat <em>mackerel</em>, pickled onion',o:'— Cavala · cebola em pickle',d:'Sagres mackerel, flash-grilled, twenty-four-hour pickled onions, toasted rye.',t:['Hearth'],p:22,img:'https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?w=400&q=80'},
-    {n:'Iberian pork, <em>charred peach</em>',o:'— Porco preto · pêssego',d:'Aged Iberian pork neck, grilled over almond wood, charred peach, a deep jus.',t:['Hearth'],p:36,img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80'},
+    {n:'Milk-fed <em>lamb</em>, charred peach',o:'— Borrego · pêssego',d:'Alentejo milk-fed lamb, grilled over almond wood, charred peach, a deep jus.',t:['Hearth'],p:36,img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80'},
     {n:'Charred <em>summer vegetables</em>, ash cream',o:'— Legumes queimados',d:'Whatever came in that morning, charred whole over embers. Black garlic ash cream.',t:['V','Hearth'],p:24,img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80'},
     {n:'Grilled <em>sourdough</em>, olive oil, sea salt',o:'— Pão · azeite',d:'Quarter loaf of Gleba sourdough, grilled over wood. Rio Maior fleur de sel, Trás-os-Montes olive oil.',t:['V'],p:8,img:'https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=400&q=80'},
   ],
-  wine:[
-    {n:'Niepoort, <em>Drink Me</em> Branco 2022',o:'— Douro, PT · by the glass',d:'Rabigato, Codega, Viosinho. Orchard fruit, saline, a close friend.',t:['Glass','White'],p:9,img:'https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=400&q=80'},
-    {n:'Quinta do Ameal, <em>Escolha</em> 2020',o:'— Vinho Verde, PT',d:'100% Loureiro. Bright, stone-fruit, cold river water. Drinks like summer.',t:['Bottle','White'],p:58,img:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=80'},
-    {n:'Luis Seabra, <em>Xisto Ilimitado</em> Tinto 2021',o:'— Douro, PT',d:'A field blend from schist soil. Dark cherry, graphite, long finish. Our house red.',t:['Bottle','Red'],p:72,img:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80'},
-    {n:'Anselme Selosse, <em>Initial</em> NV',o:'— Champagne, FR',d:'Extra brut. The one we open to celebrate. Oxidative, hazelnut, long.',t:['Bottle','Sparkling'],p:210,img:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80'},
-    {n:'Niepoort, <em>10-year</em> Tawny',o:'— Port, PT · by the glass',d:'The pour at the end of dinner. Dried fig, walnut, smoke. Served cool.',t:['Glass','Port'],p:12,img:'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=400&q=80'},
+  mocktails:[
+    {n:'Atlantic <em>Spritz</em>, sea buckthorn',o:'— Espumante sem álcool',d:'Alcohol-free sparkling, sea buckthorn cordial, a twist of orange peel. Served cold, served long.',t:['Glass','Sparkling'],p:9,img:'https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=400&q=80'},
+    {n:'Verde <em>Tonic</em>, lime leaf',o:'— Tónica de lima',d:'House tonic with kaffir lime leaf, green apple, a whisper of salt. Bright, stone-fruit, cold river water.',t:['Glass','Tonic'],p:8,img:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=80'},
+    {n:'Douro <em>Shrub</em>, dark cherry',o:'— Shrub de cereja',d:'Dark cherry shrub from Douro fruit, aged vinegar, sparkling water. Our house pour.',t:['Glass','Shrub'],p:10,img:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80'},
+    {n:'Hibiscus <em>Fizz</em>, rose',o:'— Hibisco · rosa',d:'Hibiscus cordial, rose water, house soda. The one we pour to celebrate. Floral, long.',t:['Glass','Floral'],p:11,img:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80'},
+    {n:'Fig leaf <em>iced tea</em>, honey',o:'— Chá gelado de figo',d:'The pour at the end of dinner. Fig leaf, orange blossom honey, citrus. Served cool.',t:['Glass','Digestif'],p:7,img:'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=400&q=80'},
   ]
 };
 const rowsEl=document.getElementById('menuRows');
