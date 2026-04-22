@@ -199,6 +199,20 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Hero 3-col grids -> 1 col */
+    [style*="gridTemplateColumns: '1.3fr 1fr 1fr'"],
+    [style*="gridTemplateColumns: '1.4fr 1fr 1.2fr'"] {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+    }
+    /* Hide status pill "2 plekken Q4" on mobile */
+    .v3-status-pill { display: none !important; }
+    /* CTA wrap */
+    [style*="display: 'flex'"][style*="gap"] { flex-wrap: wrap; }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
@@ -291,7 +305,7 @@ const V3 = () => {
               <a key={t} href={h} className="v3-link" style={{ color: v3Styles.ink, textDecoration: 'none' }}>{t}</a>
             ))}
           </nav>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div className="v3-status-pill" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             <div style={{ fontFamily: v3Styles.mono, fontSize: 11, color: v3Styles.dim }}>
               <span style={{ color: v3Styles.accent }}>●</span> 2 plekken Q4
             </div>
