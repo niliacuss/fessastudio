@@ -385,6 +385,10 @@
   </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
 <style id="mobile-v3-patches">
+  /* Override: mobile-v3-global.css's [class*="hero"] forceert 100svh op de
+     portfolio header — die is hier geen full-screen hero. */
+  .portfolio-hero { min-height: 0; }
+
   @media (max-width: 700px) {
     .portfolio-hero h1 { hyphens: manual; word-break: normal; overflow-wrap: normal; }
     .portfolio-hero, .portfolio-hero .lead { max-width: 100%; }
