@@ -351,6 +351,14 @@ footer{padding:40px 36px;border-top:1px solid var(--line);display:flex;justify-c
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Remove nowrap from non-marquee elements that can overflow */
+    .nav .cta { white-space: normal !important; }
+    /* Marquee containers keep overflow hidden */
+    .marq, .marquee, .ticker { overflow: hidden !important; }
+  }
+</style>
 </head>
 <body>
 <div class="noise"></div>
