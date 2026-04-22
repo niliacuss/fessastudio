@@ -159,6 +159,34 @@
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Hero image (340px circle) — make static/flow */
+    section[style*="padding: '40px 32px 60px'"] img[src*="1542838132"] {
+      position: static !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 1 !important;
+      margin-top: 24px !important;
+      border-radius: 50% !important;
+    }
+    /* Hero grid -> 1 col */
+    [style*="gridTemplateColumns: '1.15fr 1fr'"] {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+    }
+    /* Search input */
+    header input[placeholder*="Zoek"] { font-size: 14px !important; }
+    /* Topbar smaller, readable */
+    div[style*="background: #"] > div[style*="padding: '10px 32px'"] {
+      font-size: 12px !important;
+      line-height: 1.4 !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
