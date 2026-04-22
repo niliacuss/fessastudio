@@ -15,7 +15,7 @@
   --dim:#8d8976;
   --accent:#d39d5a;
   --accent-h:#ecbb74;
-  --ember:#7a1f1a;
+  --wine:#7a1f1a;
   --foam:#c9ddd4;
   --line:#2a3430;
 }
@@ -85,10 +85,9 @@ button{font:inherit;color:inherit;background:none;border:0}
 .book:hover{color:var(--ink);border-color:var(--accent)}
 
 /* ============ HERO ============ */
-.hero{min-height:100svh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:110px clamp(20px,3vw,44px) 40px}
-@supports not (height: 100svh){.hero{min-height:100vh}}
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:110px clamp(20px,3vw,44px) 40px}
 .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero-bg-inner{position:absolute;inset:-10%;background-image:url("https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=2000&q=85");background-size:cover;background-position:center 30%;filter:contrast(1.08) brightness(.45) saturate(.7) hue-rotate(-8deg);transform:scale(1.08);animation:bgFloat 22s ease-in-out infinite alternate}
+.hero-bg-inner{position:absolute;inset:-10%;background-image:url("https://images.unsplash.com/photo-1514516816566-de580c8f8a8c?w=2000&q=85");background-size:cover;background-position:center 30%;filter:contrast(1.08) brightness(.45) saturate(.7) hue-rotate(-8deg);transform:scale(1.08);animation:bgFloat 22s ease-in-out infinite alternate}
 @keyframes bgFloat{to{transform:scale(1.12) translate(-2%,-1%)}}
 .hero-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,rgba(211,157,90,.25) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(122,31,26,.3) 0%,transparent 40%),linear-gradient(180deg,rgba(7,17,15,.3) 0%,rgba(7,17,15,0) 35%,rgba(7,17,15,.1) 60%,rgba(7,17,15,.95) 100%)}
 .hero-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;margin-top:0;opacity:0;animation:fadeIn .8s ease 2.4s forwards}
@@ -159,8 +158,7 @@ button{font:inherit;color:inherit;background:none;border:0}
 
 /* ============ HORIZONTAL GALLERY — pinned scroll ============ */
 .hpin-wrap{height:300vh;position:relative;background:var(--bg-2)}
-.hpin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
-@supports not (height: 100svh){.hpin{height:100vh}}
+.hpin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
 .hpin-track{display:flex;gap:40px;padding:0 8vw;will-change:transform}
 .hpin-card{flex:0 0 60vw;max-width:600px;aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--ink)}
 .hpin-card:nth-child(even){aspect-ratio:5/6;align-self:flex-end}
@@ -406,123 +404,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
   .foot-g{grid-template-columns:1fr}
   .chef-pts{grid-template-columns:1fr}
 }
-/* ===== Mobile optimalisaties (nieuw) ===== */
-@media (max-width: 900px){
-  .grain, .vign{display:none !important}
-}
-@media (max-width: 768px){
-  .hero-h{font-size:clamp(40px, 12vw, 160px) !important; line-height:1.02 !important; overflow-wrap:break-word; hyphens:auto}
-  .serif, h2.serif, .cta h2{font-size:clamp(28px, 7vw, 52px) !important; line-height:1.1 !important; overflow-wrap:break-word; hyphens:auto}
-  h3, .menu-row .dish h4{font-size:clamp(20px, 5vw, 36px) !important; line-height:1.15 !important; overflow-wrap:break-word}
-  .hero-bot{grid-template-columns:repeat(2, 1fr) !important; gap:20px !important}
-  .menu-row{grid-template-columns:repeat(2, 1fr) !important}
-  .counters{grid-template-columns:repeat(2, 1fr) !important}
-  .foot-g{grid-template-columns:repeat(2, 1fr) !important}
-  .body-row{grid-template-columns:1fr !important}
-  section, .sec, .cta{padding:56px 20px !important}
-}
-@media (max-width: 560px){
-  .hero-h{font-size:clamp(32px, 10vw, 72px) !important}
-  .serif, h2.serif, .cta h2{font-size:clamp(26px, 8vw, 40px) !important}
-  .hero-bot, .menu-row, .counters, .foot-g{grid-template-columns:1fr !important}
-  section, .sec, .cta{padding:40px 16px !important}
-}
-@media (max-width: 380px){
-  .hero-h{font-size:clamp(28px, 10vw, 40px) !important}
-  .serif, h2.serif, .cta h2{font-size:clamp(24px, 8vw, 36px) !important}
-}
 </style>
-
-<style id="mobile-safety-net-v2">
-/* ===== Mobile safety net (v2) — voorkomt horizontal scroll + fixt image-breakage ===== */
-@media (max-width: 900px) {
-  /* Geen horizontal scroll, punt. */
-  html, body { overflow-x: hidden !important; max-width: 100vw; }
-  #root { overflow-x: hidden; max-width: 100vw; }
-
-  /* Responsive media defaults */
-  img, video, picture, iframe, svg { max-width: 100% !important; }
-  img, video, picture { height: auto; }
-
-  /* Neutralize brede inline min-widths (React inline styles) */
-  [style*="min-width: 12"], [style*="min-width: 13"], [style*="min-width: 14"],
-  [style*="min-width: 15"], [style*="min-width: 16"], [style*="min-width: 18"],
-  [style*="min-width: 20"], [style*="min-width: 24"], [style*="min-width: 28"],
-  [style*="min-width:12"], [style*="min-width:14"], [style*="min-width:16"] {
-    min-width: 0 !important;
-  }
-
-  /* Forceer vloeiende breedte voor containers met vaste >1200px width */
-  [style*="width: 1200"], [style*="width: 1280"], [style*="width: 1320"],
-  [style*="width: 1400"], [style*="width: 1440"], [style*="width: 1600"] {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* Fix grid-auto-rows conflicten die images platdrukken op gestackte grids */
-  .show-g, .cat-grid, .work-grid, .gal-g, .cuts,
-  .quick-g, .team-g, .rev-g, .press-logos,
-  .how-grid, .hero-bot, .menu-row, .counters,
-  .foot-g, .grid-4, .fp-g, .specs-g,
-  .v1-row, .v3-step, .v4-service {
-    grid-auto-rows: auto !important;
-  }
-
-  /* Image-containers die op desktop via grid-height vulden — geef ze een aspect */
-  .cut img, .w img, .wk img, .m img, .hv-main img, .hero-img img,
-  .s .img img, .phil-im img, .gal-g img, .news img, .split-image img,
-  .team img, .cat-grid img, .work-grid img, .press-logos img,
-  .r img, .rev-card img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
-  }
-
-  /* Hero-visual containers: geen rigide min-height op mobiel */
-  .hero-img, .hero-vis, .hv-main, .hero-im, .phil-im {
-    min-height: 0 !important;
-  }
-}
-
-@media (max-width: 560px) {
-  /* Hero-visuals krijgen een vriendelijke ratio in plaats van 520px hoog */
-  .hero-img, .hv-main, .phil-im, .hero-im {
-    aspect-ratio: 4/3 !important;
-    height: auto !important;
-  }
-
-  /* Cells in eerder grid-auto-rows grids hun eigen ratio */
-  .cut, .w, .wk, .m {
-    aspect-ratio: 3/2 !important;
-    height: auto !important;
-  }
-
-  /* Tabel-achtige grids met expliciete px-kolommen platslaan */
-  [style*="gridTemplateColumns: '80px"],
-  [style*="grid-template-columns: 80px"],
-  [style*="gridTemplateColumns: 'auto 1fr auto auto"],
-  .table-row, .w-row {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-  }
-
-  /* Tickers/marquees minder agressief op small screens */
-  .marq, .ticker, .ticker-track {
-    font-size: 16px !important;
-  }
-}
-
-@media (max-width: 380px) {
-  /* Nog smaller: alles single-column */
-  [style*="gridTemplateColumns"], [style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
-  /* Extra tight padding op kleinste telefoon */
-  section, .sec, .wrap { padding-left: 14px !important; padding-right: 14px !important; }
-}
-</style>
-<link rel="stylesheet" href="/assets/mobile-v3-global.css">
 </head>
 <body>
 
@@ -597,7 +479,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
     <div class="mini-img">
       <div class="pile">
         <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&q=80">
-        <img src="https://images.unsplash.com/photo-1560526860-1f0e56046c85?w=300&q=80">
+        <img src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=300&q=80">
         <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=300&q=80">
       </div>
       <div class="txt"><em>8 courses</em>tonight's hearth<br>tasting · €125</div>
@@ -639,12 +521,12 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
       <p><span class="k">Sittings</span>19:00 · 21:30<br>Saturday lunch · Noon</p>
       <p><span class="k">Closed</span>Sunday · Monday</p>
       <p><span class="k">Dayboats we work with</span>12 · from Sesimbra, Sines, Cascais</p>
-      <p><span class="k">Local producers</span>24, all Portuguese</p>
+      <p><span class="k">Wine growers</span>24, all Portuguese</p>
     </div>
     <div class="body">
       <p>Marea opened in 2012 in a stone house overlooking the mouth of the Tagus, where it meets the Atlantic. We have never held more than thirty seats. We will never hold more.</p>
       <p>Our menu changes with the wind, the tide, and whichever of the <em>twelve dayboats</em> we work with comes back full. Breakfast is often where dinner begins — at six in the morning, in a market that smells of salt and diesel.</p>
-      <p>We cook slowly over wood and charcoal, we season with <em>fleur de sel from Rio Maior</em>, and we source from twenty-four local producers. There is no tasting menu printed until the afternoon. There never will be.</p>
+      <p>We cook slowly over wood and charcoal, we season with <em>fleur de sel from Rio Maior</em>, and we pour wine from twenty-four growers. There is no tasting menu printed until the afternoon. There never will be.</p>
       <div class="sig">
         <div class="s">João Barros</div>
         <div class="c"><strong>Chef & Proprietor</strong>Born 12 km from this door</div>
@@ -678,12 +560,12 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
       </div>
       <div class="hpin-card">
         <span class="num">№ 04</span>
-        <img src="https://images.unsplash.com/photo-1560526860-1f0e56046c85?w=1100&q=85" alt="">
-        <div class="cap"><h4>The <em>pantry</em></h4><div class="m">24 producers<br>all Portuguese</div></div>
+        <img src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=1100&q=85" alt="">
+        <div class="cap"><h4>The <em>cellar</em></h4><div class="m">24 growers<br>all Portuguese</div></div>
       </div>
       <div class="hpin-card">
         <span class="num">№ 05</span>
-        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=1100&q=85" alt="">
+        <img src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=1100&q=85" alt="">
         <div class="cap"><h4>Dayboat, <em>Sesimbra</em></h4><div class="m">06:04<br>Mackerel + bream</div></div>
       </div>
       <div class="hpin-card">
@@ -703,21 +585,21 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
     <div class="tabs" id="menuTabs">
       <button class="on" data-tab="tasting" data-hover>Tasting</button>
       <button data-tab="hearth" data-hover>À la carte</button>
-      <button data-tab="mocktails" data-hover>Mocktails</button>
+      <button data-tab="wine" data-hover>Wine</button>
     </div>
   </div>
   <div class="menu-rows" id="menuRows">
     <!-- rendered via JS -->
   </div>
   <div class="menu-foot">
-    <span>Tasting menu · 8 courses · <em>€125</em> · with mocktail pairing +<em>€45</em></span>
+    <span>Tasting menu · 8 courses · <em>€125</em> · with wine pairing +<em>€75</em></span>
     <span>Menus change daily · printed at 16:00</span>
   </div>
 </section>
 
 <!-- BIG QUOTE -->
 <section class="bigq">
-  <div class="bigq-bg"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=1800&q=85" alt=""></div>
+  <div class="bigq-bg"><img src="https://images.unsplash.com/photo-1532634733-cae1395e440f?w=1800&q=85" alt=""></div>
   <div class="bigq-c">
     <span class="mono">§ Press — The Telegraph · Travel & Food</span>
     <blockquote>Marea is, to my mind, the single best argument Lisbon has made for <em>slow, honest dining</em> since I can remember.</blockquote>
@@ -772,7 +654,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
 
 <!-- RESERVATION -->
 <section class="res" id="book">
-  <div class="res-bg"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1800&q=85" alt=""></div>
+  <div class="res-bg"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85" alt=""></div>
   <div class="res-c">
     <div class="res-l">
       <span class="mono">§ Chapter IV — Your table</span>
@@ -819,7 +701,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
         <div class="chips" data-group="menu">
           <button type="button" class="chip on" data-val="Tasting" data-hover>Tasting · €125</button>
           <button type="button" class="chip" data-val="À la carte" data-hover>À la carte</button>
-          <button type="button" class="chip" data-val="Pairing" data-hover>+ Mocktail pairing · €170</button>
+          <button type="button" class="chip" data-val="Pairing" data-hover>+ Pairing · €200</button>
         </div>
 
         <input class="big-input" type="text" placeholder="Your name" required>
@@ -831,7 +713,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
         </button>
         <div class="summary">
           <em id="summarySentence">A table for 2, tomorrow at 19:00.</em>
-          Tasting menu · mocktail pairing available at the table
+          Tasting menu · wine pairing available at the table
         </div>
       </div>
     </form>
@@ -930,7 +812,7 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
     </div>
     <div>
       <h5>The house</h5>
-      <ul><li><a>Menu</a></li><li><a>Mocktails</a></li><li><a>Growers</a></li><li><a>Press</a></li></ul>
+      <ul><li><a>Menu</a></li><li><a>Wine cellar</a></li><li><a>Growers</a></li><li><a>Press</a></li></ul>
     </div>
     <div>
       <h5>Say hello</h5>
@@ -1069,22 +951,22 @@ const menuData={
     {n:'Carabineiro, <em>fennel bone broth</em>',o:'— Carabineiro · caldo de funcho',d:'Scarlet prawn, charred briefly, set into a broth built from twenty-four hours of roasted fennel and prawn shells.',t:['Signature','GF'],p:32,img:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&q=80'},
     {n:'Line-caught <em>sea bream</em>, charred scallion',o:'— Dourada · cebola queimada',d:'Whole bream, grilled over <em>vine wood</em>. Green almond sauce, charcoal-blistered scallion, smoked olive oil.',t:['hot Tonight','Hearth'],p:46,img:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80'},
     {n:'Monkfish, <em>bay leaf</em>, brown butter',o:'— Tamboril · louro · manteiga',d:'Tail of monkfish, pan-roasted with bay and garlic, bathed in brown butter that tastes of late August.',t:['Signature'],p:38,img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80'},
-    {n:'Arroz de <em>pato</em>, smoked duck',o:'— Arroz de pato · pato fumado',d:'Grandmother\'s rice, reworked. Carolino in smoked-duck stock, shredded leg confit, orange zest.',t:['Classic'],p:28,img:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&q=80'},
+    {n:'Arroz de <em>pato</em>, smoked duck',o:'— Arroz de pato · pato fumado',d:'Grandmother\'s rice, reworked. Carolino in smoked-duck stock, shredded leg confit, orange zest.',t:['Classic'],p:28,img:'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=400&q=80'},
     {n:'Olive oil cake, <em>tangerine</em>, bay ice cream',o:'— Bolo de azeite · tangerina',d:'Dona Amélia\'s olive oil cake, winter tangerines, bay-leaf ice cream from <em>Lucinda\'s herd</em>.',t:['V'],p:14,img:'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&q=80'},
   ],
   hearth:[
     {n:'<em>Whole</em> turbot, vine leaf, lemon',o:'— Rodovalho · folha de videira',d:'Whole turbot in vine leaves, cooked beside embers. Finished with lemon and butter at the table.',t:['Hearth','For 2'],p:88,img:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&q=80'},
     {n:'Day-boat <em>mackerel</em>, pickled onion',o:'— Cavala · cebola em pickle',d:'Sagres mackerel, flash-grilled, twenty-four-hour pickled onions, toasted rye.',t:['Hearth'],p:22,img:'https://images.unsplash.com/photo-1611599537845-1c7aca0091c0?w=400&q=80'},
-    {n:'Milk-fed <em>lamb</em>, charred peach',o:'— Borrego · pêssego',d:'Alentejo milk-fed lamb, grilled over almond wood, charred peach, a deep jus.',t:['Hearth'],p:36,img:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&q=80'},
+    {n:'Iberian pork, <em>charred peach</em>',o:'— Porco preto · pêssego',d:'Aged Iberian pork neck, grilled over almond wood, charred peach, a deep jus.',t:['Hearth'],p:36,img:'https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80'},
     {n:'Charred <em>summer vegetables</em>, ash cream',o:'— Legumes queimados',d:'Whatever came in that morning, charred whole over embers. Black garlic ash cream.',t:['V','Hearth'],p:24,img:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80'},
-    {n:'Grilled <em>sourdough</em>, olive oil, sea salt',o:'— Pão · azeite',d:'Quarter loaf of Gleba sourdough, grilled over wood. Rio Maior fleur de sel, Trás-os-Montes olive oil.',t:['V'],p:8,img:'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=400&q=80'},
+    {n:'Grilled <em>sourdough</em>, olive oil, sea salt',o:'— Pão · azeite',d:'Quarter loaf of Gleba sourdough, grilled over wood. Rio Maior fleur de sel, Trás-os-Montes olive oil.',t:['V'],p:8,img:'https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=400&q=80'},
   ],
-  mocktails:[
-    {n:'Atlantic <em>Spritz</em>, sea buckthorn',o:'— Espumante sem álcool',d:'Alcohol-free sparkling, sea buckthorn cordial, a twist of orange peel. Served cold, served long.',t:['Glass','Sparkling'],p:9,img:'https://images.unsplash.com/photo-1560526860-1f0e56046c85?w=400&q=80'},
-    {n:'Verde <em>Tonic</em>, lime leaf',o:'— Tónica de lima',d:'House tonic with kaffir lime leaf, green apple, a whisper of salt. Bright, stone-fruit, cold river water.',t:['Glass','Tonic'],p:8,img:'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80'},
-    {n:'Douro <em>Shrub</em>, dark cherry',o:'— Shrub de cereja',d:'Dark cherry shrub from Douro fruit, aged vinegar, sparkling water. Our house pour.',t:['Glass','Shrub'],p:10,img:'https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400&q=80'},
-    {n:'Hibiscus <em>Fizz</em>, rose',o:'— Hibisco · rosa',d:'Hibiscus cordial, rose water, house soda. The one we pour to celebrate. Floral, long.',t:['Glass','Floral'],p:11,img:'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=400&q=80'},
-    {n:'Fig leaf <em>iced tea</em>, honey',o:'— Chá gelado de figo',d:'The pour at the end of dinner. Fig leaf, orange blossom honey, citrus. Served cool.',t:['Glass','Digestif'],p:7,img:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80'},
+  wine:[
+    {n:'Niepoort, <em>Drink Me</em> Branco 2022',o:'— Douro, PT · by the glass',d:'Rabigato, Codega, Viosinho. Orchard fruit, saline, a close friend.',t:['Glass','White'],p:9,img:'https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=400&q=80'},
+    {n:'Quinta do Ameal, <em>Escolha</em> 2020',o:'— Vinho Verde, PT',d:'100% Loureiro. Bright, stone-fruit, cold river water. Drinks like summer.',t:['Bottle','White'],p:58,img:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=80'},
+    {n:'Luis Seabra, <em>Xisto Ilimitado</em> Tinto 2021',o:'— Douro, PT',d:'A field blend from schist soil. Dark cherry, graphite, long finish. Our house red.',t:['Bottle','Red'],p:72,img:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80'},
+    {n:'Anselme Selosse, <em>Initial</em> NV',o:'— Champagne, FR',d:'Extra brut. The one we open to celebrate. Oxidative, hazelnut, long.',t:['Bottle','Sparkling'],p:210,img:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80'},
+    {n:'Niepoort, <em>10-year</em> Tawny',o:'— Port, PT · by the glass',d:'The pour at the end of dinner. Dried fig, walnut, smoke. Served cool.',t:['Glass','Port'],p:12,img:'https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?w=400&q=80'},
   ]
 };
 const rowsEl=document.getElementById('menuRows');
