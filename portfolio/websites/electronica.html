@@ -111,10 +111,29 @@
    .nav-links{display:none}
    .fp-main img,.fp-card img{max-width:45%;opacity:.85}
    .fp-main h2,.fp-main p,.fp-card h3{max-width:100%}
+   .hero-cta{justify-content:flex-start}
  }
- @media (max-width:520px){
+ @media (max-width:560px){
+   .wrap{padding:0 16px}
    .specs-g{grid-template-columns:repeat(2,1fr)}
    .fp-side{grid-template-columns:1fr}
+   .hero{padding:28px 0 20px}
+   .hero h1{font-size:clamp(42px,13vw,70px)}
+   .hero-sub{margin-top:24px;gap:20px}
+   .hero-sub p{font-size:15px}
+   .pill{margin-bottom:18px;font-size:11px}
+   .btn{padding:10px 16px;font-size:13px}
+   .hero-cta .btn{flex:1;justify-content:center}
+   .fp{padding:32px 0}
+   .fp-main{padding:24px;min-height:360px;border-radius:22px}
+   .fp-main h2{font-size:28px;max-width:100%}
+   .fp-main p{font-size:14px;max-width:100%;margin-bottom:16px}
+   .fp-main img{max-width:55%;right:-10%;bottom:-5%}
+   .fp-card{padding:20px;border-radius:18px}
+   .fp-card img{max-width:50%}
+   .nav-inner{padding:10px 0}
+   .logo{font-size:18px}
+   .mono{font-size:11px}
  }
 </style>
 </head>

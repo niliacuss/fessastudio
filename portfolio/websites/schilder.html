@@ -92,12 +92,55 @@ footer{padding:40px 0;border-top:1px solid #0001;font-size:13px;color:var(--dim)
 .foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 @media (max-width:900px){
- .hero-g,.srv,.cta-card{grid-template-columns:1fr}
- .work{grid-template-columns:1fr 1fr;grid-template-rows:auto;aspect-ratio:auto}
+ .hero-g,.srv,.cta-card{grid-template-columns:1fr;gap:20px}
+ .work{grid-template-columns:1fr 1fr;grid-template-rows:auto;aspect-ratio:auto;gap:10px}
  .work .w:nth-child(1){grid-row:auto;grid-column:span 2;aspect-ratio:16/9}
  .work .w{aspect-ratio:1}
  .swatches{grid-template-columns:repeat(3,1fr)}
  .nav-links{display:none}
+ .hero{padding:24px 0 0}
+ .hero-img{min-height:400px}
+ .cta-card{padding:32px 24px;border-radius:24px}
+}
+@media (max-width:560px){
+ .wrap{padding:0 16px}
+ .hero{padding:20px 0 0}
+ .hero-left{padding:20px 0}
+ .hero h1{font-size:clamp(40px,10vw,56px)}
+ .hero p{font-size:15px;margin-top:20px;line-height:1.5}
+ .hero-cta{margin-top:20px;gap:8px}
+ .hero-cta .btn{width:100%;justify-content:center;font-size:14px;padding:12px 18px}
+ .pill{margin-bottom:16px;font-size:12px;padding:6px 12px}
+ .hero-img{min-height:300px;border-radius:20px}
+ .hero-img .cap{left:16px;right:16px;bottom:16px;flex-direction:column;align-items:flex-start;gap:8px}
+ .hero-img .cap h4{font-size:18px}
+ .hero-img .cap span{font-size:11px}
+ .swatches{grid-template-columns:repeat(2,1fr);gap:8px;padding:28px 0 0}
+ .sw{padding:10px;border-radius:12px}
+ .sw strong{font-size:13px}
+ .sw span{font-size:10px}
+ .sec{padding:40px 0}
+ .sec-h{margin-bottom:20px}
+ .sec-h h2{font-size:32px}
+ .srv{gap:14px}
+ .s{padding:22px 20px;border-radius:18px}
+ .s h3{font-size:22px;margin:10px 0 6px}
+ .s p{font-size:14px}
+ .s .n{font-size:32px}
+ .work{gap:8px}
+ .work .w{border-radius:16px}
+ .work .w .t{font-size:14px;left:12px;bottom:12px}
+ .rev{padding:48px 0}
+ .rev h2{font-size:28px;line-height:1.2}
+ .rev .cite{margin-top:20px;gap:12px}
+ .rev .cite img{width:44px;height:44px}
+ .cta{padding:40px 0}
+ .cta-card{padding:28px 22px;gap:18px}
+ .cta-card h2{font-size:32px}
+ .foot-row{flex-direction:column;gap:6px;font-size:11px}
+ .nav-i{padding:12px 0}
+ .logo{font-size:18px}
+ .nav-i .btn{padding:10px 14px;font-size:12px}
 }
 </style>
 </head>

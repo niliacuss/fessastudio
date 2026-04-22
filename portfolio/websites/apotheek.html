@@ -107,13 +107,49 @@ footer{padding:36px 0;border-top:1px solid #0001;font-size:13px;color:var(--dim)
 @media (max-width:900px){
   .nav-links{display:none}
   .status-pill{display:none}
-  .hero-g,.strip .wrap,.team-h,.cta-card{grid-template-columns:1fr}
+  .hero-g,.strip .wrap,.team-h,.cta-card{grid-template-columns:1fr;gap:24px}
   .quick-g,.rev-g{grid-template-columns:1fr 1fr}
   .team-g{grid-template-columns:1fr 1fr}
   .hero-vis{aspect-ratio:4/3;max-height:420px}
+  .strip::before{font-size:220px;right:-20px;top:-20px}
+  .cta-card{padding:32px 24px;border-radius:24px}
+  .cta-card::after{width:160px;height:160px;right:-40px;top:-40px}
+  .hero h1{font-size:clamp(40px,9vw,72px)}
 }
 @media (max-width:560px){
+  .wrap{padding:0 16px}
   .quick-g,.rev-g,.team-g{grid-template-columns:1fr}
+  .hero{padding:24px 0 48px}
+  .hero .sub{font-size:16px;margin-top:20px}
+  .hero-cta{margin-top:20px}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .trust{gap:16px;margin-top:24px}
+  .trust>div{font-size:12px}
+  .trust strong{font-size:18px}
+  .hero-card{left:12px;right:12px;bottom:12px;padding:14px 16px;border-radius:14px}
+  .hero-card h4{font-size:14px}
+  .hero-card p{font-size:11px}
+  .hero-card .ic{width:38px;height:38px;font-size:18px}
+  .quick{padding:40px 0}
+  .quick-g{margin-top:20px;gap:12px}
+  .q{padding:20px 18px}
+  .strip{padding:36px 0}
+  .strip .wrap{gap:28px}
+  .strip h2{font-size:28px}
+  .team{padding:48px 0}
+  .team-h{margin-bottom:24px}
+  .team-h h2{font-size:34px}
+  .team-g{gap:14px}
+  .rev{padding:48px 0}
+  .rev-g{gap:14px}
+  .r{padding:22px 20px}
+  .r p{font-size:16px;margin:24px 0 16px}
+  .cta{padding:48px 0}
+  .cta-card{padding:28px 20px;gap:20px}
+  .cta-card h2{font-size:32px}
+  .foot-row{font-size:11px;flex-direction:column}
+  .nav-i{padding:12px 0}
+  .logo{font-size:18px}
 }
 </style>
 </head>
