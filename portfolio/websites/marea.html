@@ -404,6 +404,31 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
   .foot-g{grid-template-columns:1fr}
   .chef-pts{grid-template-columns:1fr}
 }
+/* ===== Mobile optimalisaties (nieuw) ===== */
+@media (max-width: 900px){
+  .grain, .vign{display:none !important}
+}
+@media (max-width: 768px){
+  .hero-h{font-size:clamp(40px, 12vw, 160px) !important; line-height:1.02 !important; overflow-wrap:break-word; hyphens:auto}
+  .serif, h2.serif, .cta h2{font-size:clamp(28px, 7vw, 52px) !important; line-height:1.1 !important; overflow-wrap:break-word; hyphens:auto}
+  h3, .menu-row .dish h4{font-size:clamp(20px, 5vw, 36px) !important; line-height:1.15 !important; overflow-wrap:break-word}
+  .hero-bot{grid-template-columns:repeat(2, 1fr) !important; gap:20px !important}
+  .menu-row{grid-template-columns:repeat(2, 1fr) !important}
+  .counters{grid-template-columns:repeat(2, 1fr) !important}
+  .foot-g{grid-template-columns:repeat(2, 1fr) !important}
+  .body-row{grid-template-columns:1fr !important}
+  section, .sec, .cta{padding:56px 20px !important}
+}
+@media (max-width: 560px){
+  .hero-h{font-size:clamp(32px, 10vw, 72px) !important}
+  .serif, h2.serif, .cta h2{font-size:clamp(26px, 8vw, 40px) !important}
+  .hero-bot, .menu-row, .counters, .foot-g{grid-template-columns:1fr !important}
+  section, .sec, .cta{padding:40px 16px !important}
+}
+@media (max-width: 380px){
+  .hero-h{font-size:clamp(28px, 10vw, 40px) !important}
+  .serif, h2.serif, .cta h2{font-size:clamp(24px, 8vw, 36px) !important}
+}
 </style>
 </head>
 <body>
