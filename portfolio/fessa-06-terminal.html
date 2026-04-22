@@ -208,6 +208,32 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Terminal topbar: flex-wrap small font */
+    [style*="gridTemplateColumns: 'auto 1fr auto auto auto'"] {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      font-size: 11px !important;
+      gap: 8px 12px !important;
+    }
+    /* Top nav 6-col -> 2 cols or flex wrap */
+    [style*="gridTemplateColumns: 'repeat(6, 1fr)'"] {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    /* Hero meta sidebar 3-col -> 1 col */
+    [style*="gridTemplateColumns: 'auto 1fr auto'"] {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    /* [DESCR]/[TYPE]/[YEAR] stack -> flex wrap */
+    section > div > div > div > [style*="fontSize: 12"] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+    }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
