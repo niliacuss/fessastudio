@@ -241,6 +241,19 @@ footer{padding:40px 0;border-top:1px solid #0001;font-size:13px;color:var(--dim)
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Header padding matches content gutter */
+    .nav-i { padding-inline: 16px !important; flex-wrap: wrap !important; }
+    /* Online bestellen wrap to own row */
+    .nav-i .btn-p {
+      order: 99 !important;
+      width: 100% !important;
+      margin-top: 12px !important;
+      justify-content: center !important;
+    }
+  }
+</style>
 </head>
 <body>
 <div class="top"><div class="wrap top-i">
