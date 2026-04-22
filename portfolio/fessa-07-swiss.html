@@ -208,6 +208,41 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 900px) {
+    /* 12-col grids -> 1 col */
+    [style*="gridTemplateColumns: 'repeat(12, 1fr)'"] {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+    /* Nuke gridColumn spans so children stack naturally */
+    [style*="gridColumn"] {
+      grid-column: 1 / -1 !important;
+    }
+    /* Hero title */
+    h1 {
+      hyphens: manual !important;
+      word-break: normal !important;
+      font-size: clamp(2.5rem, 10vw, 5rem) !important;
+    }
+    /* Badge "sinds '19" — make static flow */
+    h1 span[style*="borderRadius: 999"] {
+      position: static !important;
+      display: inline-flex !important;
+      margin-block: 16px !important;
+      transform: none !important;
+    }
+    /* Gallery scroll */
+    .v7-snap {
+      overflow-x: auto !important;
+      scroll-snap-type: x mandatory !important;
+    }
+    .v7-snap img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
