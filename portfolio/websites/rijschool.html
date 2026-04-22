@@ -167,6 +167,12 @@
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Hide status detail on mobile */
+    .v3-status-detail { display: none !important; }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
@@ -207,7 +213,7 @@ const App = () => {
         <div style={{ maxWidth: 1320, margin: '0 auto' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '6px 14px', background: 'rgba(212,255,61,0.12)', border: `1px solid ${C.lime}40`, borderRadius: 999, fontSize: 12, fontFamily: mono, color: C.lime, marginBottom: 32 }}>
             <span style={{ width: 7, height: 7, borderRadius: '50%', background: C.lime }} />
-            SLAGINGSPERCENTAGE EERSTE POGING: 74% · CBR UTRECHT
+            SLAGINGSPERCENTAGE EERSTE POGING: 74%<span className="v3-status-detail"> · CBR UTRECHT</span>
           </div>
           <h1 style={{ fontSize: 'clamp(72px, 9vw, 152px)', fontWeight: 800, letterSpacing: '-0.045em', lineHeight: 0.9, margin: 0 }}>
             Jouw rijbewijs.<br />
