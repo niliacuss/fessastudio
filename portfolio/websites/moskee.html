@@ -169,6 +169,27 @@
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Nav wrap */
+    header nav, nav { flex-wrap: wrap !important; row-gap: 8px !important; }
+    /* Hero grid -> 1 col */
+    [style*="gridTemplateColumns: '1.5fr 1fr'"] {
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+    }
+    /* Hero h1 */
+    .hero h1, h1 {
+      font-size: clamp(2rem, 8vw, 3rem) !important;
+      hyphens: manual !important;
+    }
+    /* Secondary CTA below */
+    .hero-cta .btn-g, .hero .sec-cta {
+      grid-column: 1 !important;
+      margin-top: 16px !important;
+    }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
