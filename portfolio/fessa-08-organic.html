@@ -192,6 +192,25 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 560px) {
+    /* Header padding tighter so Koffie pill stays in view */
+    [style*="padding: '0 20px'"] {
+      padding: 0 16px !important;
+    }
+    [style*="padding: '12px 24px'"] {
+      padding: 12px 16px !important;
+    }
+    /* Hide large decorative background blobs */
+    [style*="position: 'fixed'"][style*="inset: 0"][style*="pointerEvents: 'none'"] {
+      display: none !important;
+    }
+    /* Hide decorative SVG (400x400) */
+    svg[width="400"][height="400"] {
+      display: none !important;
+    }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
