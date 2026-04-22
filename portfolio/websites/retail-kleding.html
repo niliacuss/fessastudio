@@ -101,6 +101,26 @@
    .hero-caption{left:18px;right:18px;bottom:18px;flex-direction:column;align-items:start}
    .mq{font-size:16px}
  }
+ /* ===== Mobile optimalisaties (nieuw) ===== */
+ @media (max-width: 768px){
+   .hero-h, h1{font-size:clamp(36px, 10vw, 72px) !important; line-height:1.05 !important; overflow-wrap:break-word; hyphens:auto}
+   h2{font-size:clamp(28px, 7vw, 52px) !important; line-height:1.1 !important; overflow-wrap:break-word; hyphens:auto}
+   h3{font-size:clamp(20px, 5vw, 36px) !important; line-height:1.15 !important}
+   .grid-4{grid-template-columns:repeat(2, 1fr) !important}
+   section{padding:56px 20px !important}
+ }
+ @media (max-width: 560px){
+   .hero-h, h1{font-size:clamp(32px, 10vw, 52px) !important}
+   h2{font-size:clamp(26px, 8vw, 40px) !important}
+   .grid-4{grid-template-columns:1fr !important}
+   section{
+     padding: calc(40px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important;
+   }
+ }
+ @media (max-width: 380px){
+   .hero-h, h1{font-size:clamp(28px, 10vw, 40px) !important}
+   h2{font-size:clamp(24px, 8vw, 36px) !important}
+ }
 </style>
 </head>
 <body>
