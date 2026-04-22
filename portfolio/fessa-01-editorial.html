@@ -215,6 +215,20 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 560px) {
+    /* Topbar 4-col grid overflow fix */
+    [style*="gridTemplateColumns: 'auto 1fr auto auto'"],
+    [style*="grid-template-columns: auto 1fr auto auto"],
+    [style*="gridTemplateColumns: '80px 1fr 1fr 100px'"],
+    [style*="grid-template-columns: 80px 1fr 1fr 100px"] {
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+    }
+    /* Section wrappers full width */
+    section { max-width: 100% !important; padding-inline: 20px !important; }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
