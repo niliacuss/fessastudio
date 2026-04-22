@@ -151,6 +151,13 @@ footer{padding:36px 0;border-top:1px solid #0001;font-size:13px;color:var(--dim)
   .nav-i{padding:12px 0}
   .logo{font-size:18px}
 }
+
+/* ===== Mobile safety v4: padding tegen viewport-randen ===== */
+@media (max-width:900px){
+  html,body{overflow-x:hidden;max-width:100vw}
+  .hero,.quick,.team,.strip,.cta,section[class*="wrap"]{padding-left:20px;padding-right:20px}
+  .wrap{padding-left:20px;padding-right:20px}
+}
 </style>
 </head>
 <body>

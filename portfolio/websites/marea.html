@@ -403,6 +403,24 @@ footer{padding:60px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
   .foot-g{grid-template-columns:1fr}
   .chef-pts{grid-template-columns:1fr}
 }
+
+/* ===== Mobile safety v4: hero zichtbaar + scroll-pin uit + geen horiz scroll ===== */
+@media (max-width:900px){
+  html,body{overflow-x:hidden;max-width:100vw}
+  .grain,.vign{display:none}
+  .intro-curtain{transition:opacity .3s ease,visibility 0s linear .4s}
+  /* Hero tekst meteen tonen, JS-reveal animatie uitzetten */
+  .hero-h span{overflow:visible}
+  .hero-h span b{transform:none !important;transition:none !important}
+  .hero-bot{opacity:1 !important;animation:none !important}
+  .hero-top{opacity:1 !important;animation:none !important}
+  /* Scroll-pin volledig uit */
+  .hpin-wrap{height:auto !important;background:var(--bg-2)}
+  .hpin{position:static !important;height:auto !important;overflow-x:auto;overflow-y:hidden}
+  .hpin-track{transform:none !important;flex-wrap:nowrap}
+  /* Reveal-elementen niet onzichtbaar laten als IO niet triggert */
+  .reveal{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>

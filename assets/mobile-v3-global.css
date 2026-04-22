@@ -1,4 +1,4 @@
-/* Mobile-view v3 — globale safety snippets */
+/* Mobile-view v3 globale safety snippets */
 
 /* 1) Geen automatische koppeltekens in headings */
 h1, h2, h3 { hyphens: manual; overflow-wrap: break-word; word-break: normal; }
@@ -12,6 +12,14 @@ h1, h2, h3 { hyphens: manual; overflow-wrap: break-word; word-break: normal; }
   }
 }
 
-/* 3) Mobile Safari viewport-unit fix */
-.hero, [class*="hero"] { min-height: 100svh; }
-@supports not (height: 100svh) { .hero, [class*="hero"] { min-height: 100vh; } }
+/* 3) Mobile Safari viewport-unit fix, alleen voor .hero (was wildcard,
+   die matchte ook .portfolio-hero en gaf grote witruimte). */
+.hero { min-height: 100svh; }
+@supports not (height: 100svh) { .hero { min-height: 100vh; } }
+
+/* 4) Universele mobile safety: voorkomt horizontale scroll en zorgt voor
+   minimale padding tegen viewport-randen. */
+@media (max-width: 700px) {
+  html, body { overflow-x: hidden; max-width: 100%; }
+  img, video, iframe, svg { max-width: 100%; height: auto; }
+}

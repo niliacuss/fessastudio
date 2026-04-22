@@ -135,6 +135,16 @@
    .logo{font-size:18px}
    .mono{font-size:11px}
  }
+
+ /* ===== Mobile safety v4: padding, hero h1 niet afkappen ===== */
+ @media (max-width:900px){
+   html,body{overflow-x:hidden;max-width:100vw}
+   .wrap{padding-left:18px;padding-right:18px}
+   .hero h1{font-size:clamp(40px,11vw,72px);overflow-wrap:break-word;hyphens:manual}
+   .hero h1 .glow{display:inline-block;max-width:100%}
+   .nav-inner{flex-wrap:wrap;gap:10px}
+   .nav-inner > div:last-child{margin-left:auto}
+ }
 </style>
 </head>
 <body>

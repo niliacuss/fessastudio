@@ -137,6 +137,14 @@
    footer{padding:28px 0}
    .foot-row{flex-direction:column;gap:6px;font-size:11px}
  }
+
+ /* ===== Mobile safety v4: padding + sterkere overlay voor leesbaar wit op foto ===== */
+ @media (max-width:900px){
+   html,body{overflow-x:hidden;max-width:100vw}
+   .wrap{padding-left:20px;padding-right:20px}
+   .hero-art::after{background:linear-gradient(160deg,rgba(0,0,0,.25) 30%,rgba(0,0,0,.7))}
+   .hero-art{min-height:420px}
+ }
 </style>
 </head>
 <body>
