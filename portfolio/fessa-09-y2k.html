@@ -226,8 +226,8 @@ html, body, #root { overflow-x: hidden; }
     nav.v9-link, nav + a[href="#contact"] { font-size: 11px !important; padding: 6px 10px !important; }
   }
   @media (max-width: 480px) {
-    /* Hide launch pill on very small screens */
-    a[href="#contact"][style*="chromeGrad"] { display: none !important; }
+    /* Hide launch pill on very small screens (adjacent-sibling selector werkt wel) */
+    nav + a[href="#contact"] { display: none !important; }
   }
 </style>
 </head>
