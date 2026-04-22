@@ -116,6 +116,27 @@
    .specs-g{grid-template-columns:repeat(2,1fr)}
    .fp-side{grid-template-columns:1fr}
  }
+ /* ===== Mobile optimalisaties (nieuw) ===== */
+ @media (max-width: 768px){
+   .hero-h, h1{font-size:clamp(40px, 11vw, 128px) !important; line-height:1.05 !important; overflow-wrap:break-word; hyphens:auto}
+   .cta h2, h2{font-size:clamp(28px, 7vw, 96px) !important; line-height:1.1 !important; overflow-wrap:break-word; hyphens:auto}
+   h3{font-size:clamp(20px, 5vw, 36px) !important; line-height:1.15 !important}
+   .grid-4{grid-template-columns:repeat(2, 1fr) !important}
+   .specs-g{grid-template-columns:repeat(2, 1fr) !important}
+   section{padding:56px 20px !important}
+ }
+ @media (max-width: 560px){
+   .hero-h, h1{font-size:clamp(32px, 10vw, 72px) !important}
+   .cta h2, h2{font-size:clamp(26px, 8vw, 44px) !important}
+   .grid-4, .specs-g{grid-template-columns:1fr !important}
+   section{
+     padding: calc(40px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)) !important;
+   }
+ }
+ @media (max-width: 380px){
+   .hero-h, h1{font-size:clamp(28px, 10vw, 44px) !important}
+   .cta h2, h2{font-size:clamp(24px, 8vw, 36px) !important}
+ }
 </style>
 </head>
 <body>
