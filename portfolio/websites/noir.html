@@ -524,6 +524,18 @@ footer{padding:80px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Hide decorative large glows on mobile */
+    .ambient::before, .ambient::after, .nl::before {
+      display: none !important;
+    }
+    .hero-product::before {
+      inset: -10% !important;
+      filter: blur(20px) !important;
+    }
+  }
+</style>
 </head>
 <body>
 
