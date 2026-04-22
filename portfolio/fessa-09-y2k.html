@@ -208,6 +208,28 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Hero 2col -> 1col */
+    [style*="gridTemplateColumns: '1fr auto'"] {
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+    }
+    /* 3D cube below text */
+    [style*="perspective: '800px'"] {
+      order: 2 !important;
+      margin: 0 auto !important;
+      width: 180px !important;
+      height: 180px !important;
+    }
+    /* Hide LAUNCH pill + icon-strip in topbar on mobile */
+    nav.v9-link, nav + a[href="#contact"] { font-size: 11px !important; padding: 6px 10px !important; }
+  }
+  @media (max-width: 480px) {
+    /* Hide launch pill on very small screens */
+    a[href="#contact"][style*="chromeGrad"] { display: none !important; }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
