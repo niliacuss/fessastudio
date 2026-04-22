@@ -13,85 +13,112 @@
   img { pointer-events: none; user-select: none; }
 </style>
 <style id="mobile-override">
-/* Mobile responsive overrides for React inline-style layouts.
-   Targets rendered CSS (kebab-case) via [style*=...] attribute selectors. */
-@media (max-width: 900px) {
-  /* ---- Flatten 2-column grids ---- */
+/* Mobile responsive overrides — Kinetic. Breakpoints: 768 / 560 / 380. */
+html, body, #root { overflow-x: hidden; }
+
+@media (max-width: 768px) {
+  [style*="font-size: clamp(80px, 11vw, 180px)"],
+  [style*="font-size: clamp(72px, 10vw, 180px)"] {
+    font-size: clamp(40px, 11vw, 104px) !important; line-height: 1.05 !important;
+    overflow-wrap: break-word; hyphens: auto;
+  }
+  [style*="font-size: clamp(64px, 8vw, 128px)"],
+  [style*="font-size: clamp(56px, 7vw, 108px)"] {
+    font-size: clamp(28px, 7vw, 64px) !important; line-height: 1.1 !important;
+    overflow-wrap: break-word; hyphens: auto;
+  }
+  [style*="font-size: clamp(44px, 5.5vw, 88px)"] {
+    font-size: clamp(24px, 6vw, 48px) !important; line-height: 1.15 !important;
+  }
+  [style*="font-size: 72"],[style*="font-size: 64"],[style*="font-size: 56"] {
+    font-size: clamp(24px, 6vw, 40px) !important;
+  }
+  [style*="font-size: 48"],[style*="font-size: 44"],[style*="font-size: 40"],[style*="font-size: 36"] {
+    font-size: clamp(20px, 5vw, 32px) !important;
+  }
+  .v4-service, [style*="grid-template-columns: 1fr 1fr 1fr 1fr"],
+  [style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important; gap: 16px !important;
+  }
+  [style*="grid-template-columns: 1fr 1fr 1fr"]:not([style*="1fr 1fr 1fr 1fr"]),
+  [style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important;
+  }
+  [style*="grid-template-columns: repeat(6"],
+  [style*="grid-template-columns: repeat(12"] {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
   [style*="grid-template-columns: 1fr 1fr"]:not([style*="1fr 1fr 1fr"]),
   [style*="grid-template-columns: 1.15fr 1fr"],
   [style*="grid-template-columns: 1.2fr 1fr"],
   [style*="grid-template-columns: 1.3fr 1fr"]:not([style*="1.3fr 1fr 1fr"]),
-  [style*="grid-template-columns: 1.4fr 1fr"]:not([style*="1.4fr 1fr 1.2fr"]),
   [style*="grid-template-columns: 1.5fr 1fr"],
-  [style*="grid-template-columns: 1fr 1.5fr"],
-  [style*="grid-template-columns: 1fr 2fr"],
   [style*="grid-template-columns: 2fr 1fr"],
-  [style*="grid-template-columns: 200px 1fr"],
-  [style*="grid-template-columns: 40px 1fr"] {
-    grid-template-columns: 1fr !important;
-    gap: 32px !important;
+  [style*="grid-template-columns: 1fr 2fr"] {
+    grid-template-columns: 1fr !important; gap: 32px !important;
   }
-  /* ---- 3-col grids → 1 col on tablet ---- */
-  [style*="grid-template-columns: 1fr 1fr 1fr"]:not([style*="1fr 1fr 1fr 1fr"]),
-  [style*="grid-template-columns: 1.3fr 1fr 1fr"],
-  [style*="grid-template-columns: 1.4fr 1fr 1.2fr"] {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
+  [style*="padding: '160px"],[style*="padding: '140px"],[style*="padding: '120px"],
+  [style*="padding: '100px"],[style*="padding: '96px"],[style*="padding: '80px"] {
+    padding: 56px 20px !important;
   }
-  /* ---- 4-col / 6-col / 12-col → 2 cols on tablet ---- */
-  [style*="grid-template-columns: 1fr 1fr 1fr 1fr"],
-  [style*="grid-template-columns: repeat(4"],
-  [style*="grid-template-columns: repeat(6"],
-  [style*="grid-template-columns: repeat(12"] {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px !important;
-  }
-  /* ---- Complex table-style grids → stack ---- */
-  [style*="80px 1fr 1fr 100px"],
-  [style*="80px 1fr 1fr 60px"],
-  [style*="80px 280px 1fr 40px"],
-  [style*="80px 1fr 2fr 120px"] {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
-  }
-  /* ---- Reduce huge side paddings ---- */
-  [style*="padding: '160px"] { padding: 80px 24px !important; }
-  [style*="padding: '140px"] { padding: 72px 24px !important; }
-  [style*="padding: '120px"] { padding: 64px 24px !important; }
-  [style*="padding: '100px"] { padding: 56px 24px !important; }
-  [style*="padding: '96px"] { padding: 48px 24px !important; }
-  /* ---- Hide desktop-only navs with wide gaps ---- */
   nav[style*="gap: 36"], nav[style*="gap: 40"], nav[style*="gap: 28"] {
     display: none !important;
   }
 }
+
 @media (max-width: 560px) {
-  /* ---- Collapse remaining 2-col grids ---- */
-  [style*="grid-template-columns: repeat(2"],
+  [style*="font-size: clamp(80px, 11vw, 180px)"],
+  [style*="font-size: clamp(72px, 10vw, 180px)"] {
+    font-size: clamp(32px, 11vw, 60px) !important;
+  }
+  [style*="font-size: clamp(64px, 8vw, 128px)"],
+  [style*="font-size: clamp(56px, 7vw, 108px)"] {
+    font-size: clamp(24px, 8vw, 40px) !important;
+  }
+  .v4-service, [style*="grid-template-columns: 1fr 1fr 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"]:not([style*="1fr 1fr 1fr 1fr"]),
   [style*="grid-template-columns: repeat(3"],
-  [style*="grid-template-columns: repeat(4"],
-  [style*="grid-template-columns: repeat(6"],
-  [style*="grid-template-columns: repeat(12"] {
+  [style*="grid-template-columns: repeat(4"] {
     grid-template-columns: 1fr !important;
   }
-  /* ---- Cap oversized inline fonts ---- */
-  [style*="font-size: 72px"], [style*="font-size: 64px"], [style*="font-size: 56px"] {
-    font-size: 38px !important; line-height: 1.05 !important;
+  [style*="grid-template-columns: repeat(6"],
+  [style*="grid-template-columns: repeat(12"] {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
-  [style*="font-size: 48px"], [style*="font-size: 44px"] {
-    font-size: 32px !important; line-height: 1.1 !important;
+  [style*="padding: '160px"],[style*="padding: '140px"],[style*="padding: '120px"],
+  [style*="padding: '100px"],[style*="padding: '96px"],[style*="padding: '80px"],
+  [style*="padding: '64px"] {
+    padding: 40px 16px !important;
   }
-  [style*="font-size: 40px"], [style*="font-size: 36px"] {
-    font-size: 26px !important;
+}
+
+@media (max-width: 380px) {
+  [style*="font-size: clamp(80px, 11vw, 180px)"],
+  [style*="font-size: clamp(72px, 10vw, 180px)"] {
+    font-size: clamp(28px, 10vw, 44px) !important;
   }
-  [style*="font-size: 32px"], [style*="font-size: 28px"] {
-    font-size: 22px !important;
+  [style*="font-size: clamp(64px, 8vw, 128px)"],
+  [style*="font-size: clamp(56px, 7vw, 108px)"] {
+    font-size: clamp(22px, 8vw, 32px) !important;
   }
-  /* ---- Tighter padding ---- */
-  [style*="padding: '80px"] { padding: 48px 20px !important; }
-  [style*="padding: '64px"] { padding: 40px 20px !important; }
-  /* ---- Disable horizontal overflow from oversized decorations ---- */
-  html, body, #root { overflow-x: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+  }
+}
+@media (max-width: 768px) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (hover: none) {
+  *:hover { transform: none !important; }
 }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
