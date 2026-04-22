@@ -215,6 +215,25 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    /* Hide nav links, show only CTA (last sibling) */
+    nav .v4-link, nav a.v4-link { display: none !important; }
+    /* Hero grid 2col -> 1col */
+    [style*="gridTemplateColumns: '1fr 1fr'"] {
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+    }
+    /* Rotating case visual max-width */
+    [style*="width: 520"], [style*="width: 480"] {
+      max-width: 100% !important;
+    }
+    /* Hero image/case max-width */
+    section img, section [style*="border-radius"] {
+      max-width: 100% !important;
+    }
+  }
+</style>
 </head>
 <body>
 <div id="root"></div>
