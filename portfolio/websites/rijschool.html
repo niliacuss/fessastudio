@@ -40,6 +40,38 @@
     [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
     [style*="font-size: 44"],[style*="font-size: 48"],[style*="font-size: 56"] { font-size: 32px !important; }
   }
+  /* ===== Mobile optimalisaties (nieuw) ===== */
+  @media (max-width: 768px) {
+    [style*="font-size: clamp(96px"],
+    [style*="font-size: clamp(120px"],
+    [style*="font-size: clamp(128px"],
+    [style*="font-size: clamp(152px"] { font-size: clamp(40px, 11vw, 104px) !important; line-height: 1.05 !important; overflow-wrap: break-word; hyphens: auto; }
+    [style*="font-size: clamp(80px"],
+    [style*="font-size: clamp(88px"],
+    [style*="font-size: clamp(112px"] { font-size: clamp(28px, 7vw, 72px) !important; line-height: 1.1 !important; overflow-wrap: break-word; }
+    [style*="font-size: 64"],[style*="font-size: 72"] { font-size: clamp(24px, 6vw, 40px) !important; line-height: 1.1 !important; }
+    [style*="font-size: 40"],[style*="font-size: 36"] { font-size: clamp(20px, 5vw, 30px) !important; line-height: 1.15 !important; }
+    section { padding: 56px 20px !important; }
+  }
+  @media (max-width: 560px) {
+    [style*="font-size: clamp(96px"],
+    [style*="font-size: clamp(120px"],
+    [style*="font-size: clamp(128px"],
+    [style*="font-size: clamp(152px"] { font-size: clamp(32px, 10vw, 64px) !important; }
+    [style*="font-size: clamp(80px"],
+    [style*="font-size: clamp(88px"],
+    [style*="font-size: clamp(112px"] { font-size: clamp(26px, 8vw, 44px) !important; }
+    section { padding: 40px 16px !important; }
+  }
+  @media (max-width: 380px) {
+    [style*="font-size: clamp(96px"],
+    [style*="font-size: clamp(120px"],
+    [style*="font-size: clamp(128px"],
+    [style*="font-size: clamp(152px"] { font-size: clamp(28px, 10vw, 40px) !important; }
+    [style*="font-size: clamp(80px"],
+    [style*="font-size: clamp(88px"],
+    [style*="font-size: clamp(112px"] { font-size: clamp(24px, 8vw, 36px) !important; }
+  }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
