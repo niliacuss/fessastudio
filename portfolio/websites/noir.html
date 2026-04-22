@@ -407,6 +407,31 @@ footer{padding:80px clamp(20px,3vw,44px) 30px;border-top:1px solid var(--line);b
   .nl-form input{border-bottom:1px solid var(--gold);text-align:center}
   .nl-form button{justify-content:center}
 }
+/* ===== Mobile optimalisaties (nieuw) ===== */
+@media (max-width: 768px){
+  .hero-h{font-size:clamp(36px, 11vw, 72px) !important; line-height:1.05 !important; overflow-wrap:break-word; hyphens:auto}
+  h2, .cta h2{font-size:clamp(28px, 7vw, 52px) !important; line-height:1.1 !important; overflow-wrap:break-word; hyphens:auto}
+  h3{font-size:clamp(20px, 5vw, 36px) !important; line-height:1.15 !important}
+  .cat-grid{grid-template-columns:repeat(3, 1fr) !important}
+  .swatches{grid-template-columns:repeat(6, 1fr) !important}
+  .edit-pts{grid-template-columns:repeat(2, 1fr) !important}
+  .foot-g{grid-template-columns:repeat(2, 1fr) !important}
+  section, .sec{padding:56px 20px !important}
+}
+@media (max-width: 560px){
+  .hero-h{font-size:clamp(32px, 10vw, 60px) !important}
+  h2, .cta h2{font-size:clamp(26px, 8vw, 40px) !important}
+  .cat-grid{grid-template-columns:repeat(2, 1fr) !important}
+  .swatches{grid-template-columns:repeat(4, 1fr) !important}
+  .edit-pts{grid-template-columns:1fr !important}
+  .foot-g{grid-template-columns:1fr !important}
+  section, .sec{padding:40px 16px !important}
+}
+@media (max-width: 380px){
+  .hero-h{font-size:clamp(28px, 10vw, 44px) !important}
+  h2, .cta h2{font-size:clamp(24px, 8vw, 36px) !important}
+  .swatches{grid-template-columns:repeat(3, 1fr) !important}
+}
 </style>
 </head>
 <body>
