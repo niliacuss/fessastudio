@@ -207,6 +207,9 @@ html, body, #root { overflow-x: hidden; }
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  h1, h2 { hyphens: manual; }
+</style>
 </head>
 <body>
 <div id="root"></div>
@@ -310,7 +313,7 @@ const V2 = () => {
             lineHeight: 0.86, letterSpacing: '-0.055em', margin: 0,
           }}>
             Werk dat<br />
-            <span style={{ color: v2Styles.accent, fontStyle: 'italic', fontWeight: 400 }}>niet</span> weg‑<br />
+            <span style={{ color: v2Styles.accent, fontStyle: 'italic', fontWeight: 400 }}>niet</span> weg<br />
             scrolt.
           </h1>
 
