@@ -450,6 +450,16 @@ footer{padding:60px clamp(20px,3.5vw,40px) 30px}
 }
 </style>
 <link rel="stylesheet" href="/assets/mobile-v3-global.css">
+<style id="mobile-v3-patches">
+  @media (max-width: 700px) {
+    .hero-badges span {
+      max-width: calc(100% - 32px) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+  }
+</style>
 </head>
 <body class="sec-bg">
 <!-- Nav -->
