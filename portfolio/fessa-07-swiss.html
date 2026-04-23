@@ -168,6 +168,16 @@
       gap: 8px !important;
       align-items: flex-start !important;
     }
+    /* Horiz scroll cards: flex-basis 540px is groter dan viewport, naar 78vw */
+    .v7-snap > div{
+      flex: 0 0 78vw !important;
+      max-width: 78vw !important;
+    }
+    /* En image hoogte 640 -> aspect 3/4 zodat het past */
+    .v7-snap > div [style*="height: 640px"]{
+      height: auto !important;
+      aspect-ratio: 3/4 !important;
+    }
   }
 </style>
 </style>

@@ -91,7 +91,9 @@
 <style id="mobile-safety-v6">
   /* v6: projects 2-col stackt niet (was niet in v5 lijst) */
   @media (max-width: 900px){
-    [style*="grid-template-columns: repeat(2, 1fr)"]{
+    /* Browser kan repeat(2, 1fr) of repeat(2,1fr) renderen — dek beide */
+    [style*="grid-template-columns: repeat(2, 1fr)"],
+    [style*="grid-template-columns: repeat(2,1fr)"]{
       grid-template-columns: 1fr !important;
       gap: 24px !important;
     }
@@ -102,6 +104,21 @@
     /* Process step 4-col al naar 1fr 1fr in v5, maar font cap */
     .v8-step [style*="font-size: 56"]{ font-size: 40px !important; }
     .v8-step [style*="font-size: 28"]{ font-size: 22px !important; }
+  }
+</style>
+<style id="mobile-safety-v7">
+  /* v7: hard reset op alle .v8-project zodat ze ALWAYS 1-col zijn op mobile */
+  @media (max-width: 900px){
+    /* Class-targeting voor projects-grid (parent van .v8-project) */
+    [style*="grid"]:has(> .v8-project){
+      display: block !important;
+    }
+    .v8-project{
+      width: 100% !important;
+      max-width: none !important;
+      margin-bottom: 28px !important;
+      padding-top: 0 !important;
+    }
   }
 </style>
 </head>

@@ -85,6 +85,54 @@
     /* Hero image grid 1-kolom */
     [style*="grid-template-columns: '2fr 1fr 1fr'"] { grid-template-columns: 1fr !important; }
   }
+
+  /* ===== Mobile safety v6: stats fontsize cap, packs 1-col, team 1-col ===== */
+  @media (max-width: 900px){
+    /* Hero image strip 2fr 1fr 1fr (DOM zonder quotes) -> 1-col */
+    [style*="grid-template-columns: 2fr 1fr 1fr"]{ grid-template-columns: 1fr !important; gap: 16px !important; }
+    /* Hero body 1.2fr 1fr -> 1-col */
+    [style*="grid-template-columns: 1.2fr 1fr"]{ grid-template-columns: 1fr !important; gap: 24px !important; }
+    /* Stats 4-col -> 2-col + fontsize 72 cap zodat "7 dgn" past */
+    [style*="grid-template-columns: repeat(4, 1fr)"]{ grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+    section [style*="grid-template-columns: repeat(4, 1fr)"] [style*="font-size: 72"]{
+      font-size: 40px !important;
+      word-break: break-word !important;
+      overflow-wrap: anywhere !important;
+    }
+    /* Pakketten 3-col -> 1-col stack */
+    [style*="grid-template-columns: repeat(3, 1fr)"]{ grid-template-columns: 1fr !important; gap: 16px !important; }
+    /* Pak card font-size 56 (€-bedrag) cap */
+    section [style*="border-radius: 28"][style*="padding: 32"] [style*="font-size: 56"]{ font-size: 36px !important; }
+    /* Team header 1fr 2fr -> 1-col */
+    [style*="grid-template-columns: 1fr 2fr"]{ grid-template-columns: 1fr !important; gap: 24px !important; }
+    /* Theory 1fr 1fr -> 1-col */
+    [style*="grid-template-columns: 1fr 1fr"]{ grid-template-columns: 1fr !important; gap: 24px !important; }
+    /* CTA 1.5fr 1fr -> 1-col */
+    [style*="grid-template-columns: 1.5fr 1fr"]{ grid-template-columns: 1fr !important; gap: 24px !important; }
+    /* Hero CTA flex stack */
+    section [style*="display: flex"][style*="gap: 12"][style*="justify-content: flex-end"]{
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      align-items: stretch !important;
+    }
+    /* Section padding 60-100 32 -> compact */
+    section[style*="padding: 60px 32px"],
+    section[style*="padding: 80px 32px"],
+    section[style*="padding: 100px 32px"]{
+      padding-left: 18px !important;
+      padding-right: 18px !important;
+      padding-top: 48px !important;
+      padding-bottom: 48px !important;
+    }
+    /* Footer space-between -> stack */
+    footer[style*="justify-content: space-between"]{
+      flex-direction: column !important;
+      gap: 8px !important;
+      align-items: flex-start !important;
+    }
+    /* Image broken fallback */
+    img{ background-color: #1a2128 !important; }
+  }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -104,8 +152,8 @@ const App = () => {
   ];
   const team = [
     { n: 'Youssef', j: 'Hoofdinstructeur · 14 jaar', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80' },
-    { n: 'Eva', j: 'Instructeur · schakel & auto', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80' },
-    { n: 'Tariq', j: 'Instructeur · automaat', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80' },
+    { n: 'Eva', j: 'Instructeur · schakel & auto', img: 'https://images.unsplash.com/photo-1745434159123-5b99b94206ca?w=600&q=80' },
+    { n: 'Tariq', j: 'Instructeur · automaat', img: 'https://images.unsplash.com/photo-1590086782792-42dd2350140d?w=600&q=80' },
   ];
 
   return (
