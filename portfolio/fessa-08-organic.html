@@ -109,16 +109,20 @@
 <style id="mobile-safety-v7">
   /* v7: hard reset op alle .v8-project zodat ze ALWAYS 1-col zijn op mobile */
   @media (max-width: 900px){
-    /* Class-targeting voor projects-grid (parent van .v8-project) */
-    [style*="grid"]:has(> .v8-project){
+    /* Direct path-targeting: section#werk -> div -> div (de grid container) */
+    section[id="werk"] > div > div[style*="display: grid"],
+    section[id="werk"] > div > div[style*="display:grid"]{
       display: block !important;
     }
-    .v8-project{
+    section[id="werk"] .v8-project{
       width: 100% !important;
       max-width: none !important;
       margin-bottom: 28px !important;
       padding-top: 0 !important;
+      display: block !important;
     }
+    /* Veenstra: zorg dat hele projects-section background niet zwart blijft */
+    section[id="werk"]{ background: transparent !important; }
   }
 </style>
 </head>

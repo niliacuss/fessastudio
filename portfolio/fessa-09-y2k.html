@@ -130,6 +130,9 @@
     }
     /* Marquee font 40 te groot */
     [style*="font-size: 40px"][style*="font-weight: 800"]{ font-size: 22px !important; }
+    /* 3D cube: faces met translateZ(120px) extenden uit container en overlappen tekst.
+       Verberg op mobile, decoratief element niet kritisch voor content */
+    [style*="perspective: 800px"]{ display: none !important; }
   }
 </style>
 </head>

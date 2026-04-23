@@ -169,6 +169,56 @@
       align-items: flex-start !important;
     }
   }
+
+  /* ===== Mobile safety v7: gebedstijden compact 1-rij per gebed ===== */
+  @media (max-width: 560px){
+    /* Prayer-times grid: 5-col -> 1-col stacked maar elk een compacte horizontale rij */
+    [style*="grid-template-columns: repeat(5, 1fr)"]{
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+    }
+    /* Tile padding compact */
+    [style*="grid-template-columns: repeat(5, 1fr)"] > div{
+      padding: 14px 18px !important;
+      border-radius: 14px !important;
+    }
+    /* Header (naam + arabisch) houden */
+    [style*="grid-template-columns: repeat(5, 1fr)"] > div > [style*="justify-content: space-between"][style*="align-items: baseline"]{
+      align-items: center !important;
+    }
+    /* Name fontSize 22 -> 20 */
+    [style*="grid-template-columns: repeat(5, 1fr)"] > div [style*="font-family"][style*="font-size: 22"]{
+      font-size: 20px !important;
+    }
+    /* ADHAN/IQAMAH subgrid: zet horizontaal naast elkaar met kleinere font */
+    [style*="grid-template-columns: repeat(5, 1fr)"] [style*="grid-template-columns: 1fr 1fr"]{
+      margin-top: 8px !important;
+      gap: 16px !important;
+    }
+    [style*="grid-template-columns: repeat(5, 1fr)"] [style*="grid-template-columns: 1fr 1fr"] [style*="font-size: 22"]{
+      font-size: 17px !important;
+      margin-top: 0 !important;
+    }
+    [style*="grid-template-columns: repeat(5, 1fr)"] [style*="grid-template-columns: 1fr 1fr"] > div{
+      display: flex !important;
+      align-items: baseline !important;
+      gap: 8px !important;
+    }
+    /* Bezoek 1fr 1fr in v6 al stacked, prayer-times card padding 36 -> 22 */
+    section [style*="background:"][style*="border-radius: 28"][style*="padding: 36"]{
+      padding: 22px !important;
+    }
+    /* Datum-header "Dinsdag 19 Shawwāl" font 32 -> 24 */
+    section [style*="background:"][style*="border-radius: 28"] [style*="font-size: 32"]{
+      font-size: 22px !important;
+    }
+    /* Header meta (gebedstijden + volgend gebed) stack */
+    section [style*="background:"][style*="border-radius: 28"] > [style*="justify-content: space-between"]{
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 6px !important;
+    }
+  }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
