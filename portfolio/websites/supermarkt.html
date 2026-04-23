@@ -96,6 +96,68 @@
       border-top:1px solid #00000010;
     }
   }
+
+  /* ===== Mobile safety v6: image fallback bg, hero rechter image-grid stack ===== */
+  @media (max-width: 900px){
+    /* Image broken-fallback: groen-grijs zodat broken icon minder lelijk */
+    img{ background-color: #d8d2bc !important; }
+    /* Zoekbalk placeholder-tekst korter via input attribute kan niet, dus input padding-right reduce + kleinere font */
+    header input{
+      font-size: 12px !important;
+      padding: 10px 14px 10px 36px !important;
+    }
+    /* Header: input + mandje knop niet meer naast elkaar wringen, naar rij onder */
+    header > div{
+      flex-wrap: wrap !important;
+      gap: 10px !important;
+    }
+    header > div > div[style*="flex: 1"]{
+      flex: 1 1 100% !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      order: 9;
+    }
+    header > div > button{ order: 10; width: 100%; }
+    /* Hero hoofd-card padding 56 -> 24, minHeight: 540 -> auto */
+    section [style*="background: rgb(58, 90, 56)"][style*="padding: 56"],
+    section [style*="border-radius: 32"][style*="padding: 56"]{
+      padding: 28px 22px !important;
+      min-height: 0 !important;
+    }
+    /* Hero ronde productfoto rechtsonder: kleiner + minder offset */
+    section img[src*="1542838132"][style*="width: 340"]{
+      width: 200px !important;
+      height: 200px !important;
+      right: -30px !important;
+      bottom: -40px !important;
+    }
+    /* Hero rechter image-grid 1.2fr 1fr -> stack met aspect-ratio */
+    section [style*="grid-template-rows: 1.2fr 1fr"]{
+      grid-template-rows: auto auto !important;
+      gap: 16px !important;
+    }
+    section [style*="grid-template-rows: 1.2fr 1fr"] > div:first-child{
+      aspect-ratio: 4/3 !important;
+    }
+    /* Categories 6-col -> 2-col */
+    section [style*="grid-template-columns: repeat(6, 1fr)"]{
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+    }
+    /* Hero h1 clamp(56,6vw,92) cap */
+    h1[style*="clamp(56px, 6vw, 92px)"]{ font-size: clamp(34px, 9vw, 52px) !important; }
+    /* Categorie-titel font 44 cap */
+    h2[style*="font-size: 44"][style*="font-family"]{ font-size: 26px !important; }
+    /* Deals header h2 font 48 cap */
+    h2[style*="font-size: 48"][style*="font-family"]{ font-size: 26px !important; }
+    /* Topbar tekst klein houden */
+    div[style*="background: rgb(27, 40, 24)"][style*="font-size: 13"] > div{
+      flex-direction: column !important;
+      gap: 4px !important;
+      text-align: center !important;
+      padding: 8px 16px !important;
+    }
+  }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -114,7 +176,7 @@ const App = () => {
     { n: 'Brood & banket',  img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=80' },
     { n: 'Zuivel & kaas',   img: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=900&q=80' },
     { n: 'Vlees & vis',     img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80' },
-    { n: 'Dranken',         img: 'https://images.unsplash.com/photo-1510629589788-f7a60ac0ba00?w=900&q=80' },
+    { n: 'Dranken',         img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&q=80' },
     { n: 'Specialiteiten',  img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=80' },
   ];
   const deals = [

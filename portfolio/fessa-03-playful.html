@@ -60,11 +60,83 @@
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<style id="mobile-safety-v4">
-  /* Audit fix: Q4-indicator stapelt over 3 regels, nav rommelig. */
-  @media (max-width: 700px){
+<style id="mobile-safety-v5">
+  /* Audit fixes v5 (DOM-syntax) */
+  @media (max-width: 900px){
+    html, body { overflow-x: hidden; max-width: 100vw; }
+    /* Q4-indicator stapelt over 3 regels: verberg op mobile */
     .v3-status-pill{ display: none !important; }
-    [style*="padding: '18px 32px'"]{ padding: 14px 18px !important; }
+    /* Topbar padding 18 32 -> 14 18 */
+    [style*="padding: 18px 32px"]{ padding: 14px 18px !important; }
+    /* 1.4fr 1fr 1.2fr image strip (handgebouwd) -> 1-col */
+    [style*="grid-template-columns: 1.4fr 1fr 1.2fr"]{
+      grid-template-columns: 1fr !important;
+      gap: 24px !important;
+    }
+    /* handgebouwd display font 72 cap */
+    [style*="font-size: 72px"]{ font-size: clamp(34px, 9vw, 52px) !important; }
+    /* Hero 3-col 1.3fr 1fr 1fr en 1.4fr 1fr 1.2fr -> 1-col */
+    [style*="grid-template-columns: 1.3fr 1fr 1fr"]{
+      grid-template-columns: 1fr !important;
+      gap: 18px !important;
+    }
+    /* Section padding 80 32 / 40 32 120 / 100 32 -> compact */
+    section[style*="padding: 80px 32px"],
+    section[style*="padding: 40px 32px 120px"],
+    section[style*="padding: 100px 32px"]{
+      padding-left: 18px !important;
+      padding-right: 18px !important;
+      padding-top: 56px !important;
+      padding-bottom: 56px !important;
+    }
+  }
+</style>
+<style id="mobile-safety-v6">
+  /* v6: hero clamp 80-200 cap, image strip 3-col -> 1-col, project 2-col -> 1-col */
+  @media (max-width: 900px){
+    /* Hero h1 clamp(80,11vw,200) cap zodat alles past */
+    h1[style*="clamp(80px, 11vw, 200px)"]{
+      font-size: clamp(36px, 11vw, 56px) !important;
+      line-height: 0.98 !important;
+      letter-spacing: -0.04em !important;
+    }
+    /* Hero h1 SVG decoratie kleiner (was 80x80) */
+    h1 svg[width="80"][height="80"]{ width: 36px !important; height: 36px !important; right: -36px !important; top: 8px !important; }
+    /* Image-strip 3-col al naar 1fr in v5, maar handgebouwd display 72 cap (was niet alleen targeted) */
+    [style*="font-size: 72px"][style*="font-style: italic"]{ font-size: clamp(34px, 9vw, 48px) !important; }
+    /* Projects 2-col -> 1-col */
+    section[id="werk"] [style*="grid-template-columns: 1fr 1fr"]{
+      grid-template-columns: 1fr !important;
+      gap: 32px !important;
+    }
+    .v3-project{ padding-top: 0 !important; }
+    .v3-project img{ height: 280px !important; }
+    /* Steps 80px 280px 1fr 40px -> stack */
+    [style*="grid-template-columns: 80px 280px 1fr 40px"]{
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+    }
+    [style*="grid-template-columns: 80px 280px 1fr 40px"] > div:nth-child(2){
+      font-size: 26px !important;
+    }
+    [style*="grid-template-columns: 80px 280px 1fr 40px"] > div:last-child{
+      display: none !important;
+    }
+    /* Studio image+quote 2-col -> 1-col */
+    section[id="studio"] [style*="grid-template-columns: 1fr 1fr"]{
+      grid-template-columns: 1fr !important;
+      gap: 28px !important;
+    }
+    section[id="studio"] img{ height: 280px !important; }
+    /* Contact h2 clamp 80-200 cap */
+    h2[style*="clamp(80px, 12vw, 200px)"]{ font-size: clamp(40px, 12vw, 64px) !important; }
+    .v3-mail{ font-size: 18px !important; word-break: break-all !important; }
+    /* Section header flex justify-between -> stack */
+    section[id="werk"] [style*="justify-content: space-between"]{
+      flex-direction: column !important;
+      gap: 14px !important;
+      align-items: flex-start !important;
+    }
   }
 </style>
 </head>

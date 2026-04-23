@@ -236,11 +236,19 @@ footer{padding:40px 36px;border-top:1px solid var(--line);display:flex;justify-c
   .cta-sub .email{text-align:left}
   footer{padding:24px 18px;font-size:10px;gap:10px}
 }
-/* ===== Mobile safety v4: N° 24 label uit hero-h pad ===== */
+/* ===== Mobile safety v5: N stamp 24 label + work-grid 1-col forceren ===== */
 @media (max-width:900px){
   html,body{overflow-x:hidden;max-width:100vw}
   .hero h1 .aux{display:block;margin-top:6px;font-size:.55em}
   .hero h1 .outline{display:inline-block}
+  /* Forceer work-grid naar 1-col, alle .p-* spans op 1, zodat geen lege black gap rechts naast Veenstra */
+  .work-grid{grid-template-columns:1fr !important;gap:14px !important}
+  .work-grid .proj,
+  .p-01,.p-02,.p-03,.p-04,.p-05,.p-06,.p-07{
+    grid-column:span 1 !important;
+    aspect-ratio:4/5 !important;
+    width:100%;
+  }
 }
 @media (min-width:901px){
   .nav-toggle,.mobile-menu{display:none}
