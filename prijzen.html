@@ -27,7 +27,6 @@
         <li><a href="prijzen.html" class="active">Prijzen</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
         <li><a href="contact.html">Contact</a></li>
-              <li class="nav-cta-mobile"><a href="contact.html">Laten we bouwen →</a></li>
       </ul>
       <a href="contact.html" class="nav-cta">Laten we bouwen →</a>
       <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
@@ -38,13 +37,111 @@
   <header class="page-header">
     <div class="container">
       <span class="eyebrow">Prijzen</span>
-      <h1>Heldere pakketten,<br/><em>eerlijke prijzen.</em></h1>
-      <p>Drie pakketten die passen bij verschillende fases en ambities. Of je nu  met een eerste website, meer controle wilt over je content, of iets unieks voor ogen hebt, Fessa Studio denkt met je mee.</p>
+      <h1>Twee manieren om<br/><em>te starten.</em></h1>
+      <p>Liever een vast bedrag in één keer, of een laagdrempelig abonnement met doorlopende ondersteuning? Bij Fessa Studio kies je zelf wat past.</p>
+
+      <div class="prijs-toggle reveal" role="tablist" style="margin-top: 48px; display: inline-flex; background: rgba(26,23,20,0.06); padding: 6px; border-radius: 999px; gap: 4px;">
+        <button class="toggle-btn active" data-target="abonnement" style="padding: 12px 28px; border: none; background: var(--ink); color: var(--cream); border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer;">Abonnement</button>
+        <button class="toggle-btn" data-target="eenmalig" style="padding: 12px 28px; border: none; background: transparent; color: var(--ink); border-radius: 999px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer;">Eenmalig</button>
+      </div>
     </div>
   </header>
 
-  <!-- PAKKETTEN -->
-  <section class="pakketten-section">
+  <!-- ABONNEMENT PAKKETTEN -->
+  <section class="pakketten-section" id="abonnement-section">
+    <div class="container">
+      <div class="pakketten-grid">
+
+        <article class="pakket pakket-basic reveal">
+          <header class="pakket-header">
+            <span class="pakket-label">Starter</span>
+            <h3 class="pakket-titel">De basis</h3>
+            <p class="pakket-sub">Professioneel online voor zelfstandigen en starters.</p>
+            <div class="pakket-prijs">
+              <span class="prijs-bedrag">€74,95</span>
+              <span class="prijs-tot">per maand, 12 mnd minimaal</span>
+            </div>
+          </header>
+          <div class="pakket-body">
+            <p class="pakket-voor"><strong>Voor wie:</strong> zelfstandigen die laagdrempelig willen starten en weinig zorgen aan hun website willen hebben.</p>
+            <ul class="pakket-features">
+              <li>Ontwerp en bouw (3 tot 5 pagina's)</li>
+              <li>Uniek ontwerp afgestemd op merk</li>
+              <li>Mobielvriendelijk, vindbaar in Google</li>
+              <li>Contactformulier en Google Analytics</li>
+              <li>2 revisierondes</li>
+              <li>Hosting, SSL en domeinkoppeling</li>
+              <li>Updates, beveiliging en backups</li>
+              <li>1 uur kleine wijzigingen per maand</li>
+              <li>Support binnen 1 werkdag</li>
+            </ul>
+            <a href="contact.html" class="btn btn-ghost">Start dit abonnement</a>
+          </div>
+        </article>
+
+        <article class="pakket pakket-premium featured reveal">
+          <span class="pakket-badge">Meest gekozen</span>
+          <header class="pakket-header">
+            <span class="pakket-label">Groei</span>
+            <h3 class="pakket-titel">De groei</h3>
+            <p class="pakket-sub">Een site die met je meegroeit, met ruimte voor meer.</p>
+            <div class="pakket-prijs">
+              <span class="prijs-bedrag">€149,95</span>
+              <span class="prijs-tot">per maand, 12 mnd minimaal</span>
+            </div>
+          </header>
+          <div class="pakket-body">
+            <p class="pakket-voor"><strong>Voor wie:</strong> ondernemers die meer flexibiliteit en regelmatige content willen, met of zonder hulp.</p>
+            <ul class="pakket-features">
+              <li>Alles uit Starter</li>
+              <li>5 tot 8 pagina's</li>
+              <li>Content management systeem</li>
+              <li>Blog of projecten module</li>
+              <li>Optionele webshop tot 20 producten</li>
+              <li>3 revisierondes</li>
+              <li>2 uur wijzigingen per maand</li>
+              <li>Kwartaal-rapportage bezoekers en SEO</li>
+              <li><strong>Optioneel: content beheer door Fessa, +€60 per maand</strong></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start dit abonnement</a>
+          </div>
+        </article>
+
+        <article class="pakket pakket-custom reveal">
+          <header class="pakket-header">
+            <span class="pakket-label">Custom</span>
+            <h3 class="pakket-titel">Het maatwerk</h3>
+            <p class="pakket-sub">Volledig op maat, alles inbegrepen.</p>
+            <div class="pakket-prijs">
+              <span class="prijs-bedrag">€199,95</span>
+              <span class="prijs-tot">per maand bij 24 mnd</span>
+              <span class="prijs-van" style="margin-top: 8px;">of €299,95 per maand bij 12 mnd</span>
+            </div>
+          </header>
+          <div class="pakket-body">
+            <p class="pakket-voor"><strong>Voor wie:</strong> ambitieuze bedrijven die volledige zorgontzorging willen, inclusief content en strategie.</p>
+            <ul class="pakket-features">
+              <li>Alles uit Groei</li>
+              <li>Onbeperkte pagina's</li>
+              <li>Geavanceerde integraties (Mailchimp, CRM, agenda)</li>
+              <li>Performance optimalisatie</li>
+              <li>SEO opzet en eerste optimalisaties</li>
+              <li>4 uur per maand voor wijzigingen of features</li>
+              <li>Content beheer inbegrepen</li>
+              <li>Maandelijkse rapportage</li>
+              <li>Strategisch overleg per kwartaal</li>
+              <li>Dedicated support kanaal</li>
+            </ul>
+            <a href="contact.html" class="btn btn-ghost">Plan kennismaking</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EENMALIG PAKKETTEN (verborgen tot toggle) -->
+  <section class="pakketten-section" id="eenmalig-section" style="display: none;">
     <div class="container">
       <div class="pakketten-grid">
 
@@ -109,7 +206,8 @@
             <h3 class="pakket-titel">Het maatwerk</h3>
             <p class="pakket-sub">Voor wie iets unieks voor ogen heeft. Volledig op maat.</p>
             <div class="pakket-prijs">
-              <span class="prijs-bedrag">In overleg</span>
+              <span class="prijs-van">vanaf</span>
+              <span class="prijs-bedrag">€5.000</span>
               <span class="prijs-tot">afhankelijk van scope</span>
             </div>
           </header>
@@ -131,6 +229,10 @@
         </article>
 
       </div>
+
+      <p class="reveal" style="text-align: center; margin-top: 48px; color: var(--mocha); font-size: 14px;">
+        Hosting en onderhoud zijn niet inbegrepen bij eenmalige pakketten. Optioneel: los onderhoudsabonnement van €75 per maand.
+      </p>
     </div>
   </section>
 
@@ -139,59 +241,59 @@
     <div class="container">
       <div class="altijd-inner">
         <div class="altijd-text reveal">
-          <span class="eyebrow">Bij elk pakket</span>
-          <h2>Dit regelen we altijd.</h2>
+          <span class="eyebrow">Bij elk abonnement</span>
+          <h2>Dit regelen we voor je, zolang je abonnement loopt.</h2>
         </div>
         <div class="altijd-grid reveal">
           <div class="altijd-item">
-            <h3>Persoonlijk gesprek</h3>
-            <p>Voordat we beginnen, eerst een goed gesprek. Zodat we echt begrijpen wat je wilt bereiken.</p>
+            <h3>Hosting en SSL</h3>
+            <p>Snelle hosting met SSL certificaat. Geen losse rekeningen of zorgen over uptime.</p>
           </div>
           <div class="altijd-item">
-            <h3>Mobielvriendelijk</h3>
-            <p>Elke site werkt perfect op telefoon, tablet en laptop. Geen uitzonderingen.</p>
+            <h3>Updates en beveiliging</h3>
+            <p>Software updates en beveiligingspatches lopen automatisch. Wij houden alles up-to-date.</p>
           </div>
           <div class="altijd-item">
-            <h3>Goed vindbaar</h3>
-            <p>Basis SEO zit in elk pakket. Zo wordt je gevonden door mensen die jouw dienst zoeken.</p>
+            <h3>Wekelijkse backups</h3>
+            <p>Iedere week een volledige backup. Mocht er iets misgaan, dan staat alles binnen een uur weer goed.</p>
           </div>
           <div class="altijd-item">
-            <h3>Heldere oplevering</h3>
-            <p>Vooraf afspraken over tijdlijn en revisies. Geen verrassingen achteraf.</p>
+            <h3>Support binnen 1 werkdag</h3>
+            <p>Vraag of klein probleem? Mail of bel ons, dezelfde of volgende werkdag heb je antwoord.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EXTRA KOSTEN -->
+  <!-- VOORWAARDEN -->
   <section class="extra-kosten">
     <div class="container narrow">
       <div class="reveal">
-        <span class="eyebrow">Kleine lettertjes</span>
-        <h2>Transparant over bijkomende kosten.</h2>
-        <p class="lead" style="margin-top: 24px; margin-bottom: 48px;">Om volledig eerlijk te zijn, hier de kosten die erbij komen kijken na oplevering. Deze betaal je rechtstreeks aan de betreffende dienst.</p>
+        <span class="eyebrow">Goed om te weten</span>
+        <h2>Eerlijke afspraken over je abonnement.</h2>
+        <p class="lead" style="margin-top: 24px; margin-bottom: 48px;">Geen kleine lettertjes of verrassingen. Hier de belangrijkste voorwaarden op een rij.</p>
       </div>
       <div class="kosten-grid reveal">
         <div class="kosten-item">
-          <h3>Domeinnaam</h3>
-          <p class="kosten-prijs">ca. €10 per jaar</p>
-          <p>De eigenaar van je domein blijf jij altijd zelf. Wij regelen alleen de koppeling.</p>
+          <h3>Eigendom</h3>
+          <p class="kosten-prijs">altijd van jou</p>
+          <p>Site, content en domein zijn altijd jouw eigendom. Bij beëindiging krijg je alles mee, ook de hosting overdracht.</p>
         </div>
         <div class="kosten-item">
-          <h3>E-mailadres</h3>
-          <p class="kosten-prijs">ca. €6 per maand</p>
-          <p>Voor een professioneel adres zoals jij@jouwbedrijf.nl. Optioneel.</p>
+          <h3>Minimum afname</h3>
+          <p class="kosten-prijs">12 maanden vooraf</p>
+          <p>De eerste 12 maanden lopen vast (of 24 bij Custom). Daarna maandelijks opzegbaar met 1 maand opzegtermijn.</p>
         </div>
         <div class="kosten-item">
-          <h3>Hosting Premium</h3>
-          <p class="kosten-prijs">€5 tot €15 per maand</p>
-          <p>Alleen bij het Premium-pakket, voor het contentbeheer-systeem.</p>
+          <h3>Extra werk</h3>
+          <p class="kosten-prijs">€85 per uur</p>
+          <p>Grote redesigns, nieuwe modules of custom development buiten je maand-uren? In overleg, tegen vast uurtarief.</p>
         </div>
         <div class="kosten-item">
-          <h3>Onderhoud (optioneel)</h3>
-          <p class="kosten-prijs">vanaf €75 per maand</p>
-          <p>Updates, kleine aanpassingen en ondersteuning wanneer nodig.</p>
+          <h3>Prijsindexering</h3>
+          <p class="kosten-prijs">max 1x per jaar</p>
+          <p>Prijzen kunnen jaarlijks geïndexeerd worden, gekoppeld aan de CBS prijsindex. Geen verrassingen tussendoor.</p>
         </div>
       </div>
     </div>
@@ -206,28 +308,36 @@
       </div>
       <div class="faq-list reveal" style="margin-top: 48px;">
         <details class="faq-item">
-          <summary>Wat als ik nog niet weet welk pakket bij mij past?</summary>
-          <p>Geen probleem. Plan een vrijblijvende kennismaking en we kijken samen wat past bij jouw doelen en budget. Soms blijkt Basic prima, soms is Premium juist een betere investering.</p>
+          <summary>Wat is het verschil tussen abonnement en eenmalig?</summary>
+          <p>Bij een abonnement betaal je maandelijks, regelen wij hosting, updates, backups en support, en krijg je elke maand uren voor wijzigingen. Bij eenmalig betaal je in één keer voor het bouwen van de site, maar regel je hosting en onderhoud daarna zelf (of met een los onderhoudsabonnement).</p>
         </details>
         <details class="faq-item">
-          <summary>Kan ik later upgraden van Basic naar Premium?</summary>
-          <p>Ja. Als je merkt dat je zelf content wilt gaan beheren, kunnen we de site migreren naar Premium. De meerkosten zijn dan het verschil tussen de pakketten plus wat extra werk voor de migratie.</p>
+          <summary>Wat als ik tussentijds wil stoppen?</summary>
+          <p>De eerste 12 maanden zijn vastgelegd, dat is de minimumperiode. Daarna kan je maandelijks opzeggen met 1 maand opzegtermijn. Eerder stoppen kan in overleg, met afkoopsom.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Kan ik later upgraden naar een hoger abonnement?</summary>
+          <p>Zeker. Als je meer ruimte of meer service nodig hebt, kunnen we tussentijds opschalen naar Groei of Custom. Het verschil betaal je vanaf de upgrademaand.</p>
         </details>
         <details class="faq-item">
           <summary>Zijn deze prijzen inclusief btw?</summary>
           <p>Alle genoemde prijzen zijn exclusief 21% btw.</p>
         </details>
         <details class="faq-item">
+          <summary>Wat als ik mijn maand-uren niet gebruik?</summary>
+          <p>Niet-gebruikte uren vervallen aan het einde van de maand en hopen niet op. Zo voorkomen we dat er werk opstapelt en jij zekerheid hebt over wat je betaalt.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wat houdt content beheer door Fessa in?</summary>
+          <p>Bij Groei is dit optioneel (+€60 per maand), bij Custom inbegrepen. Wij plaatsen je teksten en foto's, schrijven nieuwsberichten of korte blogs, en optimaliseren content voor SEO. Jij hoeft niet meer in het CMS, wij doen het.</p>
+        </details>
+        <details class="faq-item">
           <summary>Hoe verloopt de betaling?</summary>
-          <p>We werken met twee termijnen: 50% bij de start van het project en 50% bij oplevering. Voor Custom-trajecten maken we afspraken op maat.</p>
+          <p>Bij abonnement: per maand vooraf via automatische incasso. Bij eenmalig: 50% bij start, 50% bij oplevering. Voor Custom-trajecten maken we afspraken op maat.</p>
         </details>
         <details class="faq-item">
-          <summary>Wat als ik na oplevering iets wil wijzigen?</summary>
-          <p>Kleine wijzigingen kunnen op uurbasis (€75 per uur). Voor regelmatig onderhoud raden we het onderhoudsabonnement aan. Bij het Premium-pakket kun je veel dingen gewoon zelf aanpassen.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Bieden jullie ook hulp met teksten en foto's?</summary>
-          <p>Ja. Wil je ondersteuning bij het schrijven van teksten of het maken van beeld, dan kunnen we dat als losse dienst toevoegen aan het traject. Vraag ernaar in het kennismakingsgesprek.</p>
+          <summary>Wat als ik nog niet weet welk pakket bij mij past?</summary>
+          <p>Geen probleem. Plan een vrijblijvende kennismaking, we kijken samen wat past bij jouw doelen en budget.</p>
         </details>
       </div>
     </div>
@@ -272,6 +382,34 @@
     </div>
   </footer>
 
+  <script>
+    // Prijzen abonnement / eenmalig toggle
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    const abonnementSection = document.getElementById('abonnement-section');
+    const eenmaligSection = document.getElementById('eenmalig-section');
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+        toggleBtns.forEach(b => {
+          b.classList.toggle('active', b === btn);
+          if (b === btn) {
+            b.style.background = 'var(--ink)';
+            b.style.color = 'var(--cream)';
+          } else {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--ink)';
+          }
+        });
+        if (target === 'abonnement') {
+          abonnementSection.style.display = '';
+          eenmaligSection.style.display = 'none';
+        } else {
+          abonnementSection.style.display = 'none';
+          eenmaligSection.style.display = '';
+        }
+      });
+    });
+  </script>
   <script src="main.js"></script>
 </body>
 </html>
