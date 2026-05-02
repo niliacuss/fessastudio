@@ -150,7 +150,9 @@ export const onRequestPost = async ({ request, env }) => {
   const apiKey = env.MAILERSEND_API_KEY;
   const fromEmail = env.FESSA_FROM_EMAIL || "info@fessastudio.nl";
   const toRaw = env.FESSA_CONTACT_TO || "info@fessastudio.nl,essafouad@gmail.com";
-  const toList = toRaw.split(",").map(s => s.trim()).filter(Boolean).map(email => ({ email }));
+  // MailerSend free-tier staat slechts 1 recipient per call toe; we sturen
+  // notificaties dus apart per admin-adres.
+  const adminEmails = toRaw.split(",").map(s => s.trim()).filter(Boolean);
 
   if (!apiKey) {
     console.error("MAILERSEND_API_KEY missing");
@@ -195,14 +197,16 @@ export const onRequestPost = async ({ request, env }) => {
       html: customerHtml({ naam, type, bericht }),
     });
 
-    // Notificatie naar admin(s)
-    await sendMail(apiKey, {
-      from: fromHeader,
-      to: toList,
-      reply_to: replyTo,
-      subject: `[FESSA] ${naam} — ${type || "aanvraag"}`,
-      html: adminHtml({ naam, email, type: type || "—", bericht, when }),
-    });
+    // Notificatie naar elke admin apart (free-tier limiet)
+    for (const adminEmail of adminEmails) {
+      await sendMail(apiKey, {
+        from: fromHeader,
+        to: [{ email: adminEmail }],
+        reply_to: replyTo,
+        subject: `[FESSA] ${naam} — ${type || "aanvraag"}`,
+        html: adminHtml({ naam, email, type: type || "—", bericht, when }),
+      });
+    }
   } catch (err) {
     console.error("MailerSend failure:", err);
     return redirect("/contact.html?error=send");
