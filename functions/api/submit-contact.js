@@ -3,16 +3,19 @@
  * Vervangt de oude Netlify Forms-koppeling.
  *
  * Verwerkt application/x-www-form-urlencoded POST vanuit contact.html.
- * Stuurt twee mails via MailerSend:
+ * Stuurt twee mails via AWS SES:
  *   1. Bevestiging naar de afzender
  *   2. Notificatie naar info@fessastudio.nl en essafouad@gmail.com
  * Redirect daarna naar /bedankt.html.
  *
  * Env vars (Cloudflare Pages → Settings → Environment variables):
- *   MAILERSEND_API_KEY     (secret) — token van MailerSend
+ *   AWS_ACCESS_KEY_ID      (secret)
+ *   AWS_SECRET_ACCESS_KEY  (secret)
+ *   AWS_REGION             optional, default "eu-north-1"
  *   FESSA_FROM_EMAIL       optional, default "info@fessastudio.nl"
  *   FESSA_CONTACT_TO       komma-gescheiden lijst, default "info@fessastudio.nl,essafouad@gmail.com"
  */
+import { sendSesEmail } from "../_shared/ses.js";
 
 const ESCAPE_MAP = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 function esc(value) {
@@ -130,32 +133,16 @@ function adminHtml({ naam, email, type, bericht, when }) {
 </body></html>`;
 }
 
-async function sendMail(apiKey, payload) {
-  const resp = await fetch("https://api.mailersend.com/v1/email", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-      "X-Requested-With": "XMLHttpRequest",
-    },
-    body: JSON.stringify(payload),
-  });
-  if (!resp.ok) {
-    const body = await resp.text();
-    throw new Error(`MailerSend ${resp.status}: ${body.slice(0, 200)}`);
-  }
-}
-
 export const onRequestPost = async ({ request, env }) => {
-  const apiKey = env.MAILERSEND_API_KEY;
+  const accessKeyId = env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey = env.AWS_SECRET_ACCESS_KEY;
+  const region = env.AWS_REGION || "eu-north-1";
   const fromEmail = env.FESSA_FROM_EMAIL || "info@fessastudio.nl";
   const toRaw = env.FESSA_CONTACT_TO || "info@fessastudio.nl,essafouad@gmail.com";
-  // MailerSend free-tier staat slechts 1 recipient per call toe; we sturen
-  // notificaties dus apart per admin-adres.
   const adminEmails = toRaw.split(",").map(s => s.trim()).filter(Boolean);
 
-  if (!apiKey) {
-    console.error("MAILERSEND_API_KEY missing");
+  if (!accessKeyId || !secretAccessKey) {
+    console.error("AWS credentials missing");
     return redirect("/contact.html?error=server");
   }
 
@@ -183,32 +170,32 @@ export const onRequestPost = async ({ request, env }) => {
     return redirect("/contact.html?error=length");
   }
 
-  const fromHeader = { email: fromEmail, name: "Fessa Studio" };
-  const replyTo = { email, name: naam };
+  const fromHeader = `Fessa Studio <${fromEmail}>`;
   const when = new Date().toLocaleString("nl-NL", { dateStyle: "full", timeStyle: "short" });
+  const sesAuth = { accessKeyId, secretAccessKey, region };
 
   try {
     // Bevestiging naar afzender
-    await sendMail(apiKey, {
+    await sendSesEmail({
+      ...sesAuth,
       from: fromHeader,
-      to: [{ email, name: naam }],
-      reply_to: { email: fromEmail, name: "Fessa Studio" },
+      to: email,
+      replyTo: fromEmail,
       subject: "Bedankt voor je bericht — Fessa Studio",
       html: customerHtml({ naam, type, bericht }),
     });
 
-    // Notificatie naar elke admin apart (free-tier limiet)
-    for (const adminEmail of adminEmails) {
-      await sendMail(apiKey, {
-        from: fromHeader,
-        to: [{ email: adminEmail }],
-        reply_to: replyTo,
-        subject: `[FESSA] ${naam} — ${type || "aanvraag"}`,
-        html: adminHtml({ naam, email, type: type || "—", bericht, when }),
-      });
-    }
+    // Notificatie naar admin(s) — SES kan multi-recipient in 1 call
+    await sendSesEmail({
+      ...sesAuth,
+      from: fromHeader,
+      to: adminEmails,
+      replyTo: email,
+      subject: `[FESSA] ${naam} — ${type || "aanvraag"}`,
+      html: adminHtml({ naam, email, type: type || "—", bericht, when }),
+    });
   } catch (err) {
-    console.error("MailerSend failure:", err);
+    console.error("SES failure:", err);
     return redirect("/contact.html?error=send");
   }
 
