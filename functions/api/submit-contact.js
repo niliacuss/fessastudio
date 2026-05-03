@@ -1,17 +1,22 @@
 /**
  * Cloudflare Pages Function — fessastudio.nl contactformulier.
+ * Vervangt de oude Netlify Forms-koppeling.
  *
  * Verwerkt application/x-www-form-urlencoded POST vanuit contact.html.
- * Stuurt twee mails via Resend:
+ * Stuurt twee mails via AWS SES:
  *   1. Bevestiging naar de afzender
  *   2. Notificatie naar info@fessastudio.nl en essafouad@gmail.com
  * Redirect daarna naar /bedankt.html.
  *
  * Env vars (Cloudflare Pages → Settings → Environment variables):
- *   RESEND_API_KEY         (secret) — token van Resend
- *   FESSA_FROM_EMAIL       optional, default "info@fessastudio.nl"
- *   FESSA_CONTACT_TO       komma-gescheiden lijst, default "info@fessastudio.nl,essafouad@gmail.com"
+ *   AWS_ACCESS_KEY_ID         (secret)
+ *   AWS_SECRET_ACCESS_KEY     (secret)
+ *   AWS_REGION                optional, default "eu-north-1"
+ *   SES_CONFIGURATION_SET     optional, default "fouad-production-config"
+ *   FESSA_FROM_EMAIL          optional, default "info@fessastudio.nl"
+ *   FESSA_CONTACT_TO          komma-gescheiden lijst, default "info@fessastudio.nl,essafouad@gmail.com"
  */
+import { sendSesEmail } from "../_shared/ses.js";
 
 const ESCAPE_MAP = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 function esc(value) {
@@ -129,29 +134,17 @@ function adminHtml({ naam, email, type, bericht, when }) {
 </body></html>`;
 }
 
-async function sendMail(apiKey, payload) {
-  const resp = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-  if (!resp.ok) {
-    const body = await resp.text();
-    throw new Error(`Resend ${resp.status}: ${body.slice(0, 200)}`);
-  }
-}
-
 export const onRequestPost = async ({ request, env }) => {
-  const apiKey = env.RESEND_API_KEY;
+  const accessKeyId = env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey = env.AWS_SECRET_ACCESS_KEY;
+  const region = env.AWS_REGION || "eu-north-1";
+  const configurationSetName = env.SES_CONFIGURATION_SET || "fouad-production-config";
   const fromEmail = env.FESSA_FROM_EMAIL || "info@fessastudio.nl";
   const toRaw = env.FESSA_CONTACT_TO || "info@fessastudio.nl,essafouad@gmail.com";
   const adminEmails = toRaw.split(",").map(s => s.trim()).filter(Boolean);
 
-  if (!apiKey) {
-    console.error("RESEND_API_KEY missing");
+  if (!accessKeyId || !secretAccessKey) {
+    console.error("AWS credentials missing");
     return redirect("/contact.html?error=server");
   }
 
@@ -181,27 +174,30 @@ export const onRequestPost = async ({ request, env }) => {
 
   const fromHeader = `Fessa Studio <${fromEmail}>`;
   const when = new Date().toLocaleString("nl-NL", { dateStyle: "full", timeStyle: "short" });
+  const sesAuth = { accessKeyId, secretAccessKey, region, configurationSetName };
 
   try {
     // Bevestiging naar afzender
-    await sendMail(apiKey, {
+    await sendSesEmail({
+      ...sesAuth,
       from: fromHeader,
-      to: [email],
-      reply_to: fromEmail,
+      to: email,
+      replyTo: fromEmail,
       subject: "Bedankt voor je bericht — Fessa Studio",
       html: customerHtml({ naam, type, bericht }),
     });
 
-    // Notificatie naar admins (Resend Pro ondersteunt meerdere recipients in 1 call)
-    await sendMail(apiKey, {
+    // Notificatie naar admin(s) — SES kan multi-recipient in 1 call
+    await sendSesEmail({
+      ...sesAuth,
       from: fromHeader,
       to: adminEmails,
-      reply_to: email,
+      replyTo: email,
       subject: `[FESSA] ${naam} — ${type || "aanvraag"}`,
       html: adminHtml({ naam, email, type: type || "—", bericht, when }),
     });
   } catch (err) {
-    console.error("Resend failure:", err);
+    console.error("SES failure:", err);
     return redirect("/contact.html?error=send");
   }
 
