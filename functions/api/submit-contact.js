@@ -1,15 +1,14 @@
 /**
  * Cloudflare Pages Function — fessastudio.nl contactformulier.
- * Vervangt de oude Netlify Forms-koppeling.
  *
  * Verwerkt application/x-www-form-urlencoded POST vanuit contact.html.
- * Stuurt twee mails via MailerSend:
+ * Stuurt twee mails via Resend:
  *   1. Bevestiging naar de afzender
  *   2. Notificatie naar info@fessastudio.nl en essafouad@gmail.com
  * Redirect daarna naar /bedankt.html.
  *
  * Env vars (Cloudflare Pages → Settings → Environment variables):
- *   MAILERSEND_API_KEY     (secret) — token van MailerSend
+ *   RESEND_API_KEY         (secret) — token van Resend
  *   FESSA_FROM_EMAIL       optional, default "info@fessastudio.nl"
  *   FESSA_CONTACT_TO       komma-gescheiden lijst, default "info@fessastudio.nl,essafouad@gmail.com"
  */
@@ -131,31 +130,28 @@ function adminHtml({ naam, email, type, bericht, when }) {
 }
 
 async function sendMail(apiKey, payload) {
-  const resp = await fetch("https://api.mailersend.com/v1/email", {
+  const resp = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "X-Requested-With": "XMLHttpRequest",
     },
     body: JSON.stringify(payload),
   });
   if (!resp.ok) {
     const body = await resp.text();
-    throw new Error(`MailerSend ${resp.status}: ${body.slice(0, 200)}`);
+    throw new Error(`Resend ${resp.status}: ${body.slice(0, 200)}`);
   }
 }
 
 export const onRequestPost = async ({ request, env }) => {
-  const apiKey = env.MAILERSEND_API_KEY;
+  const apiKey = env.RESEND_API_KEY;
   const fromEmail = env.FESSA_FROM_EMAIL || "info@fessastudio.nl";
   const toRaw = env.FESSA_CONTACT_TO || "info@fessastudio.nl,essafouad@gmail.com";
-  // MailerSend free-tier staat slechts 1 recipient per call toe; we sturen
-  // notificaties dus apart per admin-adres.
   const adminEmails = toRaw.split(",").map(s => s.trim()).filter(Boolean);
 
   if (!apiKey) {
-    console.error("MAILERSEND_API_KEY missing");
+    console.error("RESEND_API_KEY missing");
     return redirect("/contact.html?error=server");
   }
 
@@ -183,32 +179,29 @@ export const onRequestPost = async ({ request, env }) => {
     return redirect("/contact.html?error=length");
   }
 
-  const fromHeader = { email: fromEmail, name: "Fessa Studio" };
-  const replyTo = { email, name: naam };
+  const fromHeader = `Fessa Studio <${fromEmail}>`;
   const when = new Date().toLocaleString("nl-NL", { dateStyle: "full", timeStyle: "short" });
 
   try {
     // Bevestiging naar afzender
     await sendMail(apiKey, {
       from: fromHeader,
-      to: [{ email, name: naam }],
-      reply_to: { email: fromEmail, name: "Fessa Studio" },
+      to: [email],
+      reply_to: fromEmail,
       subject: "Bedankt voor je bericht — Fessa Studio",
       html: customerHtml({ naam, type, bericht }),
     });
 
-    // Notificatie naar elke admin apart (free-tier limiet)
-    for (const adminEmail of adminEmails) {
-      await sendMail(apiKey, {
-        from: fromHeader,
-        to: [{ email: adminEmail }],
-        reply_to: replyTo,
-        subject: `[FESSA] ${naam} — ${type || "aanvraag"}`,
-        html: adminHtml({ naam, email, type: type || "—", bericht, when }),
-      });
-    }
+    // Notificatie naar admins (Resend Pro ondersteunt meerdere recipients in 1 call)
+    await sendMail(apiKey, {
+      from: fromHeader,
+      to: adminEmails,
+      reply_to: email,
+      subject: `[FESSA] ${naam} — ${type || "aanvraag"}`,
+      html: adminHtml({ naam, email, type: type || "—", bericht, when }),
+    });
   } catch (err) {
-    console.error("MailerSend failure:", err);
+    console.error("Resend failure:", err);
     return redirect("/contact.html?error=send");
   }
 
